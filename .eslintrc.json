@@ -22,8 +22,9 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": [1, { "ignorePureComponents": true }],
+    "import/prefer-default-export": 0,
     "no-unused-vars": "warn",
-    "import/prefer-default-export": 0
+    "global-require": "off"
   },
   "settings": {
     "import/resolver": {

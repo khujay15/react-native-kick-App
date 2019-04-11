@@ -9,5 +9,6 @@ export const Container = styled.View`
 
 export const Message = styled.Text`
   font-size: 36px;
-  color: #121212;
+  color: ${props => props.theme.color.black};
+  margin-top: 20;
 `;
