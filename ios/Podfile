@@ -38,6 +38,8 @@ target 'OboonClient' do
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   # target 'OboonClientTests' do
   #   inherit! :search_paths
   #   # Pods for testing
