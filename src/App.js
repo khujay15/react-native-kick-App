@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
+import Router from 'pages';
 
-const App = () => <View style={{ flex: 1, backgroundColor: 'red' }} />;
+const App = () => <Router />;
 
 export default App;
