@@ -12,6 +12,18 @@ import {
 import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
+import { EmailLogin } from './EmailLogin';
+
+import {
+  MainLogo,
+  KakaoLoginTouch,
+  GoogleLoginTouch,
+  InnerImage,
+  InnerText,
+  BottomView,
+  BottomText,
+} from './WelcomScreen.styled';
+
 export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -74,63 +86,51 @@ export class WelcomeScreen extends React.Component {
   }
 
   render() {
-    console.log('welcome:', this.props);
     return (
       <>
-        <Image source={require('assets/icons/ic_logo.png')} />
+        <MainLogo />
+        <GoogleLoginTouch>
+          <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
+          <InnerText>구글 계정으로 로그인</InnerText>
+        </GoogleLoginTouch>
 
-        <TouchableOpacity
-          onPress={() => {
-            this.kakaoLogin();
-            // this.props.navigation.navigate("MapPage");
-          }}
-        >
-          <Image source={require('assets/icons/ic_logo.png')} />
-          <Text> 구글 계정으로 로그인하기</Text>
-        </TouchableOpacity>
+        <KakaoLoginTouch onPress={() => this.kakaoLogin()}>
+          <InnerImage src={require('/assets/icons/KakaoLogo.png')} />
+          <InnerText>카카오톡 계정으로 로그인</InnerText>
+        </KakaoLoginTouch>
 
-        <TouchableOpacity
-          onPress={() => {
-            this.kakaoLogin();
-            // this.props.navigation.navigate("MapPage");
-          }}
-        >
-          {/* <Image source={require('../../Images/KakaoLogo.png')} /> */}
-          <Text>카카오톡 계정으로 로그인하기</Text>
-        </TouchableOpacity>
-
-        <View>
-          <TouchableHighlight onPress={() => console.log('touch')}>
-            <Text style={{ color: 'grey' }}> 이메일로 로그인 |</Text>
-          </TouchableHighlight>
-          {/* 
+        <BottomView>
           <TouchableHighlight
-            onPress={() => this.props.navigation.navigate('EmailLogin')}
+            onPress={() => this.props.navigation.navigate('emailLogin')}
           >
-            <Text style={{ color: 'grey' }}> 회원가입</Text>
-          </TouchableHighlight> */}
-        </View>
+            <BottomText> 이메일로 로그인 |</BottomText>
+          </TouchableHighlight>
+
+          <TouchableHighlight onPress={() => console.log('newAccount')}>
+            <BottomText> 회원가입</BottomText>
+          </TouchableHighlight>
+        </BottomView>
       </>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  Name: state.Loginreducer.Name,
-});
+// const mapStateToProps = state => ({
+//   Name: state.Loginreducer.Name,
+// });
 
-const mapDispatchToProps = dispatch => ({
-  afterLogin: Name => dispatch({ type: 'KAKAO_LOGIN', Name: Name }),
-});
+// const mapDispatchToProps = dispatch => ({
+//   afterLogin: Name => dispatch({ type: 'KAKAO_LOGIN', Name: Name }),
+// });
 
-export const WelcomeScreenContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(WelcomeScreen);
-
+// export const WelcomeScreenContainer = connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(WelcomeScreen);
 const WelcomeStackNavigator = createStackNavigator(
   {
-    login: WelcomeScreenContainer,
+    login: WelcomeScreen,
+    emailLogin: EmailLogin,
   },
   {
     headerMode: 'none',
