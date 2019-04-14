@@ -37,8 +37,6 @@ target 'OboonClient' do
   pod 'react-native-google-maps', path: rn_maps_path
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
-pod 'GoogleSignIn', '~> 4.4.0'
-pod 'Firebase/Core'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 

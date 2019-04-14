@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet,
+  Platform,
   Text,
   View,
   ScrollView,
@@ -13,7 +13,7 @@ import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { EmailLogin } from './EmailLogin';
-
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import {
   MainLogo,
   KakaoLoginTouch,
@@ -32,9 +32,39 @@ export class WelcomeScreen extends React.Component {
       token: 'token has not fetched',
       id: '',
       password: '',
+      googleUser: 'default',
     };
   }
-
+  // Somewhere in your code
+  googlesignIn = async () => {
+    GoogleSignin.configure({
+      scopes: ['email', 'profile'],
+      offlineAccess: true,
+      // iosClientId:
+      //   '140466692410-stfisve8l4u6oonmf1po8i9i7lcuiv0m.apps.googleusercontent.com',
+      webClientId:
+        Platform.OS === 'ios'
+          ? '140466692410-stfisve8l4u6oonmf1po8i9i7lcuiv0m.apps.googleusercontent.com'
+          : '140466692410-vcl58o3q8en855so2k34mq9vav58cv4b.apps.googleusercontent.com',
+    });
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      this.setState({ googleUser: userInfo });
+      console.log(userInfo);
+    } catch (error) {
+      console.log(error);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
   // 로그인 후 내 프로필 가져오기.
   getProfile() {
     console.log('getKakaoProfile');
@@ -89,7 +119,7 @@ export class WelcomeScreen extends React.Component {
     return (
       <>
         <MainLogo />
-        <GoogleLoginTouch>
+        <GoogleLoginTouch onPress={() => this.googlesignIn()}>
           <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
           <InnerText>구글 계정으로 로그인</InnerText>
         </GoogleLoginTouch>
@@ -106,7 +136,9 @@ export class WelcomeScreen extends React.Component {
             <BottomText> 이메일로 로그인 |</BottomText>
           </TouchableHighlight>
 
-          <TouchableHighlight onPress={() => console.log('newAccount')}>
+          <TouchableHighlight
+            onPress={() => console.log(this.state.googleUser)}
+          >
             <BottomText> 회원가입</BottomText>
           </TouchableHighlight>
         </BottomView>

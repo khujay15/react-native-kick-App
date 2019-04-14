@@ -3,6 +3,7 @@ package com.oboon.client.android;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNGoogleSigninPackage(),
             new RNGestureHandlerPackage(),
             new RNKakaoLoginsPackage(),
             new MapsPackage()

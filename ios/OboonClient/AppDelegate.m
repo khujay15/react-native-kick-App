@@ -11,9 +11,17 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-
+#import "RNGoogleSignin.h"
 @implementation AppDelegate
-
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  
+  return [RNGoogleSignin application:application
+                             openURL:url
+                   sourceApplication:sourceApplication
+                          annotation:annotation
+          ];
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [GMSServices provideAPIKey:@"AIzaSyDzQmGnUrkPdRvuQPYTv65xc830WILeeaM"];

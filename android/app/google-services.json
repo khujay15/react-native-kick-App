@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "140466692410",
+    "firebase_url": "https://reactproject-40514.firebaseio.com",
+    "project_id": "reactproject-40514",
+    "storage_bucket": "reactproject-40514.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140466692410:android:b32e8cdb58b42190",
+        "android_client_info": {
+          "package_name": "com.oboon.client.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140466692410-ie1j50i995g0tgclphsnpb7jc22o7c7g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oboon.client.android",
+            "certificate_hash": "2bc0f35d3836e16f3a41d091065acc9424215e49"
+          }
+        },
+        {
+          "client_id": "140466692410-vcl58o3q8en855so2k34mq9vav58cv4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgQ-ec5Fwf3TzWQPk_JMI7EKlJb0RCLbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140466692410-vcl58o3q8en855so2k34mq9vav58cv4b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "140466692410-nanrvd79cem6919vg4kbos0dpocdddfm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.oboon.client.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
