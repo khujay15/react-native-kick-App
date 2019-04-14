@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Image, StyleSheet, Dimensions } from 'react-native';
+import { Image, StyleSheet, Dimensions, Platform } from 'react-native';
 
 import React from 'react';
 
@@ -31,7 +31,6 @@ export const MainLogo = () => {
 export const InnerImage = props => {
   return <Image source={props.src} style={ImgStyle.innerImage} />;
 };
-
 export const GoogleLoginTouch = styled.TouchableOpacity`
   border-width: 0.3;
   border-radius: 1;
@@ -41,7 +40,7 @@ export const GoogleLoginTouch = styled.TouchableOpacity`
   shadow-color: #000;
   shadow-opacity: 0;
   shadow-radius: 2;
-  elevation: 4;
+  elevation: 1;
   height: 50;
   flex-direction: row;
   margin-top: ${height * 0.25};
@@ -58,7 +57,7 @@ export const KakaoLoginTouch = styled.TouchableOpacity`
   shadow-color: #000;
   shadow-opacity: 0;
   shadow-radius: 2;
-  elevation: 4;
+  elevation: 1;
   height: 50;
   flex-direction: row;
   margin-top: 26;

@@ -19,8 +19,10 @@ export const Line = styled.View`
   border-bottom-width: 1;
 `;
 
-export const ArrowTouch = styled.TouchableOpacity`
-  position: absolute;
-  left: 24;
-  top: 40;
+export const ErrorText = styled.Text`
+
+margin-left: auto
+color: red;
+font-size: 13;
+
 `;
