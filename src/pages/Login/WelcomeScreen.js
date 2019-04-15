@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Platform,
-  Text,
-  View,
-  ScrollView,
-  Button,
-  TouchableHighlight,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import { Platform, SafeAreaView, TouchableHighlight } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
@@ -23,7 +14,6 @@ import {
   BottomView,
   BottomText,
 } from './WelcomScreen.styled';
-
 export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -50,6 +40,9 @@ export class WelcomeScreen extends React.Component {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      const { user } = userInfo;
+      this.props.afterSNSLogin(user['name'], user['id']);
+
       this.setState({ googleUser: userInfo });
       console.log(userInfo);
     } catch (error) {
@@ -94,7 +87,7 @@ export class WelcomeScreen extends React.Component {
           }
 
           console.log(result);
-          this.props.afterLogin(result['nickname']);
+          this.props.afterSNSLogin(result['nickname'], result['id']);
         });
 
         //this.setState({ isKakaoLogging: true });
@@ -118,55 +111,62 @@ export class WelcomeScreen extends React.Component {
   render() {
     return (
       <>
-        <MainLogo />
-        <GoogleLoginTouch onPress={() => this.googlesignIn()}>
-          <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
-          <InnerText>구글 계정으로 로그인</InnerText>
-        </GoogleLoginTouch>
+        <SafeAreaView style={{ flex: 1 }}>
+          <MainLogo />
+          <GoogleLoginTouch onPress={() => this.googlesignIn()}>
+            <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
+            <InnerText>구글 계정으로 로그인</InnerText>
+          </GoogleLoginTouch>
 
-        <KakaoLoginTouch onPress={() => this.kakaoLogin()}>
-          <InnerImage src={require('/assets/icons/KakaoLogo.png')} />
-          <InnerText>카카오톡 계정으로 로그인</InnerText>
-        </KakaoLoginTouch>
+          <KakaoLoginTouch onPress={() => this.kakaoLogin()}>
+            <InnerImage src={require('/assets/icons/KakaoLogo.png')} />
+            <InnerText>카카오톡 계정으로 로그인</InnerText>
+          </KakaoLoginTouch>
 
-        <BottomView>
-          <TouchableHighlight
-            onPress={() => this.props.navigation.navigate('emailLogin')}
-          >
-            <BottomText> 이메일로 로그인 |</BottomText>
-          </TouchableHighlight>
+          <BottomView>
+            <TouchableHighlight
+              onPress={() => this.props.navigation.navigate('emailLogin')}
+            >
+              <BottomText> 이메일로 로그인 |</BottomText>
+            </TouchableHighlight>
 
-          <TouchableHighlight
-            onPress={() => console.log(this.state.googleUser)}
-          >
-            <BottomText> 회원가입</BottomText>
-          </TouchableHighlight>
-        </BottomView>
+            <TouchableHighlight
+              onPress={() => console.log(this.state.googleUser)}
+            >
+              <BottomText> 회원가입</BottomText>
+            </TouchableHighlight>
+          </BottomView>
+        </SafeAreaView>
       </>
     );
   }
 }
 
-// const mapStateToProps = state => ({
-//   Name: state.Loginreducer.Name,
-// });
+const mapStateToProps = state => ({
+  Name: state.LoginReducer.Name,
+  Id: state.LoginReducer.Id,
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   afterLogin: Name => dispatch({ type: 'KAKAO_LOGIN', Name: Name }),
-// });
+const mapDispatchToProps = dispatch => ({
+  afterSNSLogin: (nickname, id) =>
+    dispatch({ type: 'SNS_LOGIN', Name: nickname, Id: id }),
+});
 
-// export const WelcomeScreenContainer = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(WelcomeScreen);
-const WelcomeStackNavigator = createStackNavigator(
-  {
-    login: WelcomeScreen,
-    emailLogin: EmailLogin,
-  },
-  {
-    headerMode: 'none',
-  },
-);
+const WelcomeScreenContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(WelcomeScreen);
 
-export default WelcomeStackNavigator;
+export default WelcomeScreenContainer;
+
+// const WelcomeStackNavigator = createStackNavigator(
+//   {
+//     login: WelcomeScreen,
+//     emailLogin: EmailLogin,
+//   },
+//   {
+//     headerMode: 'none',
+//   },
+// );
+
+// export default WelcomeStackNavigator;

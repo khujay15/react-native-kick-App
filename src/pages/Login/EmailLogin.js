@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, Text } from 'react-native';
+import { TextInput, SafeAreaView } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import { EmailMainView, InnerText, Line, ErrorText } from './EmailLogin.styled';
 import ThemeText from '/components/modules/ThemeText';
@@ -35,7 +35,7 @@ export class EmailLogin extends React.Component {
 
   render() {
     return (
-      <>
+      <SafeAreaView style={{ flex: 1 }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
         <ThemeText>이메일로 로그인</ThemeText>
 
@@ -56,14 +56,18 @@ export class EmailLogin extends React.Component {
           Text={'비밀번호를 잊으셨나요?'}
         />
         <NextPageArrow
-          onPress={() => console.log('NextPageArrow Clicked')}
+          onPress={() =>
+            !this.state.IsError && this.state.IsPasswordInput === color.oboon
+              ? this.props.navigation.navigate('authphone')
+              : null
+          }
           color={
             !this.state.IsError && this.state.IsPasswordInput === color.oboon
               ? color.oboon
               : 'grey'
           }
         />
-      </>
+      </SafeAreaView>
     );
   }
 }

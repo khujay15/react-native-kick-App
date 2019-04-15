@@ -15,8 +15,8 @@ export const arrowTouch = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 
-  width: 55;
-  height: 55;
-  border-radius: 25;
+  width: 60;
+  height: 60;
+  border-radius: 30;
   background-color: ${props => props.color};
 `;

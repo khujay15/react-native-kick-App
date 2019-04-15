@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BottomText = styled.TouchableHighlight`
-  position: absolute;
+  margin-top: auto;
   left: 24;
   bottom: 30;
 `;

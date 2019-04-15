@@ -72,10 +72,10 @@ export const InnerText = styled.Text`
 `;
 
 export const BottomView = styled.View`
-  position: absolute;
-  bottom: 60;
+  margin-top: auto;
   flex-direction: row;
   align-self: center;
+  margin-bottom: 30;
 `;
 
 export const BottomText = styled.Text`

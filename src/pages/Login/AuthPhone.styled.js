@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-export const EmailMainView = styled.ScrollView`
+export const PhoneMainView = styled.View`
   margin-top: 50;
   margin-left: 24;
   margin-right: 24;
   margin-bottom: 11;
 `;
+
 export const InnerText = styled.Text`
   margin-bottom: 20;
   color: grey;
