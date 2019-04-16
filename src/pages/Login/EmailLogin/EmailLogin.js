@@ -7,7 +7,7 @@ import color from '/theme/color';
 import BottomText from '/components/modules/BottomText';
 import NextPageArrow from '/components/modules/NextPageArrow';
 
-export class EmailLogin extends React.Component {
+export default class EmailLogin extends React.Component {
   state = {
     IsEmailInput: 'grey',
     Email: '',
@@ -44,7 +44,7 @@ export class EmailLogin extends React.Component {
           {this.state.IsError ? (
             <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
           ) : null}
-          <TextInput onChangeText={this.handleEmail} />
+          <TextInput onChangeText={this.handleEmail} autoFocus={true} />
           <Line borderBottomColor={this.state.IsEmailInput} />
           <InnerText>비밀번호</InnerText>
           <TextInput onChangeText={this.handlePassword} />

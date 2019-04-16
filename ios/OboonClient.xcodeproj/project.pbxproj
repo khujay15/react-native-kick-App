@@ -23,6 +23,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		13DB8ABC977546F48CC77AC9 /* libIamportReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9BCEC25A16454F968CB903 /* libIamportReactNative.a */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		699801F37AB50207320EBD6D /* libPods-OboonClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23C59DD9FCB2F197D7AAC5C /* libPods-OboonClient.a */; };
@@ -74,6 +75,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = OboonClient;
+		};
+		04C737C12264A27900B8BFEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E7334B3C6994F88B505CDA0 /* IamportReactNative.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = IamportReactNative;
 		};
 		04FE8DDF225F99FB00EE80D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -335,6 +343,7 @@
 		01A82ABE61C34B34F9322D10 /* Pods-OboonClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OboonClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OboonClient/Pods-OboonClient.debug.xcconfig"; sourceTree = "<group>"; };
 		0480C05E22636D87005F5576 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04FE8DE1225FA47000EE80D0 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../../../testProject/oboon-client/node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		0E7334B3C6994F88B505CDA0 /* IamportReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = IamportReactNative.xcodeproj; path = "../node_modules/iamport-react-native/ios/IamportReactNative.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* OboonClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OboonClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -345,6 +354,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = OboonClient/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = OboonClient/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1E9BCEC25A16454F968CB903 /* libIamportReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libIamportReactNative.a; sourceTree = "<group>"; };
 		20521E5B7EB278E48E137416 /* Pods-OboonClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OboonClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-OboonClient/Pods-OboonClient.release.xcconfig"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A074996E8444F6CA445C1FB /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
@@ -387,6 +397,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				699801F37AB50207320EBD6D /* libPods-OboonClient.a in Frameworks */,
 				FBEDBAE2EB314E5B90F46A8A /* libRNKakaoLogins.a in Frameworks */,
+				13DB8ABC977546F48CC77AC9 /* libIamportReactNative.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,10 +463,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		04C737BE2264A27900B8BFEC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04C737C22264A27900B8BFEC /* libIamportReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		04FE8DB6225F99FB00EE80D0 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				3A074996E8444F6CA445C1FB /* libRNKakaoLogins.a */,
+				1E9BCEC25A16454F968CB903 /* libIamportReactNative.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -590,6 +610,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				715F0D4552224A5793AA4435 /* RNKakaoLogins.xcodeproj */,
+				0E7334B3C6994F88B505CDA0 /* IamportReactNative.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -710,6 +731,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 04C737BE2264A27900B8BFEC /* Products */;
+					ProjectRef = 0E7334B3C6994F88B505CDA0 /* IamportReactNative.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
@@ -808,6 +833,13 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04C737C22264A27900B8BFEC /* libIamportReactNative.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libIamportReactNative.a;
+			remoteRef = 04C737C12264A27900B8BFEC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		04FE8DE0225F99FB00EE80D0 /* libRNKakaoLogins.a */ = {
@@ -1184,12 +1216,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
 				);
 				INFOPLIST_FILE = OboonClientTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1210,12 +1244,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
 				);
 				INFOPLIST_FILE = OboonClientTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1239,6 +1275,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
 				);
 				INFOPLIST_FILE = OboonClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1265,6 +1302,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
 				);
 				INFOPLIST_FILE = OboonClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

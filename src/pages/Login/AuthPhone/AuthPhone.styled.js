@@ -24,3 +24,21 @@ color: red;
 font-size: 13;
 
 `;
+
+export const ServiceTerms = styled.TouchableHighlight`
+  left: 24;
+  bottom: 30;
+`;
+
+export const InText = styled.Text`
+  color: #b1b1b1;
+  font-size: 14;
+`;
+export const UnderView = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: auto;
+  margin-right: 94;
+  left: 24;
+  bottom: 30;
+`;

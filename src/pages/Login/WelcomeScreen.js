@@ -125,13 +125,13 @@ export class WelcomeScreen extends React.Component {
 
           <BottomView>
             <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('emailLogin')}
+              onPress={() => this.props.navigation.navigate('emaillogin')}
             >
               <BottomText> 이메일로 로그인 |</BottomText>
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress={() => console.log(this.state.googleUser)}
+              onPress={() => this.props.navigation.navigate('signup')}
             >
               <BottomText> 회원가입</BottomText>
             </TouchableHighlight>

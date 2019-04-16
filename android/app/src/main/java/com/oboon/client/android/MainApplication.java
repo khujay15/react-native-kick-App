@@ -3,6 +3,7 @@ package com.oboon.client.android;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.iamport.IamportPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new IamportPackage(),
             new RNGoogleSigninPackage(),
             new RNGestureHandlerPackage(),
             new RNKakaoLoginsPackage(),
