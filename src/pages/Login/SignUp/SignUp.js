@@ -13,7 +13,11 @@ export default class SignUp extends React.Component {
     Email: '',
     IsPasswordInput: 'grey',
     Password: '',
+
     IsName: 'grey',
+    Name: '',
+
+    IsPasswordError: true,
     IsError: false,
   };
   handleEmail = TypedText => {
@@ -21,7 +25,7 @@ export default class SignUp extends React.Component {
     if (TypedText.match(regExp) != null) {
       this.setState({
         Email: TypedText,
-        IsEmailInput: '#6352FF',
+        IsEmailInput: color.oboon,
         IsError: false,
       });
     } else {
@@ -34,8 +38,14 @@ export default class SignUp extends React.Component {
     console.log(this.state);
   };
 
+  handlePasswordCheck = TypedText => {
+    if (this.state.Password === TypedText)
+      this.setState({ IsPasswordError: false });
+    else this.setState({ IsPasswordError: true });
+  };
+
   handleName = TypedText => {
-    this.setState({ IsName: color.oboon });
+    this.setState({ Name: TypedText, IsName: color.oboon });
   };
 
   render() {
@@ -61,7 +71,11 @@ export default class SignUp extends React.Component {
           <Line borderBottomColor={this.state.IsPasswordInput} />
 
           <InnerText>비밀번호 확인</InnerText>
-          <TextInput onChangeText={this.handlePassword} />
+          {this.state.IsPasswordError &&
+          this.state.IsPasswordInput === color.oboon ? (
+            <ErrorText> 비밀번호가 다릅니다</ErrorText>
+          ) : null}
+          <TextInput onChangeText={this.handlePasswordCheck} />
           <Line borderBottomColor={this.state.IsPasswordInput} />
         </SignUpMainView>
 
@@ -69,14 +83,16 @@ export default class SignUp extends React.Component {
           onPress={() =>
             !this.state.IsError &&
             this.state.IsPasswordInput === color.oboon &&
-            this.state.IsName == color.oboon
+            this.state.IsName == color.oboon &&
+            !this.state.IsPasswordError
               ? this.props.navigation.navigate('authphone')
               : null
           }
           color={
             !this.state.IsError &&
             this.state.IsPasswordInput === color.oboon &&
-            this.state.IsName == color.oboon
+            this.state.IsName == color.oboon &&
+            !this.state.IsPasswordError
               ? color.oboon
               : 'grey'
           }

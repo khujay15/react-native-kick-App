@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, SafeAreaView, Text } from 'react-native';
+import { TextInput, SafeAreaView, Text, View } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import {
   PhoneMainView,
@@ -8,6 +8,7 @@ import {
   ErrorText,
   UnderView,
   InText,
+  SubText,
 } from './AuthPhone.styled';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
@@ -66,6 +67,8 @@ export default class AuthPhone extends React.Component {
           <ThemeText>전화번호 인증하기</ThemeText>
 
           <PhoneMainView>
+            <SubText> 고객님의 핸드폰 번호를 입력해주세요</SubText>
+
             <InnerText>휴대폰 번호</InnerText>
             {this.state.IsError ? (
               <ErrorText>
@@ -74,7 +77,11 @@ export default class AuthPhone extends React.Component {
               </ErrorText>
             ) : null}
 
-            <TextInput keyboardType="numeric" onChangeText={this.handlePhone} />
+            <TextInput
+              keyboardType="numeric"
+              onChangeText={this.handlePhone}
+              autoFocus={true}
+            />
 
             <Line borderBottomColor={this.state.IsPhoneInput} />
           </PhoneMainView>
@@ -92,8 +99,16 @@ export default class AuthPhone extends React.Component {
           </UnderView>
         </SafeAreaView>
         <NextPageArrow
-          onPress={() => console.log('NextPageArrow Clicked')}
-          color={!this.state.IsError ? color.oboon : 'grey'}
+          onPress={() =>
+            !this.state.IsError && this.state.IsPhoneInput == color.oboon
+              ? this.props.navigation.navigate('authphoneinput')
+              : null
+          }
+          color={
+            !this.state.IsError && this.state.IsPhoneInput == color.oboon
+              ? color.oboon
+              : 'grey'
+          }
         />
       </>
     );

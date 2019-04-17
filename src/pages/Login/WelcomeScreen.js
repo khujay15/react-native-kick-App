@@ -45,6 +45,7 @@ export class WelcomeScreen extends React.Component {
 
       this.setState({ googleUser: userInfo });
       console.log(userInfo);
+      this.props.navigation.navigate('mappage');
     } catch (error) {
       console.log(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
