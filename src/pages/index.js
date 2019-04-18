@@ -12,7 +12,8 @@ import AuthPhoneInput from 'pages/Login/AuthPhone/AuthPhoneInput';
 import PrivacyTerms from 'pages/Login/AuthPhone/Terms/PrivacyTerms';
 import ServiceTerms from 'pages/Login/AuthPhone/Terms/ServiceTerms';
 import SignUp from 'pages/Login/SignUp';
-
+import Coupon from 'pages/Coupon';
+import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
 import { authtest } from '/pages/Login/authtest';
 
@@ -31,9 +32,15 @@ const WelcomeStackNavigator = createStackNavigator(
   },
 );
 
-export const MapDrawerNavigator = createDrawerNavigator({
-  mappage: { screen: MapPage },
-});
+export const MapDrawerNavigator = createDrawerNavigator(
+  {
+    mappage: { screen: MapPage },
+    coupon: { screen: Coupon },
+  },
+  {
+    contentComponent: DrawerContainer,
+  },
+);
 
 const BaseRouter = createSwitchNavigator(
   {

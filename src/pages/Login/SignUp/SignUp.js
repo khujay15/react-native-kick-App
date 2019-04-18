@@ -4,7 +4,7 @@ import Arrow from '/components/modules/Arrow';
 import { SignUpMainView, InnerText, Line, ErrorText } from './SignUp.styled';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
-import BottomText from '/components/modules/BottomText';
+import BottomText from '../../../components/modules/BottomText';
 import NextPageArrow from '/components/modules/NextPageArrow';
 
 export default class SignUp extends React.Component {

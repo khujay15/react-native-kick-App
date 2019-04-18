@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, Text } from 'react-native';
 import Arrow from '/components/modules/Arrow';
-import ThemeText from '/components/modules/ThemeText';
+import ThemeText from 'components/modules/ThemeText';
 
 export default class ServiceTerm extends React.Component {
   render() {

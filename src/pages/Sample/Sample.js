@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from 'components/modules/Logo';
+import Logo from '/components/modules/Logo';
 import * as s from './Sample.styled';
 
 const Sample = () => (

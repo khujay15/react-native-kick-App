@@ -4,8 +4,8 @@ import Arrow from '/components/modules/Arrow';
 import { PhoneMainView, Line, PhoneText } from './AuthPhoneInput.styled';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
-import NextPageArrow from '/components/modules/NextPageArrow';
-import BottomText from '/components/modules/BottomText';
+import NextPageArrow from '../../../../components/modules/NextPageArrow';
+import BottomText from '../../../../components/modules/BottomText';
 
 export default class AuthPhoneInput extends React.Component {
   state = {
