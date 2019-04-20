@@ -1,9 +1,8 @@
 import React from 'react';
 import { Platform, SafeAreaView, TouchableHighlight } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
-import { EmailLogin } from './EmailLogin';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import {
   MainLogo,
@@ -14,6 +13,7 @@ import {
   BottomView,
   BottomText,
 } from './WelcomScreen.styled';
+
 export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -107,6 +107,17 @@ export class WelcomeScreen extends React.Component {
       }
       console.log(result);
     });
+  }
+
+  componentDidMount() {
+    axios
+      .get('http://psyhm.ml/')
+      .then(response => {
+        console.log(response['data']);
+      }) // SUCCESS
+      .catch(response => {
+        console.log(response);
+      }); // ERROR
   }
 
   render() {

@@ -5,14 +5,17 @@ import {
   StyleSheet,
   PermissionsAndroid,
   Platform,
+  Image,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DrawHead from '/components/modules/DrawHead';
-
+import PlaceMarker from './PlaceMarker';
 export default class MapPage extends React.Component {
   state = {
+    selectedMarkerId: 1,
     latitude: 37.78825,
     longitude: -122.4324,
     latitudeDelta: 0.0922,
@@ -102,10 +105,18 @@ export default class MapPage extends React.Component {
             style={StyleSheet.absoluteFillObject}
             region={this.state}
           >
-            <MapView.Marker
-              coordinate={this.state}
-              title={'location'}
-              description={'현재 내 위치'}
+            <PlaceMarker
+              coordinate={{ latitude: 37.49, longitude: 127.125 }}
+              number={2}
+              selectedMarkerId={this.state.selectedMarkerId}
+              onPress={() => this.setState({ selectedMarkerId: 2 })}
+            />
+
+            <PlaceMarker
+              coordinate={{ latitude: 37.49, longitude: 127.127 }}
+              number={1}
+              selectedMarkerId={this.state.selectedMarkerId}
+              onPress={() => this.setState({ selectedMarkerId: 1 })}
             />
           </MapView>
         </SafeAreaView>
