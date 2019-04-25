@@ -1,17 +1,28 @@
-import { SNS_LOGIN } from './action';
+import * as LoginAction from './action';
 
 const INITIAL_STATE = {
   Name: 'NO-NAME',
-  Id: 'NO-ID',
+  Email: 'NO-EMAIL',
+  Platform: 'NO-PLATFORM',
+  Token: 'NO-TOKEN',
 };
 
 export default function LoginReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SNS_LOGIN:
+    case LoginAction.KAKAO_LOGIN:
       return {
         ...state,
         Name: action.Name,
-        Id: action.Id,
+        Platform: 'KAKAO',
+        Token: action.Token,
+      };
+    case LoginAction.GOOGLE_LOGIN:
+      return {
+        ...state,
+        Name: action.Name,
+        Email: action.Email,
+        Platform: 'GOOGLE',
+        Token: action.Token,
       };
     default:
       return state;

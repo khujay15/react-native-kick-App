@@ -52,8 +52,7 @@ export default class SignUp extends React.Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
-        <ThemeText>이메일로 로그인</ThemeText>
-
+        <ThemeText>회원가입</ThemeText>
         <SignUpMainView>
           <InnerText>이메일 주소</InnerText>
           {this.state.IsError ? (

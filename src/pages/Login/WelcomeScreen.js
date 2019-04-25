@@ -4,6 +4,9 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import SInfo from 'react-native-sensitive-info';
+//need min 9.1 ios vesion
+
 import {
   MainLogo,
   KakaoLoginTouch,
@@ -21,7 +24,8 @@ export class WelcomeScreen extends React.Component {
       isKakaoLogging: false,
       token: 'token has not fetched',
       id: '',
-      password: '',
+      autoLoginName: '',
+      autoLoginEmail: '',
       googleUser: 'default',
     };
   }
@@ -41,10 +45,12 @@ export class WelcomeScreen extends React.Component {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       const { user } = userInfo;
-      this.props.afterSNSLogin(user['name'], user['id']);
+      console.log(user);
 
-      this.setState({ googleUser: userInfo });
-      console.log(userInfo);
+      const idToken = userInfo['idToken'];
+      //const accessToken = userInfo['accessToken']; 토큰을 두개 던져 줌.
+
+      this.props.afterGOOGLELogin(user['name'], user['email'], idToken);
       this.props.navigation.navigate('mappage');
     } catch (error) {
       console.log(error);
@@ -72,30 +78,31 @@ export class WelcomeScreen extends React.Component {
   }
 
   kakaoLogin() {
-    console.log('   kakaoLogin   ');
-    RNKakaoLogins.login((err, result) => {
-      if (err) {
-        console.log(err.toString());
-        return;
-      }
-      console.log(result);
+    if (!this.state.autoLoginName) {
+      this.props.navigation.navigate('mappage');
+    } else {
+      console.log('   kakaoLogin   ');
+      RNKakaoLogins.login((err, result) => {
+        if (err) {
+          console.log(err.toString());
+          return;
+        }
+        console.log(result);
 
-      if (result.token) {
-        RNKakaoLogins.getProfile((err, result) => {
-          if (err) {
-            console.log(err.toString());
-            return;
-          }
+        if (result.token) {
+          RNKakaoLogins.getProfile((err, user) => {
+            if (err) {
+              console.log(err.toString());
+              return;
+            }
+            console.log(user);
 
-          console.log(result);
-          this.props.afterSNSLogin(result['nickname'], result['id']);
-        });
-
-        //this.setState({ isKakaoLogging: true });
-        // can't perform a react state update on an unmounted component
-        // componentDidMount() 에서 처리
-      }
-    });
+            this.props.afterKAKAOLogin(user['nickname'], result['token']);
+            this.props.navigation.navigate('authemail');
+          });
+        }
+      });
+    }
   }
 
   kakaoLogout() {
@@ -110,14 +117,30 @@ export class WelcomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    SInfo.getItem('Name', {}).then(value => {
+      console.log(value); //value2
+      this.setState({ autoLoginName: value });
+    });
+  }
+
+  _apitest() {
+    const data = JSON.stringify({
+      email: 'testesttest@naver.com',
+      phone_num: '01012345678',
+      token: 'terestesetsetst',
+      name: '장재혁',
+      platform_type: 'kakao',
+    });
+
     axios
-      .get('http://psyhm.ml/')
-      .then(response => {
-        console.log(response['data']);
-      }) // SUCCESS
-      .catch(response => {
-        console.log(response);
-      }); // ERROR
+      .post('http://psyhm.ml/member/join', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => {
+        console.log(res.data);
+      });
   }
 
   render() {
@@ -147,6 +170,10 @@ export class WelcomeScreen extends React.Component {
             >
               <BottomText> 회원가입</BottomText>
             </TouchableHighlight>
+
+            <TouchableHighlight onPress={() => this._apitest()}>
+              <BottomText> test</BottomText>
+            </TouchableHighlight>
           </BottomView>
         </SafeAreaView>
       </>
@@ -156,12 +183,21 @@ export class WelcomeScreen extends React.Component {
 
 const mapStateToProps = state => ({
   Name: state.LoginReducer.Name,
-  Id: state.LoginReducer.Id,
+  Email: state.LoginReducer.Email,
+  Token: state.LoginReducer.Token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  afterSNSLogin: (nickname, id) =>
-    dispatch({ type: 'SNS_LOGIN', Name: nickname, Id: id }),
+  afterKAKAOLogin: (nickname, token) =>
+    dispatch({ type: 'KAKAO_LOGIN', Name: nickname, Token: token }),
+
+  afterGOOGLELogin: (nickname, email, token) =>
+    dispatch({
+      type: 'GOOGLE_LOGIN',
+      Name: nickname,
+      Email: email,
+      Token: token,
+    }),
 });
 
 const WelcomeScreenContainer = connect(
@@ -182,3 +218,5 @@ export default WelcomeScreenContainer;
 // );
 
 // export default WelcomeStackNavigator;
+//in windows, cd android and gradlew.bat clean
+//add android:windowSoftInputMode="adjustPan" for keyboard pop up

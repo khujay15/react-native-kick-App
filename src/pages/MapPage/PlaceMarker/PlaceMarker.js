@@ -1,15 +1,19 @@
 import React from 'react';
-import { Text, ImageBackground } from 'react-native';
-import { Marker } from 'react-native-maps';
+import { Text, ImageBackground, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import * as s from './PlaceMarker.styled';
 
 export default class PlaceMarker extends React.Component {
+  pressHandler = () => {
+    this.props.onPress();
+    console.log('clicked');
+  };
   render() {
     return (
-      <Marker
+      <MapView.Marker
         coordinate={this.props.coordinate}
         title={'location'}
-        onPress={this.props.onPress}
+        onPress={this.pressHandler}
       >
         <s.MarkerImage
           source={
@@ -24,7 +28,7 @@ export default class PlaceMarker extends React.Component {
             {this.props.number}
           </s.MarkerText>
         </s.MarkerImage>
-      </Marker>
+      </MapView.Marker>
     );
   }
 }

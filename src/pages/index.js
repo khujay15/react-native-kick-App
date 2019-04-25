@@ -4,7 +4,7 @@ import {
   createStackNavigator,
   createDrawerNavigator,
 } from 'react-navigation';
-import SamplePage from 'pages/Sample';
+import AuthEmail from 'pages/Login/AuthEmail';
 import WelcomeScreenContainer from 'pages/Login';
 import EmailLogin from 'pages/Login/EmailLogin';
 import AuthPhone from 'pages/Login/AuthPhone';
@@ -21,6 +21,7 @@ const WelcomeStackNavigator = createStackNavigator(
   {
     login: WelcomeScreenContainer,
     emaillogin: EmailLogin,
+    authemail: AuthEmail,
     authphone: AuthPhone,
     authphoneinput: AuthPhoneInput,
     signup: SignUp,

@@ -13,27 +13,27 @@ import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DrawHead from '/components/modules/DrawHead';
 import PlaceMarker from './PlaceMarker';
+import PlaceModal from './PlaceModal';
+
 export default class MapPage extends React.Component {
   state = {
     selectedMarkerId: 1,
     latitude: 37.78825,
-    longitude: -122.4324,
+    longitude: 122.4324,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
 
     parkingVisiable: false,
     parking: [
       {
-        latitude: 37.498183,
-        longitude: 127.127368,
+        description: '경희대 외대 앞 정류장',
+        amount: '4',
+        kickboardDetail: '',
       },
       {
-        latitude: 37.498183,
-        longitude: 127.227368,
-      },
-      {
-        latitude: 37.498183,
-        longitude: 127.327368,
+        description: '경희대 체대 ',
+        amount: '9',
+        kickboardDetail: '',
       },
     ],
   };
@@ -78,7 +78,6 @@ export default class MapPage extends React.Component {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
-          console.log(this.state);
         },
         error => {
           // See error code charts below.
@@ -92,7 +91,7 @@ export default class MapPage extends React.Component {
     // Instead of navigator.geolocation, just use Geolocation.
     this._getLocation();
   }
-
+  ClickHandler = id => {};
   render() {
     return (
       <>
@@ -106,19 +105,40 @@ export default class MapPage extends React.Component {
             region={this.state}
           >
             <PlaceMarker
-              coordinate={{ latitude: 37.49, longitude: 127.125 }}
-              number={2}
-              selectedMarkerId={this.state.selectedMarkerId}
-              onPress={() => this.setState({ selectedMarkerId: 2 })}
-            />
-
-            <PlaceMarker
               coordinate={{ latitude: 37.49, longitude: 127.127 }}
               number={1}
               selectedMarkerId={this.state.selectedMarkerId}
-              onPress={() => this.setState({ selectedMarkerId: 1 })}
+              onPress={() =>
+                this.setState({
+                  selectedMarkerId: 1,
+                  latitude: 37.49,
+                  longitude: 127.127,
+                })
+              }
+            />
+            <PlaceMarker
+              coordinate={{ latitude: 37.49, longitude: 127.125 }}
+              number={2}
+              selectedMarkerId={this.state.selectedMarkerId}
+              onPress={() =>
+                this.setState({
+                  selectedMarkerId: 2,
+                  latitude: 37.49,
+                  longitude: 127.125,
+                })
+              }
             />
           </MapView>
+          <PlaceModal
+            description={'경희대 체대'}
+            placeId={1}
+            selectedMarkerId={this.state.selectedMarkerId}
+          />
+          <PlaceModal
+            description={'경희대 외대'}
+            placeId={2}
+            selectedMarkerId={this.state.selectedMarkerId}
+          />
         </SafeAreaView>
 
         <DrawHead onPress={() => this.props.navigation.openDrawer()} />

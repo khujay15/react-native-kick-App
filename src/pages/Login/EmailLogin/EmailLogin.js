@@ -9,6 +9,7 @@ import NextPageArrow from '/components/modules/NextPageArrow';
 
 export default class EmailLogin extends React.Component {
   state = {
+    keyboardUp: false,
     IsEmailInput: 'grey',
     Email: '',
     IsPasswordInput: 'grey',
@@ -55,14 +56,19 @@ export default class EmailLogin extends React.Component {
           onPress={() => console.log('BottomText clicked')}
           Text={'비밀번호를 잊으셨나요?'}
         />
+
         <NextPageArrow
           onPress={() =>
-            !this.state.IsError && this.state.IsPasswordInput === color.oboon
+            !this.state.IsError &&
+            this.state.IsPasswordInput === color.oboon &&
+            this.state.IsEmailInput === color.oboon
               ? this.props.navigation.navigate('authphone')
               : null
           }
           color={
-            !this.state.IsError && this.state.IsPasswordInput === color.oboon
+            !this.state.IsError &&
+            this.state.IsPasswordInput === color.oboon &&
+            this.state.IsEmailInput === color.oboon
               ? color.oboon
               : 'grey'
           }

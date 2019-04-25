@@ -16,7 +16,6 @@ import {
 
 export class DrawPage extends React.Component {
   render() {
-    console.log('drawer: ', this.props);
     return (
       <SafeAreaView>
         <ScrollView>

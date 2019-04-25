@@ -7,9 +7,9 @@ export const SignUpMainView = styled.ScrollView`
   margin-bottom: 11;
 `;
 export const InnerText = styled.Text`
-  margin-bottom: 20;
+  margin-bottom: 10;
   color: grey;
-  margin-top: 30;
+  margin-top: 20;
 `;
 
 export const Line = styled.View`
