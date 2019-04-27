@@ -9,7 +9,7 @@ export const PhoneMainView = styled.View`
 
 export const InnerText = styled.Text`
   margin-bottom: 20;
-  color: grey;
+  color: gray;
   margin-top: 30;
 `;
 

@@ -36,10 +36,3 @@ export const Line = styled.View`
   border-bottom-width: 1;
   border-bottom-color: #d6d6d6;
 `;
-
-export const ModalClick = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  background-color: #dcdcdc;
-`;

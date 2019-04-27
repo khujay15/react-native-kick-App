@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-ble-plx')
     implementation project(':react-native-sensitive-info')
     implementation project(':react-native-geolocation-service')
     implementation project(':iamport-react-native')

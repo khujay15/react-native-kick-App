@@ -36,6 +36,12 @@ export default class MapPage extends React.Component {
         kickboardDetail: '',
       },
     ],
+    Kickboard: [
+      {
+        name: 'test',
+        uuid: 'aaaaaa-aaaaaa-aaaaaa-aaaa',
+      },
+    ],
   };
 
   _getLocation() {
@@ -133,11 +139,13 @@ export default class MapPage extends React.Component {
             description={'경희대 체대'}
             placeId={1}
             selectedMarkerId={this.state.selectedMarkerId}
+            Kickboard={this.state.Kickboard[0]}
           />
           <PlaceModal
             description={'경희대 외대'}
             placeId={2}
             selectedMarkerId={this.state.selectedMarkerId}
+            Kickboard={this.state.Kickboard[0]}
           />
         </SafeAreaView>
 

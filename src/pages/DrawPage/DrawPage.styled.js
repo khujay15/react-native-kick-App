@@ -31,6 +31,8 @@ export const DrawArrowShape = styled.Image`
 export const DrawArrowTouch = styled.TouchableOpacity`
   top: 40;
   margin-bottom: 100;
+  width: 40;
+  height: 40;
 `;
 
 export const NavItemView = styled.View`

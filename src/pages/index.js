@@ -15,6 +15,8 @@ import SignUp from 'pages/Login/SignUp';
 import Coupon from 'pages/Coupon';
 import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
+
+import sample from 'pages/Sample';
 import { authtest } from '/pages/Login/authtest';
 
 const WelcomeStackNavigator = createStackNavigator(
@@ -47,6 +49,7 @@ const BaseRouter = createSwitchNavigator(
   {
     map: MapDrawerNavigator,
     login: WelcomeStackNavigator,
+    sample: sample,
   },
   {
     initialRouteName: 'login',
