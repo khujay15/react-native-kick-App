@@ -16,9 +16,7 @@ export const Line = styled.View`
 `;
 
 export const ErrorText = styled.Text`
-
-margin-left: auto
-color: red;
-font-size: 13;
-
+  margin-left: auto;
+  color: red;
+  font-size: 13;
 `;

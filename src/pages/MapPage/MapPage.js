@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
-import DrawHead from '/components/modules/DrawHead';
+import DrawHead from 'components/modules/DrawHead';
 import PlaceMarker from './PlaceMarker';
 import PlaceModal from './PlaceModal';
 
@@ -44,8 +44,13 @@ export default class MapPage extends React.Component {
     ],
   };
 
-  _getLocation() {
-    if (Platform.OS == 'android') {
+  componentDidMount() {
+    // Instead of navigator.geolocation, just use Geolocation.
+    this.getLocation();
+  }
+
+  getLocation() {
+    if (Platform.OS === 'android') {
       PermissionsAndroid.requestMultiple([
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
@@ -93,12 +98,13 @@ export default class MapPage extends React.Component {
       );
     }
   }
-  componentDidMount() {
-    // Instead of navigator.geolocation, just use Geolocation.
-    this._getLocation();
-  }
-  ClickHandler = id => {};
+
+  clickHandler = id => {};
+
   render() {
+    const { selectedMarkerId, Kickboard } = this.state;
+    const { navigation } = this.props;
+
     return (
       <>
         <SafeAreaView
@@ -113,7 +119,7 @@ export default class MapPage extends React.Component {
             <PlaceMarker
               coordinate={{ latitude: 37.49, longitude: 127.127 }}
               number={1}
-              selectedMarkerId={this.state.selectedMarkerId}
+              selectedMarkerId={selectedMarkerId}
               onPress={() =>
                 this.setState({
                   selectedMarkerId: 1,
@@ -125,7 +131,7 @@ export default class MapPage extends React.Component {
             <PlaceMarker
               coordinate={{ latitude: 37.49, longitude: 127.125 }}
               number={2}
-              selectedMarkerId={this.state.selectedMarkerId}
+              selectedMarkerId={selectedMarkerId}
               onPress={() =>
                 this.setState({
                   selectedMarkerId: 2,
@@ -136,20 +142,20 @@ export default class MapPage extends React.Component {
             />
           </MapView>
           <PlaceModal
-            description={'경희대 체대'}
+            description="경희대 체대"
             placeId={1}
-            selectedMarkerId={this.state.selectedMarkerId}
-            Kickboard={this.state.Kickboard[0]}
+            selectedMarkerId={selectedMarkerId}
+            Kickboard={Kickboard[0]}
           />
           <PlaceModal
-            description={'경희대 외대'}
+            description="경희대 외대"
             placeId={2}
-            selectedMarkerId={this.state.selectedMarkerId}
-            Kickboard={this.state.Kickboard[0]}
+            selectedMarkerId={selectedMarkerId}
+            Kickboard={Kickboard[0]}
           />
         </SafeAreaView>
 
-        <DrawHead onPress={() => this.props.navigation.openDrawer()} />
+        <DrawHead onPress={() => navigation.openDrawer()} />
       </>
     );
   }
