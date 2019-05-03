@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   Email: 'NO-EMAIL',
   Platform: 'NO-PLATFORM',
   Token: 'NO-TOKEN',
+  Tutorial: 'watch',
 };
 
 export default function LoginReducer(state = INITIAL_STATE, action) {
@@ -24,6 +25,12 @@ export default function LoginReducer(state = INITIAL_STATE, action) {
         Platform: 'GOOGLE',
         Token: action.Token,
       };
+    case LoginAction.TUTORIALS:
+      return {
+        ...state,
+        Tutorial: 'NO',
+      };
+
     default:
       return state;
   }

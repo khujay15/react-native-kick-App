@@ -43,5 +43,6 @@ export const DotView = styled.View`
   align-self: center;
   align-items: center;
   margin-bottom: 120;
+
   flex-direction: row;
 `;

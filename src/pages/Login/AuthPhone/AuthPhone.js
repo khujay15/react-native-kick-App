@@ -1,6 +1,11 @@
 import React from 'react';
 import { TextInput, SafeAreaView, Text, View } from 'react-native';
 import Arrow from '/components/modules/Arrow';
+import ThemeText from '/components/modules/ThemeText';
+import color from '/theme/color';
+import NextPageArrow from '/components/modules/NextPageArrow';
+import InputBox from 'components/modules/InputBox';
+import IMP from 'iamport-react-native';
 import {
   PhoneMainView,
   InnerText,
@@ -10,14 +15,9 @@ import {
   InText,
   SubText,
 } from './AuthPhone.styled';
-import ThemeText from '/components/modules/ThemeText';
-import color from '/theme/color';
-import NextPageArrow from '/components/modules/NextPageArrow';
-
-import IMP from 'iamport-react-native';
 
 // IMP 모듈을 사용하면, json token error가 뜨는데 이는 실패시 문자를 URL인코딩을 두번해서 보내주기때문. 직접 node_module/.../certificate 에서 index.js 에서
-//JSON.parse부분을 빼고 나오는 값을 url 디코딩을 두번하면 에러 메시지가 나옴.
+// JSON.parse부분을 빼고 나오는 값을 url 디코딩을 두번하면 에러 메시지가 나옴.
 export default class AuthPhone extends React.Component {
   callback = response => {
     console.log(response);
@@ -33,7 +33,7 @@ export default class AuthPhone extends React.Component {
 
     return (
       <IMP.Certification
-        userCode={'imp49977043'} // 가맹점 식별코드
+        userCode="imp49977043" // 가맹점 식별코드
         data={data} // 본인인증 데이터
         callback={this.callback} // 본인인증 종료 후 콜백
         loading={{
@@ -77,10 +77,10 @@ export default class AuthPhone extends React.Component {
               </ErrorText>
             ) : null}
 
-            <TextInput
+            <InputBox
               keyboardType="numeric"
               onChangeText={this.handlePhone}
-              autoFocus={true}
+              autoFocus
             />
 
             <Line borderBottomColor={this.state.IsPhoneInput} />

@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
 import OboonZone from './OboonZone';
 import KickboardSelect from './KickboardSelect';
+
 import * as s from './PlaceModal.styled';
 
 export default class PlaceModal extends React.Component {
@@ -13,6 +14,7 @@ export default class PlaceModal extends React.Component {
   setMapModalVisible(visible) {
     this.setState({ MapmodalVisible: visible });
   }
+
   setKickboardModalVisible(visible) {
     this.setState({ KickmodalVisible: visible });
   }
@@ -23,14 +25,14 @@ export default class PlaceModal extends React.Component {
 
   render() {
     if (this.props.placeId !== this.props.selectedMarkerId) return null;
-    else {
+    
       return (
         <s.ModalView>
           <OboonZone
             description="test"
             visible={this.state.MapmodalVisible}
             onPress={() => this.setState({ MapmodalVisible: false })}
-            location={'용인시 하길동 125'}
+            location="용인시 하길동 125"
           />
           <KickboardSelect
             description="test"
@@ -45,7 +47,11 @@ export default class PlaceModal extends React.Component {
                 this.setMapModalVisible(true);
               }}
             >
-              <s.LocationText> {this.props.description} </s.LocationText>
+              <s.LocationText> 
+                {' '}
+                {this.props.description}
+                {' '}
+              </s.LocationText>
             </TouchableOpacity>
             <s.Line />
 
@@ -59,6 +65,6 @@ export default class PlaceModal extends React.Component {
           </s.InnerView>
         </s.ModalView>
       );
-    }
+    
   }
 }

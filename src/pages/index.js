@@ -50,7 +50,7 @@ const BaseRouter = createSwitchNavigator(
   {
     map: MapDrawerNavigator,
     login: WelcomeStackNavigator,
-    sample: Tutorial,
+    tutorial: Tutorial,
   },
   {
     initialRouteName: 'login',

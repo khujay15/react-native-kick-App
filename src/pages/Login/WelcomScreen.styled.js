@@ -66,7 +66,27 @@ export const KakaoLoginTouch = styled.TouchableOpacity`
   align-items: center;
 `;
 
+export const LocalLoginTouch = styled.TouchableOpacity`
+  border-width: 0.3;
+  border-radius: 1;
+  border-color: #ddd;
+  border-top-width: 0;
+  border-bottom-width: 0.3;
+  shadow-color: #000;
+  shadow-opacity: 0;
+  shadow-radius: 2;
+  elevation: 1;
+  height: 50;
+  flex-direction: row;
+  margin-top: 26;
+  margin-left: 24;
+  margin-right: 24;
+  align-items: center;
+`;
+
 export const InnerText = styled.Text`
+  margin-left: ${props => (props.local ? 80 : 0)};
+
   font-size: 20px;
   color: grey;
 `;

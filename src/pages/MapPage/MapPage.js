@@ -14,6 +14,7 @@ import Geolocation from 'react-native-geolocation-service';
 import DrawHead from 'components/modules/DrawHead';
 import PlaceMarker from './PlaceMarker';
 import PlaceModal from './PlaceModal';
+import LentModal from './LentModal';
 
 export default class MapPage extends React.Component {
   state = {
@@ -153,6 +154,8 @@ export default class MapPage extends React.Component {
             selectedMarkerId={selectedMarkerId}
             Kickboard={Kickboard[0]}
           />
+
+          <LentModal />
         </SafeAreaView>
 
         <DrawHead onPress={() => navigation.openDrawer()} />

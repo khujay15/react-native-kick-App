@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import SInfo from 'react-native-sensitive-info';
-//need min 9.1 ios vesion
+// need min 9.1 ios vesion
 
 import {
   MainLogo,
   KakaoLoginTouch,
   GoogleLoginTouch,
+  LocalLoginTouch,
   InnerImage,
   InnerText,
   BottomView,
@@ -27,8 +28,10 @@ export class WelcomeScreen extends React.Component {
       autoLoginName: '',
       autoLoginEmail: '',
       googleUser: 'default',
+      tutorials: false,
     };
   }
+
   // Somewhere in your code
   googlesignIn = async () => {
     GoogleSignin.configure({
@@ -47,11 +50,13 @@ export class WelcomeScreen extends React.Component {
       const { user } = userInfo;
       console.log(user);
 
-      const idToken = userInfo['idToken'];
-      //const accessToken = userInfo['accessToken']; 토큰을 두개 던져 줌.
+      const { idToken } = userInfo;
+      // const accessToken = userInfo['accessToken']; 토큰을 두개 던져 줌.
 
-      this.props.afterGOOGLELogin(user['name'], user['email'], idToken);
-      this.props.navigation.navigate('mappage');
+      this.props.afterGOOGLELogin(user.name, user.email, idToken);
+      if (this.state.tutorials === 'watch')
+        this.props.navigation.navigate('mappage');
+      else this.props.navigation.navigate('tutorial');
     } catch (error) {
       console.log(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -65,6 +70,7 @@ export class WelcomeScreen extends React.Component {
       }
     }
   };
+
   // 로그인 후 내 프로필 가져오기.
   getProfile() {
     console.log('getKakaoProfile');
@@ -97,7 +103,7 @@ export class WelcomeScreen extends React.Component {
             }
             console.log(user);
 
-            this.props.afterKAKAOLogin(user['nickname'], result['token']);
+            this.props.afterKAKAOLogin(user.nickname, result.token);
             this.props.navigation.navigate('authemail');
           });
         }
@@ -118,8 +124,15 @@ export class WelcomeScreen extends React.Component {
 
   componentDidMount() {
     SInfo.getItem('Name', {}).then(value => {
-      console.log(value); //value2
+      console.log(value); // value2
       this.setState({ autoLoginName: value });
+    });
+    SInfo.getItem('tutorials', {}).then(value => {
+      console.log(value);
+
+      value === 'watch'
+        ? this.setState({ tutorials: value })
+        : this.props.aftertutorial();
     });
   }
 
@@ -158,13 +171,13 @@ export class WelcomeScreen extends React.Component {
             <InnerText>카카오톡 계정으로 로그인</InnerText>
           </KakaoLoginTouch>
 
-          <BottomView>
-            <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('emaillogin')}
-            >
-              <BottomText> 이메일로 로그인 |</BottomText>
-            </TouchableHighlight>
+          <LocalLoginTouch
+            onPress={() => this.props.navigation.navigate('emaillogin')}
+          >
+            <InnerText local>이메일로 로그인하기</InnerText>
+          </LocalLoginTouch>
 
+          <BottomView>
             <TouchableHighlight
               onPress={() => this.props.navigation.navigate('signup')}
             >
@@ -185,6 +198,7 @@ const mapStateToProps = state => ({
   Name: state.LoginReducer.Name,
   Email: state.LoginReducer.Email,
   Token: state.LoginReducer.Token,
+  Tutorial: state.LoginReducer.Tutorial,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -198,6 +212,7 @@ const mapDispatchToProps = dispatch => ({
       Email: email,
       Token: token,
     }),
+  aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
 });
 
 const WelcomeScreenContainer = connect(
@@ -218,5 +233,5 @@ export default WelcomeScreenContainer;
 // );
 
 // export default WelcomeStackNavigator;
-//in windows, cd android and gradlew.bat clean
-//add android:windowSoftInputMode="adjustPan" for keyboard pop up
+// in windows, cd android and gradlew.bat clean
+// add android:windowSoftInputMode="adjustPan" for keyboard pop up

@@ -5,6 +5,8 @@ import Arrow from 'components/modules/Arrow';
 import NextPageArrow from 'components/modules/NextPageArrow';
 import BottomText from 'components/modules/BottomText';
 import { width, height } from 'theme/size';
+import { SafeAreaView } from 'react-navigation';
+import SInfo from 'react-native-sensitive-info';
 import * as s from './Tutorial.styled';
 
 class Tutorial extends React.Component {
@@ -23,10 +25,13 @@ class Tutorial extends React.Component {
     });
   };
 
+  componentDidMount = () => {
+    SInfo.setItem('tutorials', 'watch', {});
+  };
+
   render() {
     return (
       <>
-        <Arrow />
         <FlatList
           data={[
             {
@@ -44,7 +49,7 @@ class Tutorial extends React.Component {
               key: 2,
             },
           ]}
-          style={{ flex: 1, marginLeft: 24, marginRight: 24 }}
+          style={{ marginLeft: 24, marginRight: 24 }}
           renderItem={({ item }) => (
             <View>
               <s.TutorialView>
@@ -68,7 +73,10 @@ class Tutorial extends React.Component {
             color={this.state.Currentpage === 1 ? color.oboon : 'grey'}
           />
         </s.DotView>
-        <BottomText Text="건너뛰기" />
+        <BottomText
+          Text="건너뛰기"
+          onPress={() => this.props.navigation.navigate('map')}
+        />
         <NextPageArrow color="grey" />
       </>
     );

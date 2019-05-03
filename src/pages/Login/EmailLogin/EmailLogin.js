@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
 import Arrow from '/components/modules/Arrow';
+import InputBox from 'components/modules/InputBox';
 import { EmailMainView, InnerText, Line, ErrorText } from './EmailLogin.styled';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
@@ -16,6 +17,7 @@ export default class EmailLogin extends React.Component {
     Password: '',
     IsError: false,
   };
+
   handleEmail = TypedText => {
     const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if (TypedText.match(regExp) != null) {
@@ -45,16 +47,20 @@ export default class EmailLogin extends React.Component {
           {this.state.IsError ? (
             <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
           ) : null}
-          <TextInput onChangeText={this.handleEmail} autoFocus={true} />
-          <Line borderBottomColor={this.state.IsEmailInput} />
+
+          <InputBox onChangeText={this.handleEmail} autoFocus />
+          {/* <TextInput onChangeText={this.handleEmail} autoFocus />
+          <Line borderBottomColor={this.state.IsEmailInput} /> */}
           <InnerText>비밀번호</InnerText>
+          <InputBox onChangeText={this.handlePassword} />
+          {/* 
           <TextInput onChangeText={this.handlePassword} />
-          <Line borderBottomColor={this.state.IsPasswordInput} />
+          <Line borderBottomColor={this.state.IsPasswordInput} /> */}
         </EmailMainView>
 
         <BottomText
           onPress={() => console.log('BottomText clicked')}
-          Text={'비밀번호를 잊으셨나요?'}
+          Text="비밀번호를 잊으셨나요?"
         />
 
         <NextPageArrow
