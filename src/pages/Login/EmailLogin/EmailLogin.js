@@ -1,8 +1,14 @@
 import React from 'react';
-import { TextInput, SafeAreaView } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import InputBox from 'components/modules/InputBox';
-import { EmailMainView, InnerText, Line, ErrorText } from './EmailLogin.styled';
+import FooterClick from 'components/modules/FooterClick';
+import {
+  EmailMainView,
+  UnderLineText,
+  ErrorText,
+  UnderLineBottomText,
+} from './EmailLogin.styled';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
 import BottomText from '/components/modules/BottomText';
@@ -43,27 +49,38 @@ export default class EmailLogin extends React.Component {
         <ThemeText>이메일로 로그인</ThemeText>
 
         <EmailMainView>
-          <InnerText>이메일 주소</InnerText>
           {this.state.IsError ? (
             <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
           ) : null}
 
-          <InputBox onChangeText={this.handleEmail} autoFocus />
+          <InputBox
+            onChangeText={this.handleEmail}
+            placeholder="   이메일 주소를 입력해주세요"
+            toggle={this.state.IsError}
+            autoFocus
+          />
           {/* <TextInput onChangeText={this.handleEmail} autoFocus />
           <Line borderBottomColor={this.state.IsEmailInput} /> */}
-          <InnerText>비밀번호</InnerText>
-          <InputBox onChangeText={this.handlePassword} />
+
+          <InputBox
+            onChangeText={this.handlePassword}
+            placeholder="   비밀번호를 입력해주세요"
+          />
           {/* 
           <TextInput onChangeText={this.handlePassword} />
           <Line borderBottomColor={this.state.IsPasswordInput} /> */}
+          <UnderLineText onPress={() => console.log('BottomText clicked')}>
+            아이디/비밀번호 찾기
+          </UnderLineText>
         </EmailMainView>
-
+        <UnderLineBottomText>아직 회원이 아니신가요?</UnderLineBottomText>
+        {/* 
         <BottomText
           onPress={() => console.log('BottomText clicked')}
           Text="비밀번호를 잊으셨나요?"
-        />
+        /> */}
 
-        <NextPageArrow
+        {/* <NextPageArrow
           onPress={() =>
             !this.state.IsError &&
             this.state.IsPasswordInput === color.oboon &&
@@ -78,6 +95,23 @@ export default class EmailLogin extends React.Component {
               ? color.oboon
               : 'grey'
           }
+        /> */}
+        <FooterClick
+          onPress={() =>
+            !this.state.IsError &&
+            this.state.IsPasswordInput === color.oboon &&
+            this.state.IsEmailInput === color.oboon
+              ? this.props.navigation.navigate('authphone')
+              : null
+          }
+          color={
+            !this.state.IsError &&
+            this.state.IsPasswordInput === color.oboon &&
+            this.state.IsEmailInput === color.oboon
+              ? color.oboon
+              : 'grey'
+          }
+          text="로그인하기"
         />
       </SafeAreaView>
     );

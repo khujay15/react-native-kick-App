@@ -1,5 +1,11 @@
 import React from 'react';
-import { Platform, SafeAreaView, TouchableHighlight } from 'react-native';
+import {
+  Platform,
+  SafeAreaView,
+  TouchableHighlight,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
@@ -9,7 +15,8 @@ import SInfo from 'react-native-sensitive-info';
 
 import {
   MainLogo,
-  KakaoLoginTouch,
+  LoginTouch,
+  LoginView,
   GoogleLoginTouch,
   LocalLoginTouch,
   InnerImage,
@@ -84,7 +91,7 @@ export class WelcomeScreen extends React.Component {
   }
 
   kakaoLogin() {
-    if (!this.state.autoLoginName) {
+    if (this.state.autoLoginName) {
       this.props.navigation.navigate('mappage');
     } else {
       console.log('   kakaoLogin   ');
@@ -138,15 +145,23 @@ export class WelcomeScreen extends React.Component {
 
   _apitest() {
     const data = JSON.stringify({
-      email: 'testesttest@naver.com',
-      phone_num: '01012345678',
-      token: 'terestesetsetst',
-      name: '장재혁',
+      email: 'aaaaaaaaa@naver.com',
+      phone_num: '01011111111',
+      token: this.props.Token,
+      name: '장재혁이',
       platform_type: 'kakao',
     });
 
+    const data2 = JSON.stringify({
+      email: 'snssnsnsns@naver.com',
+      phone_num: '01077777777',
+      token: 'snsnsnsnsnsnsnsnsn',
+      name: '장재혁',
+      platform_type: 'google',
+    });
+
     axios
-      .post('http://psyhm.ml/member/join', data, {
+      .post('https://api.oboonmobility.com/member/join', data, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -161,29 +176,103 @@ export class WelcomeScreen extends React.Component {
       <>
         <SafeAreaView style={{ flex: 1 }}>
           <MainLogo />
+
+          <TouchableOpacity
+            style={{ flexDirection: 'row', marginTop: 20 }}
+            onPress={() => this.googlesignIn()}
+          >
+            <LoginTouch
+              style={{
+                shadowRadius: 3,
+                shadowColor: 'rgb(0, 0, 0.7)',
+                shadowOpacity: 0.1,
+                shadowOffset: { width: 0, height: 5 },
+              }}
+            >
+              <LoginView>
+                <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
+              </LoginView>
+            </LoginTouch>
+            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+              구글 계정으로 로그인
+            </InnerText>
+          </TouchableOpacity>
+          {/* 
           <GoogleLoginTouch onPress={() => this.googlesignIn()}>
-            <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
+          <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
             <InnerText>구글 계정으로 로그인</InnerText>
-          </GoogleLoginTouch>
+          </GoogleLoginTouch> */}
+          {/* 카카오로그인 */}
+          <TouchableOpacity
+            style={{ flexDirection: 'row', marginTop: 20 }}
+            onPress={() => this.kakaoLogin()}
+          >
+            <LoginTouch
+              style={{
+                shadowRadius: 3,
+                shadowColor: 'rgb(0, 0, 0.7)',
+                shadowOpacity: 0.1,
+                shadowOffset: { width: 0, height: 5 },
+              }}
+            >
+              <LoginView>
+                <InnerImage src={require('/assets/icons/KakaoLogo.png')} />
+              </LoginView>
+            </LoginTouch>
+            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+              카카오톡 계정으로 로그인
+            </InnerText>
+          </TouchableOpacity>
+          {/* 이메일로그인 */}
+          <TouchableOpacity
+            style={{ flexDirection: 'row', marginTop: 20 }}
+            onPress={() => this.props.navigation.navigate('emaillogin')}
+          >
+            <LoginTouch
+              style={{
+                shadowRadius: 3,
+                shadowColor: 'rgb(0, 0, 0.7)',
+                shadowOpacity: 0.1,
+                shadowOffset: { width: 0, height: 5 },
+              }}
+            >
+              <LoginView>
+                <InnerImage src={require('/assets/icons/envelope.png')} />
+              </LoginView>
+            </LoginTouch>
+            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+              이메일로 로그인
+            </InnerText>
+          </TouchableOpacity>
 
-          <KakaoLoginTouch onPress={() => this.kakaoLogin()}>
-            <InnerImage src={require('/assets/icons/KakaoLogo.png')} />
-            <InnerText>카카오톡 계정으로 로그인</InnerText>
-          </KakaoLoginTouch>
-
-          <LocalLoginTouch
+          {/* <LocalLoginTouch
             onPress={() => this.props.navigation.navigate('emaillogin')}
           >
             <InnerText local>이메일로 로그인하기</InnerText>
-          </LocalLoginTouch>
+          </LocalLoginTouch> */}
+
+          <TouchableOpacity
+            style={{ flexDirection: 'row', marginTop: 20 }}
+            onPress={() => this.props.navigation.navigate('signup')}
+          >
+            <LoginTouch
+              style={{
+                shadowRadius: 3,
+                shadowColor: 'rgb(0, 0, 0.7)',
+                shadowOpacity: 0.1,
+                shadowOffset: { width: 0, height: 5 },
+              }}
+            >
+              <LoginView>
+                <InnerImage src={require('/assets/icons/user.png')} />
+              </LoginView>
+            </LoginTouch>
+            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+              이메일 회원가입
+            </InnerText>
+          </TouchableOpacity>
 
           <BottomView>
-            <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('signup')}
-            >
-              <BottomText> 회원가입</BottomText>
-            </TouchableHighlight>
-
             <TouchableHighlight onPress={() => this._apitest()}>
               <BottomText> test</BottomText>
             </TouchableHighlight>
