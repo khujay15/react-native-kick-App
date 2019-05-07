@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   TouchableHighlight,
   View,
+  Text,
   TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
@@ -11,14 +12,14 @@ import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import SInfo from 'react-native-sensitive-info';
+import TalkCloud from 'components/modules/TalkCloud';
 // need min 9.1 ios vesion
 
 import {
   MainLogo,
   LoginTouch,
   LoginView,
-  GoogleLoginTouch,
-  LocalLoginTouch,
+  marginvalue,
   InnerImage,
   InnerText,
   BottomView,
@@ -176,9 +177,10 @@ export class WelcomeScreen extends React.Component {
       <>
         <SafeAreaView style={{ flex: 1 }}>
           <MainLogo />
+          <TalkCloud />
 
           <TouchableOpacity
-            style={{ flexDirection: 'row', marginTop: 20 }}
+            style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.googlesignIn()}
           >
             <LoginTouch
@@ -193,7 +195,7 @@ export class WelcomeScreen extends React.Component {
                 <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
               </LoginView>
             </LoginTouch>
-            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+            <InnerText style={{ marginLeft: 20, marginTop: marginvalue }}>
               구글 계정으로 로그인
             </InnerText>
           </TouchableOpacity>
@@ -204,7 +206,7 @@ export class WelcomeScreen extends React.Component {
           </GoogleLoginTouch> */}
           {/* 카카오로그인 */}
           <TouchableOpacity
-            style={{ flexDirection: 'row', marginTop: 20 }}
+            style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.kakaoLogin()}
           >
             <LoginTouch
@@ -219,13 +221,13 @@ export class WelcomeScreen extends React.Component {
                 <InnerImage src={require('/assets/icons/KakaoLogo.png')} />
               </LoginView>
             </LoginTouch>
-            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+            <InnerText style={{ marginLeft: 20, marginTop: marginvalue }}>
               카카오톡 계정으로 로그인
             </InnerText>
           </TouchableOpacity>
           {/* 이메일로그인 */}
           <TouchableOpacity
-            style={{ flexDirection: 'row', marginTop: 20 }}
+            style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.props.navigation.navigate('emaillogin')}
           >
             <LoginTouch
@@ -240,7 +242,7 @@ export class WelcomeScreen extends React.Component {
                 <InnerImage src={require('/assets/icons/envelope.png')} />
               </LoginView>
             </LoginTouch>
-            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+            <InnerText style={{ marginLeft: 20, marginTop: marginvalue }}>
               이메일로 로그인
             </InnerText>
           </TouchableOpacity>
@@ -252,7 +254,7 @@ export class WelcomeScreen extends React.Component {
           </LocalLoginTouch> */}
 
           <TouchableOpacity
-            style={{ flexDirection: 'row', marginTop: 20 }}
+            style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.props.navigation.navigate('signup')}
           >
             <LoginTouch
@@ -267,14 +269,14 @@ export class WelcomeScreen extends React.Component {
                 <InnerImage src={require('/assets/icons/user.png')} />
               </LoginView>
             </LoginTouch>
-            <InnerText style={{ marginLeft: 20, marginTop: 20 }}>
+            <InnerText style={{ marginLeft: 20, marginTop: marginvalue }}>
               이메일 회원가입
             </InnerText>
           </TouchableOpacity>
 
           <BottomView>
             <TouchableHighlight onPress={() => this._apitest()}>
-              <BottomText> test</BottomText>
+              <BottomText style={{ marginLeft: 300 }}> test</BottomText>
             </TouchableHighlight>
           </BottomView>
         </SafeAreaView>

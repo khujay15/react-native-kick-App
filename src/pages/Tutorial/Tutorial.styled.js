@@ -32,17 +32,21 @@ export const Dotindicator = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 
-  width: 14;
-  height: 14;
-  border-radius: 7;
+  width: 10;
+  height: 10;
+  border-radius: 5;
   background-color: ${props => props.color};
   margin-left: 10;
 `;
 
 export const DotView = styled.View`
-  align-self: center;
-  align-items: center;
-  margin-bottom: 120;
-
+  position: absolute;
   flex-direction: row;
+  left: 30;
+  top: ${height * 0.08};
+`;
+
+export const TopText = styled.Text`
+  margin-right: 24;
+  margin-left: auto;
 `;

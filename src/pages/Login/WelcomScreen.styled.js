@@ -4,11 +4,11 @@ import { Image, StyleSheet, Dimensions, Platform } from 'react-native';
 import React from 'react';
 
 const { height, width } = Dimensions.get('window');
-
+export const marginvalue = height * 0.03;
 export const ImgStyle = StyleSheet.create({
   banner: {
     height: 60,
-    marginTop: height * 0.2,
+    marginTop: height * 0.15,
     alignSelf: 'center',
   },
   innerImage: {

@@ -1,11 +1,12 @@
 import React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
 import Arrow from '/components/modules/Arrow';
-import { SignUpMainView, InnerText, Line, ErrorText } from './SignUp.styled';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
 import InputBox from 'components/modules/InputBox';
 import NextPageArrow from '/components/modules/NextPageArrow';
+import FooterClick from 'components/modules/FooterClick';
+import { SignUpMainView, InnerText, Line, ErrorText } from './SignUp.styled';
 
 export default class SignUp extends React.Component {
   state = {
@@ -97,7 +98,7 @@ export default class SignUp extends React.Component {
           ) : null}
         </SignUpMainView>
 
-        <NextPageArrow
+        <FooterClick
           onPress={() =>
             !this.state.IsError &&
             this.state.IsPasswordInput === color.oboon &&
@@ -114,6 +115,7 @@ export default class SignUp extends React.Component {
               ? color.oboon
               : 'grey'
           }
+          text="가입하기"
         />
       </SafeAreaView>
     );

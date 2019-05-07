@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
+import { AUTO_LOGIN } from 'store/action';
 import OboonZone from './OboonZone';
 import KickboardSelect from './KickboardSelect';
 
@@ -19,52 +20,53 @@ export default class PlaceModal extends React.Component {
     this.setState({ KickmodalVisible: visible });
   }
 
-  componentDidMount() {
-    console.log(this.props.Kickboard);
-  }
+  componentDidMount() {}
 
   render() {
     if (this.props.placeId !== this.props.selectedMarkerId) return null;
-    
-      return (
-        <s.ModalView>
-          <OboonZone
-            description="test"
-            visible={this.state.MapmodalVisible}
-            onPress={() => this.setState({ MapmodalVisible: false })}
-            location="용인시 하길동 125"
-          />
-          <KickboardSelect
-            description="test"
-            visible={this.state.KickmodalVisible}
-            onPress={() => this.setState({ KickmodalVisible: false })}
-          />
-          {/* 
--------modal out---- */}
-          <s.InnerView>
-            <TouchableOpacity
-              onPress={() => {
-                this.setMapModalVisible(true);
-              }}
-            >
-              <s.LocationText> 
-                {' '}
-                {this.props.description}
-                {' '}
-              </s.LocationText>
-            </TouchableOpacity>
-            <s.Line />
 
-            <TouchableOpacity
-              onPress={() => {
-                this.setKickboardModalVisible(true);
-              }}
-            >
-              <s.LocationText> Kickboard List </s.LocationText>
-            </TouchableOpacity>
-          </s.InnerView>
-        </s.ModalView>
-      );
-    
+    return (
+      <s.ModalView
+        style={{
+          shadowRadius: 3,
+          shadowColor: 'rgb(0, 0, 0.7)',
+          shadowOpacity: 0.1,
+          shadowOffset: { width: 0, height: 5 },
+        }}
+      >
+        <OboonZone
+          description="test"
+          visible={this.state.MapmodalVisible}
+          onPress={() => this.setState({ MapmodalVisible: false })}
+          location="용인시 하길동 125"
+        />
+
+        {/* 
+-------modal out---- */}
+        <s.InnerView style={{ flexDirection: 'row' }}>
+          <Image
+            source={require('assets/icons/GoogleLogo.png')}
+            style={{ width: 40, height: 40 }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              this.setMapModalVisible(true);
+            }}
+          >
+            <s.LocationText>{this.props.description}</s.LocationText>
+            <s.LocationTextDetail>{this.props.location}</s.LocationTextDetail>
+          </TouchableOpacity>
+          <s.NumberView>
+            <s.NumberText>
+              {this.props.amount}
+대
+              <Text style={{ color: 'black' }}> 이용가능</Text>
+            </s.NumberText>
+          </s.NumberView>
+
+          {/* <s.Line /> */}
+        </s.InnerView>
+      </s.ModalView>
+    );
   }
 }

@@ -144,15 +144,17 @@ export default class MapPage extends React.Component {
           </MapView>
           <PlaceModal
             description="경희대 체대"
+            location="용인시 하길동 125"
             placeId={1}
             selectedMarkerId={selectedMarkerId}
-            Kickboard={Kickboard[0]}
+            amount={3}
           />
           <PlaceModal
             description="경희대 외대"
+            location="용인시 하길동 125"
             placeId={2}
             selectedMarkerId={selectedMarkerId}
-            Kickboard={Kickboard[0]}
+            amount={2}
           />
 
           <LentModal />

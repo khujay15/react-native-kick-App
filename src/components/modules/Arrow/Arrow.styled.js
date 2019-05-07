@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const arrowShape = styled.Image`
-  width: 15;
-  height: 15;
+  width: 10;
+  height: 20;
 `;
 
 export const arrowTouch = styled.TouchableOpacity`

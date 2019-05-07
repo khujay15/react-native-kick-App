@@ -16,7 +16,7 @@ export default class LentModal extends React.Component {
           onPress={() => this.setState({ LentModalVisible: false })}
         />
         <s.LentButton onPress={() => this.setState({ LentModalVisible: true })}>
-          <Text style={{ color: 'purple', fontSize: 20 }}> 대여하기 </Text>
+          <Text style={{ color: 'white', fontSize: 20 }}> 대여하기 </Text>
         </s.LentButton>
       </>
     );
