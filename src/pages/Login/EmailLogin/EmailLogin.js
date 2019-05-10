@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import InputBox from 'components/modules/InputBox';
 import FooterClick from 'components/modules/FooterClick';
@@ -44,21 +44,20 @@ export default class EmailLogin extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
         <ThemeText>이메일로 로그인</ThemeText>
 
         <EmailMainView>
-          {this.state.IsError ? (
-            <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
-          ) : null}
-
           <InputBox
             onChangeText={this.handleEmail}
             placeholder="   이메일 주소를 입력해주세요"
             toggle={this.state.IsError}
-            autoFocus
           />
+          {this.state.IsError ? (
+            <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
+          ) : null}
+
           {/* <TextInput onChangeText={this.handleEmail} autoFocus />
           <Line borderBottomColor={this.state.IsEmailInput} /> */}
 
@@ -66,6 +65,7 @@ export default class EmailLogin extends React.Component {
             onChangeText={this.handlePassword}
             placeholder="   비밀번호를 입력해주세요"
           />
+
           {/* 
           <TextInput onChangeText={this.handlePassword} />
           <Line borderBottomColor={this.state.IsPasswordInput} /> */}
@@ -73,7 +73,7 @@ export default class EmailLogin extends React.Component {
             아이디/비밀번호 찾기
           </UnderLineText>
         </EmailMainView>
-        <UnderLineBottomText>아직 회원이 아니신가요?</UnderLineBottomText>
+
         {/* 
         <BottomText
           onPress={() => console.log('BottomText clicked')}
@@ -96,6 +96,7 @@ export default class EmailLogin extends React.Component {
               : 'grey'
           }
         /> */}
+
         <FooterClick
           onPress={() =>
             !this.state.IsError &&
@@ -113,7 +114,7 @@ export default class EmailLogin extends React.Component {
           }
           text="로그인하기"
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

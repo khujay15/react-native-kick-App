@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { height } from 'theme/size';
+import color from 'theme/color';
 
 export const EmailMainView = styled.ScrollView`
   margin-top: 50;
@@ -25,10 +26,11 @@ export const UnderLineBottomText = styled.Text`
   color: 'rgb(112, 112, 112)';
   position: absolute;
   margin-left: 24;
+  margin-bottom: 30;
   bottom: 100;
 `;
 export const ErrorText = styled.Text`
-  margin-left: auto;
-  color: red;
+  margin-right: auto;
+  color: ${color.oboon};
   font-size: 13;
 `;

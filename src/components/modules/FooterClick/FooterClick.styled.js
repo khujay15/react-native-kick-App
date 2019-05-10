@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { width } from 'theme/size';
+import { width, height } from 'theme/size';
 
 export const FooterTouch = styled.TouchableOpacity`
-  position: absolute;
   bottom: 0;
   width: ${width};
   height: 68;

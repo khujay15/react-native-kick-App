@@ -9,13 +9,13 @@ export const TutorialView = styled.SafeAreaView`
 export const TutorialImage = styled.Image`
   width: 300;
   height: 360;
-  left: 14;
+  margin-left: 20;
   position: absolute;
-  top: ${height * 0.3};
+  top: ${height * 0.2};
+  resize-mode: contain;
 `;
 
 export const ThemeText = styled.Text`
-  margin-top: 90;
   font-size: 22;
   font-weight: bold;
 `;
@@ -26,7 +26,7 @@ export const Description = styled.Text`
   margin-top: 20;
 `;
 
-export const Dotindicator = styled.TouchableOpacity`
+export const Dotindicator = styled.View`
   border-width: 1;
   border-color: rgba(0, 0, 0, 0.2);
   align-items: center;
@@ -43,10 +43,24 @@ export const DotView = styled.View`
   position: absolute;
   flex-direction: row;
   left: 30;
-  top: ${height * 0.08};
+  top: ${height * 0.05};
 `;
 
-export const TopText = styled.Text`
-  margin-right: 24;
-  margin-left: auto;
+export const TopTouch = styled.TouchableOpacity`
+  position: absolute;
+  top: ${height * 0.05};
+  margin-left: 300;
+  color: grey;
+`;
+
+export const FooterTouch = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 0;
+  width: ${width};
+  height: 68;
+  background-color: ${props => props.color};
+
+  align-items: center;
+  justify-content: center;
+  font-size: 20;
 `;

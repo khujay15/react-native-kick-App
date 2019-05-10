@@ -19,6 +19,7 @@ import MapPage from 'pages/MapPage';
 import sample from 'pages/Sample';
 import Tutorial from 'pages/Tutorial';
 import { authtest } from '/pages/Login/authtest';
+import FindPassword from 'pages/FindPassword';
 
 const WelcomeStackNavigator = createStackNavigator(
   {
@@ -51,9 +52,10 @@ const BaseRouter = createSwitchNavigator(
     map: MapDrawerNavigator,
     login: WelcomeStackNavigator,
     tutorial: Tutorial,
+    FindPassword,
   },
   {
-    initialRouteName: 'login',
+    initialRouteName: 'tutorial',
   },
 );
 

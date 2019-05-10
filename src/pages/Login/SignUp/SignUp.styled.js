@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import color from 'theme/color';
 
 export const SignUpMainView = styled.ScrollView`
   margin-top: 50;
@@ -8,7 +9,7 @@ export const SignUpMainView = styled.ScrollView`
 `;
 export const InnerText = styled.Text`
   margin-left: 24;
-  margin-bottom: 20;
+
   color: grey;
   margin-top: 20;
 `;
@@ -18,9 +19,7 @@ export const Line = styled.View`
 `;
 
 export const ErrorText = styled.Text`
-
-margin-left: auto
-color: red;
-font-size: 13;
-
+  margin-right: auto;
+  color: ${color.oboon};
+  font-size: 13;
 `;

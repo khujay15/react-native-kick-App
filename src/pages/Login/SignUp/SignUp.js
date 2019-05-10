@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, SafeAreaView } from 'react-native';
+import { KeyboardAvoidingView, View, Platform } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
@@ -52,29 +52,26 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
-        <ThemeText style={{ marginTop: 60 }}>회원가입</ThemeText>
+        <ThemeText>회원가입</ThemeText>
         <InnerText>회원가입을 위해 아래 정보를 입력해주세요</InnerText>
         <SignUpMainView>
           <InputBox
             onChangeText={this.handleName}
             placeholder="   이름을 입력해주세요"
             placeholderTextColor="rgb(106, 106, 106)"
-            autoFocus
           />
-
-          {this.state.IsError ? (
-            <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
-          ) : null}
 
           <InputBox
             onChangeText={this.handleEmail}
             placeholder="   이메일 주소를 입력해주세요"
             placeholderTextColor="rgb(106, 106, 106)"
             toggle={this.state.IsError}
-            autoFocus
           />
+          {this.state.IsError ? (
+            <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
+          ) : null}
 
           <InputBox
             onChangeText={this.handlePassword}
@@ -117,7 +114,7 @@ export default class SignUp extends React.Component {
           }
           text="가입하기"
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

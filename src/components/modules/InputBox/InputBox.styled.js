@@ -15,7 +15,8 @@ export const StyledInputBox = styled.TextInput`
   elevation: 1;
   height: 60;
   background-color: white;
-  margin-bottom: 35;
+  margin-bottom: 12;
+  margin-top: 23;
   align-items: center;
   font-size: 16;
 `;

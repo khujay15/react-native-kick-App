@@ -48,18 +48,22 @@ export class WelcomeScreen extends React.Component {
       // iosClientId:
       //   '140466692410-stfisve8l4u6oonmf1po8i9i7lcuiv0m.apps.googleusercontent.com',
       webClientId:
-        Platform.OS === 'ios'
-          ? '140466692410-stfisve8l4u6oonmf1po8i9i7lcuiv0m.apps.googleusercontent.com'
-          : '140466692410-vcl58o3q8en855so2k34mq9vav58cv4b.apps.googleusercontent.com',
+        '879857882214-ph07o8ak1f69sjfasjo11aolr1mu7m5v.apps.googleusercontent.com',
+      // Platform.OS === 'ios'
+      //   ? '879857882214-i05pa300nuq2eari5bl7b4refr5tmeao.apps.googleusercontent.com'
+      //   : '879857882214-ph07o8ak1f69sjfasjo11aolr1mu7m5v.apps.googleusercontent.com',
     });
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       const { user } = userInfo;
-      console.log(user);
+      console.log(userInfo);
 
       const { idToken } = userInfo;
-      // const accessToken = userInfo['accessToken']; 토큰을 두개 던져 줌.
+      console.log('id;');
+      console.log(idToken);
+      console.log('access;');
+      console.log(userInfo.accessToken);
 
       this.props.afterGOOGLELogin(user.name, user.email, idToken);
       if (this.state.tutorials === 'watch')
@@ -161,15 +165,18 @@ export class WelcomeScreen extends React.Component {
       platform_type: 'google',
     });
 
+    // axios
+    //   .post('https://api.oboonmobility.com/member/join', data, {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   })
+    //   .then(res => {
+    //     console.log(res.data);
+    //   });
     axios
-      .post('https://api.oboonmobility.com/member/join', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(res => {
-        console.log(res.data);
-      });
+      .get('https://api.oboonmobility.com/member/login.google')
+      .then(res => console.log(res));
   }
 
   render() {
@@ -275,7 +282,9 @@ export class WelcomeScreen extends React.Component {
           </TouchableOpacity>
 
           <BottomView>
-            <TouchableHighlight onPress={() => this._apitest()}>
+            <TouchableHighlight
+              onPress={() => this.props.navigation.navigate('FindPassword')}
+            >
               <BottomText style={{ marginLeft: 300 }}> test</BottomText>
             </TouchableHighlight>
           </BottomView>
