@@ -8,25 +8,25 @@ export default class PlaceMarker extends React.Component {
     this.props.onPress();
     console.log('clicked');
   };
+
   render() {
     return (
       <MapView.Marker
         coordinate={this.props.coordinate}
-        title={'location'}
         onPress={this.pressHandler}
       >
         <s.MarkerImage
           source={
             this.props.selectedMarkerId === this.props.number
               ? require('assets/markers/SelectedMarker.png')
-              : require('assets/markers/Marker.png')
+              : require('assets/markers/OboonMarker.png')
           }
         >
-          <s.MarkerText
-            select={this.props.selectedMarkerId === this.props.number}
-          >
-            {this.props.number}
-          </s.MarkerText>
+          <View style={{ marginBottom: 10 }}>
+            {this.props.selectedMarkerId === this.props.number && (
+              <s.MarkerText>{this.props.number}</s.MarkerText>
+            )}
+          </View>
         </s.MarkerImage>
       </MapView.Marker>
     );

@@ -1,12 +1,25 @@
 import styled from 'styled-components';
+import { width, height } from 'theme/size';
 
 export const DrawShape = styled.Image`
-  width: 80;
-  height: 80;
+  width: 70;
+  height: 70;
 `;
 
 export const DrawTouch = styled.TouchableOpacity`
   position: absolute;
-  left: 24;
-  top: 40;
+  left: ${props => (props.left ? props.left : 15)};
+  top: ${props => (props.top ? props.top : height * 0.05)};
+`;
+
+export const DrawTouchRight = styled.TouchableOpacity`
+  position: absolute;
+  right: ${props => (props.right ? props.right : 15)};
+  top: ${props => (props.top ? props.top : height * 0.05)};
+`;
+
+export const DrawTouchDown = styled.TouchableOpacity`
+  position: absolute;
+  right: ${props => (props.right ? props.right : 15)};
+  bottom: ${props => (props.bottom ? props.bottom : height * 0.05)};
 `;

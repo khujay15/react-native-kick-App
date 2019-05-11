@@ -5,19 +5,18 @@ import {
   StyleSheet,
   PermissionsAndroid,
   Platform,
-  Image,
-  View,
-  TouchableOpacity,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DrawHead from 'components/modules/DrawHead';
+import MapButton from 'components/modules/MapButton';
 import PlaceMarker from './PlaceMarker';
 import PlaceModal from './PlaceModal';
 import LentModal from './LentModal';
 
 export default class MapPage extends React.Component {
   state = {
+    MyLocation: 1,
     selectedMarkerId: 1,
     latitude: 37.78825,
     longitude: 122.4324,
@@ -100,7 +99,22 @@ export default class MapPage extends React.Component {
     }
   }
 
-  clickHandler = id => {};
+  CurrentButton = () => {
+    Geolocation.watchPosition(
+      position => {
+        console.log(position);
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      error => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+    );
+  };
 
   render() {
     const { selectedMarkerId, Kickboard } = this.state;
@@ -158,9 +172,25 @@ export default class MapPage extends React.Component {
           />
 
           <LentModal />
-        </SafeAreaView>
 
-        <DrawHead onPress={() => navigation.openDrawer()} />
+          <DrawHead onPress={() => navigation.openDrawer()} />
+          <MapButton
+            right={30}
+            top={25}
+            img={require('assets/icons/InfoButton.png')}
+          />
+          <MapButton
+            right={30}
+            bottom={90}
+            img={require('assets/icons/MyLocationButton.png')}
+            onPress={() => this.setState({ MyLocation: 1 })}
+          />
+          <MapButton
+            right={30}
+            bottom={150}
+            img={require('assets/icons/RefreshButton.png')}
+          />
+        </SafeAreaView>
       </>
     );
   }

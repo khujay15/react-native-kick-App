@@ -55,7 +55,7 @@ const BaseRouter = createSwitchNavigator(
     FindPassword,
   },
   {
-    initialRouteName: 'tutorial',
+    initialRouteName: 'map',
   },
 );
 

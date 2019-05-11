@@ -11,5 +11,5 @@ export const MarkerImage = styled.ImageBackground`
 export const MarkerText = styled.Text`
   font-size: 20;
   font-weight: bold;
-  color: ${props => (props.select ? 'white' : color.oboon)};
+  color: white;
 `;

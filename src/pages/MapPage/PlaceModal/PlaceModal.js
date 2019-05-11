@@ -45,8 +45,8 @@ export default class PlaceModal extends React.Component {
 -------modal out---- */}
         <s.InnerView style={{ flexDirection: 'row' }}>
           <Image
-            source={require('assets/icons/GoogleLogo.png')}
-            style={{ width: 40, height: 40 }}
+            source={require('assets/icons/PlaceModal.png')}
+            style={{ width: 30, height: 30, marginRight: 10 }}
           />
           <TouchableOpacity
             onPress={() => {

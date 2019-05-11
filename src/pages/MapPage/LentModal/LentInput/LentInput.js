@@ -9,18 +9,26 @@ import {
 } from 'react-native';
 import Arrow from 'components/modules/Arrow';
 import FooterClick from 'components/modules/FooterClick';
+import InputBox from 'components/modules/InputBox';
+import color from 'theme/color';
 import * as s from './LentInput.styled';
 
 export default class LentInput extends React.Component {
   state = {
-    firstCode: '',
-    secondCode: '',
-    thirdCode: '',
-    fourthCode: '',
+    Code: '',
+    BottomColor: 'grey',
   };
 
   toggleOff = () => {
     this.props.onPress();
+  };
+
+  handleCode = num => {
+    if (num.length === 4) {
+      this.setState({ Code: num, BottomColor: color.oboon });
+    } else {
+      this.setState({ BottomColor: 'grey' });
+    }
   };
 
   render() {
@@ -34,11 +42,18 @@ export default class LentInput extends React.Component {
         <Arrow onPress={this.toggleOff} />
         <View style={{ marginLeft: 30, marginRight: 30, marginTop: 100 }}>
           <Text style={{ fontSize: 24 }}>킥보드 '어디'의</Text>
-          <Text style={{ fontSize: 24 }}> 숫자 4자리를 입력해주세요</Text>
+          <Text style={{ fontSize: 24 }}>숫자 4자리를 입력해주세요</Text>
         </View>
 
         <s.LentView>
-          <s.Digit
+          <InputBox
+            keyboardType="numeric"
+            onChangeText={this.handleCode}
+            placeholder="   킥보드 번호를 입력해주세요"
+            placeholderTextColor="rgb(106, 106, 106)"
+            maxLength={4}
+          />
+          {/* <s.Digit
             keyboardType="numeric"
             maxLength={1}
             autoFocus
@@ -72,13 +87,17 @@ export default class LentInput extends React.Component {
             onChangeText={code => {
               this.setState({ fourthCode: code });
             }}
-          />
+          /> */}
         </s.LentView>
 
         <FooterClick
-          color="grey"
+          color={this.state.BottomColor}
           text="대여하기"
-          onPress={() => console.log(this.state)}
+          onPress={() =>
+            this.state.BottomColor === color.oboon
+              ? console.log('activate')
+              : null
+          }
         />
       </Modal>
     );

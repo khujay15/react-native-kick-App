@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { width, height } from '/theme/size';
 
 export const LentView = styled.View`
-  margin-left: 12;
-  flex-direction: row;
+  flex: 1;
+  margin-left: 24;
+  margin-right: 24;
 `;
 export const exit = styled.TouchableOpacity`
   width: 50;
