@@ -52,6 +52,7 @@ export default class LentInput extends React.Component {
             placeholder="   킥보드 번호를 입력해주세요"
             placeholderTextColor="rgb(106, 106, 106)"
             maxLength={4}
+            autoFocus
           />
           {/* <s.Digit
             keyboardType="numeric"

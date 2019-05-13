@@ -16,7 +16,7 @@ import Coupon from 'pages/Coupon';
 import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
 
-import sample from 'pages/Sample';
+import License from 'pages/License';
 import Tutorial from 'pages/Tutorial';
 import { authtest } from '/pages/Login/authtest';
 import FindPassword from 'pages/FindPassword';
@@ -52,10 +52,12 @@ const BaseRouter = createSwitchNavigator(
     map: MapDrawerNavigator,
     login: WelcomeStackNavigator,
     tutorial: Tutorial,
+    coupon: { screen: Coupon },
     FindPassword,
+    license: License,
   },
   {
-    initialRouteName: 'map',
+    initialRouteName: 'license',
   },
 );
 

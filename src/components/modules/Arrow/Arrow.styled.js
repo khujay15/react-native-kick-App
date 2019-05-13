@@ -10,6 +10,6 @@ export const arrowTouch = styled.TouchableOpacity`
   position: absolute;
   left: 24;
   top: ${height * 0.055};
-  width: 40;
+  width: 50;
   height: 40;
 `;

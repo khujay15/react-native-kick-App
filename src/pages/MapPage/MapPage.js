@@ -36,12 +36,10 @@ export default class MapPage extends React.Component {
         kickboardDetail: '',
       },
     ],
-    Kickboard: [
-      {
-        name: 'test',
-        uuid: 'aaaaaa-aaaaaa-aaaaaa-aaaa',
-      },
-    ],
+    hasLicense: false,
+    hasPayment: false,
+    showLicenseModal: true,
+    showPaymentModal: true,
   };
 
   componentDidMount() {
@@ -171,8 +169,8 @@ export default class MapPage extends React.Component {
             amount={2}
           />
 
-          <LentModal />
-
+          {/* <PayModal />
+          <LicenseModal /> */}
           <DrawHead onPress={() => navigation.openDrawer()} />
           <MapButton
             right={30}
@@ -190,6 +188,7 @@ export default class MapPage extends React.Component {
             bottom={150}
             img={require('assets/icons/RefreshButton.png')}
           />
+          <LentModal />
         </SafeAreaView>
       </>
     );

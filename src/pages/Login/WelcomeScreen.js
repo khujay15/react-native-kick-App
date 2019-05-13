@@ -62,15 +62,43 @@ export class WelcomeScreen extends React.Component {
       const { idToken } = userInfo;
       console.log('id;');
       console.log(idToken);
-      console.log('access;');
-      console.log(userInfo.accessToken);
+      this.setState({ token: idToken });
+
+      console.log(this.state.token);
+
+      const data = JSON.stringify({
+        idToken: this.state.token,
+      });
+      console.log(data);
+
+      axios
+        .post('https://api.oboonmobility.com/member/login.google', data, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(res => {
+          console.log(res.data);
+          const { user } = res.data;
+          if (user.kick_serial_number) {
+            // 대여중 상태;
+            console.log('brroinw');
+          }
+
+          if (user.status === 5) {
+            // 핸드폰 미인증 상태
+          }
+
+          if (this.state.tutorials === 'watch')
+            this.props.navigation.navigate('mappage');
+          else this.props.navigation.navigate('tutorial');
+        })
+        .catch(err => console.log('ERROR! : ', err));
 
       this.props.afterGOOGLELogin(user.name, user.email, idToken);
-      if (this.state.tutorials === 'watch')
-        this.props.navigation.navigate('mappage');
-      else this.props.navigation.navigate('tutorial');
     } catch (error) {
       console.log(error);
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -78,6 +106,7 @@ export class WelcomeScreen extends React.Component {
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
       } else {
+        console.log('other log occured');
         // some other error happened
       }
     }
@@ -96,7 +125,7 @@ export class WelcomeScreen extends React.Component {
   }
 
   kakaoLogin() {
-    if (this.state.autoLoginName) {
+    if (!this.state.autoLoginName) {
       this.props.navigation.navigate('mappage');
     } else {
       console.log('   kakaoLogin   ');
@@ -149,12 +178,13 @@ export class WelcomeScreen extends React.Component {
   }
 
   _apitest() {
+    console.log(this.state.token);
     const data = JSON.stringify({
       email: 'aaaaaaaaa@naver.com',
       phone_num: '01011111111',
       token: this.props.Token,
       name: '장재혁이',
-      platform_type: 'kakao',
+      platform_type: 'google',
     });
 
     const data2 = JSON.stringify({
@@ -165,18 +195,19 @@ export class WelcomeScreen extends React.Component {
       platform_type: 'google',
     });
 
-    // axios
-    //   .post('https://api.oboonmobility.com/member/join', data, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   })
-    //   .then(res => {
-    //     console.log(res.data);
-    //   });
     axios
-      .get('https://api.oboonmobility.com/member/login.google')
-      .then(res => console.log(res));
+      .post('https://api.oboonmobility.com/member/login.google', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => {
+        console.log(res.data);
+      });
+
+    // axios
+    //   .get('https://api.oboonmobility.com/member/login.google')
+    //   .then(res => console.log(res));
   }
 
   render() {
@@ -282,9 +313,7 @@ export class WelcomeScreen extends React.Component {
           </TouchableOpacity>
 
           <BottomView>
-            <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('FindPassword')}
-            >
+            <TouchableHighlight onPress={() => this._apitest()}>
               <BottomText style={{ marginLeft: 300 }}> test</BottomText>
             </TouchableHighlight>
           </BottomView>

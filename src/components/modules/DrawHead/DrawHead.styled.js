@@ -11,15 +11,3 @@ export const DrawTouch = styled.TouchableOpacity`
   left: ${props => (props.left ? props.left : 15)};
   top: ${props => (props.top ? props.top : height * 0.05)};
 `;
-
-export const DrawTouchRight = styled.TouchableOpacity`
-  position: absolute;
-  right: ${props => (props.right ? props.right : 15)};
-  top: ${props => (props.top ? props.top : height * 0.05)};
-`;
-
-export const DrawTouchDown = styled.TouchableOpacity`
-  position: absolute;
-  right: ${props => (props.right ? props.right : 15)};
-  bottom: ${props => (props.bottom ? props.bottom : height * 0.05)};
-`;

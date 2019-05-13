@@ -29,13 +29,12 @@ export const Description = styled.Text`
 export const Dotindicator = styled.View`
   border-width: 1;
   border-color: rgba(0, 0, 0, 0.2);
-  align-items: center;
-  justify-content: center;
 
   width: 10;
   height: 10;
   border-radius: 5;
   background-color: ${props => props.color};
+  margin-left: 10;
   margin-left: 10;
 `;
 

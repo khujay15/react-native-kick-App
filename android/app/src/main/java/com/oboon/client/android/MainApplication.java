@@ -3,6 +3,7 @@ package com.oboon.client.android;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.polidea.reactnativeble.BlePackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new RNCWebViewPackage(),
             new BlePackage(),
             new RNSensitiveInfoPackage(),

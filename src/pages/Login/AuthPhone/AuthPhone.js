@@ -47,6 +47,7 @@ export default class AuthPhone extends React.Component {
   state = {
     IsError: false,
     IsPhoneInput: 'grey',
+    number: '',
   };
 
   handlePhone = TypedText => {
@@ -56,7 +57,11 @@ export default class AuthPhone extends React.Component {
         IsError: false,
       });
     } else {
-      this.setState({ IsError: true, IsPhoneInput: color.oboon });
+      this.setState({
+        IsError: true,
+        IsPhoneInput: color.oboon,
+        number: TypedText,
+      });
     }
   };
 
@@ -103,7 +108,9 @@ export default class AuthPhone extends React.Component {
         <NextPageArrow
           onPress={() =>
             !this.state.IsError && this.state.IsPhoneInput == color.oboon
-              ? this.props.navigation.navigate('authphoneinput')
+              ? this.props.navigation.navigate('authphoneinput', {
+                  number: this.state.number,
+                })
               : null
           }
           color={

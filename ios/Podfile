@@ -50,6 +50,8 @@ pod 'Firebase/Core'
 pod 'react-native-ble-plx-swift', :path => '../node_modules/react-native-ble-plx'
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   # target 'OboonClientTests' do
   #   inherit! :search_paths
   #   # Pods for testing

@@ -19,6 +19,9 @@ class AuthPhoneInput extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props;
+    const number = navigation.getParam('number', 'NO-Number');
+
     return (
       <>
         <SafeAreaView style={{ flex: 1 }}>
@@ -26,7 +29,7 @@ class AuthPhoneInput extends React.Component {
           <ThemeText>전화번호 인증하기</ThemeText>
 
           <PhoneMainView>
-            <PhoneText Phone="01012345678" />
+            <PhoneText Phone={number} />
 
             <TextInput
               keyboardType="numeric"
