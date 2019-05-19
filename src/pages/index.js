@@ -15,11 +15,13 @@ import SignUp from 'pages/Login/SignUp';
 import Coupon from 'pages/Coupon';
 import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
+import Payment from 'pages/Payment';
 
 import License from 'pages/License';
 import Tutorial from 'pages/Tutorial';
 import { authtest } from '/pages/Login/authtest';
 import FindPassword from 'pages/FindPassword';
+import SmartKey from 'pages/SmartKey';
 
 const WelcomeStackNavigator = createStackNavigator(
   {
@@ -52,12 +54,13 @@ const BaseRouter = createSwitchNavigator(
     map: MapDrawerNavigator,
     login: WelcomeStackNavigator,
     tutorial: Tutorial,
-    coupon: { screen: Coupon },
+    payment: Payment,
     FindPassword,
     license: License,
+    SmartKey,
   },
   {
-    initialRouteName: 'license',
+    initialRouteName: 'map',
   },
 );
 

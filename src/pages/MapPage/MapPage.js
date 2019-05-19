@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   SafeAreaView,
   Text,
@@ -13,11 +14,13 @@ import MapButton from 'components/modules/MapButton';
 import PlaceMarker from './PlaceMarker';
 import PlaceModal from './PlaceModal';
 import LentModal from './LentModal';
+import TimerModal from './TimerModal';
+import SmartKeyModal from './SmartKeyModal';
 
 export default class MapPage extends React.Component {
   state = {
     MyLocation: 1,
-    selectedMarkerId: 1,
+    selectedMarkerId: 0,
     latitude: 37.78825,
     longitude: 122.4324,
     latitudeDelta: 0.0922,
@@ -40,6 +43,8 @@ export default class MapPage extends React.Component {
     hasPayment: false,
     showLicenseModal: true,
     showPaymentModal: true,
+
+    isLent: false,
   };
 
   componentDidMount() {
@@ -121,7 +126,11 @@ export default class MapPage extends React.Component {
     return (
       <>
         <SafeAreaView
-          style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}
+          style={{
+            flex: 1,
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
         >
           <MapView
             showsUserLocation
@@ -130,6 +139,7 @@ export default class MapPage extends React.Component {
             region={this.state}
           >
             <PlaceMarker
+              key={1}
               coordinate={{ latitude: 37.49, longitude: 127.127 }}
               number={1}
               selectedMarkerId={selectedMarkerId}
@@ -142,6 +152,7 @@ export default class MapPage extends React.Component {
               }
             />
             <PlaceMarker
+              key={2}
               coordinate={{ latitude: 37.49, longitude: 127.125 }}
               number={2}
               selectedMarkerId={selectedMarkerId}
@@ -154,6 +165,10 @@ export default class MapPage extends React.Component {
               }
             />
           </MapView>
+          {this.state.isLent && (
+            <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
+          )}
+
           <PlaceModal
             description="경희대 체대"
             location="용인시 하길동 125"
@@ -185,10 +200,11 @@ export default class MapPage extends React.Component {
           />
           <MapButton
             right={30}
-            bottom={150}
+            bottom={180}
             img={require('assets/icons/RefreshButton.png')}
+            onPress={() => this.setState({ isLent: true })}
           />
-          <LentModal />
+          {this.state.isLent ? <SmartKeyModal /> : <LentModal />}
         </SafeAreaView>
       </>
     );

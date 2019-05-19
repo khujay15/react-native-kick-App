@@ -10,6 +10,7 @@ import {
 import Arrow from 'components/modules/Arrow';
 import FooterClick from 'components/modules/FooterClick';
 import InputBox from 'components/modules/InputBox';
+import TimerModal from 'pages/MapPage/TimerModal';
 import color from 'theme/color';
 import * as s from './LentInput.styled';
 
@@ -40,6 +41,7 @@ export default class LentInput extends React.Component {
         onRequestClose={() => {}}
       >
         <Arrow onPress={this.toggleOff} />
+
         <View style={{ marginLeft: 30, marginRight: 30, marginTop: 100 }}>
           <Text style={{ fontSize: 24 }}>킥보드 '어디'의</Text>
           <Text style={{ fontSize: 24 }}>숫자 4자리를 입력해주세요</Text>

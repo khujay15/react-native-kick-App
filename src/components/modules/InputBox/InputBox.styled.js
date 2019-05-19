@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { width, height } from 'theme/size';
 
 export const arrowShape = styled.Image`
   width: 15;
@@ -15,8 +16,8 @@ export const StyledInputBox = styled.TextInput`
   elevation: 1;
   height: 60;
   background-color: white;
-  margin-bottom: 12;
-  margin-top: 23;
+  margin-bottom: ${height * 0.015};
+  margin-top: ${height * 0.03};
   align-items: center;
   font-size: 16;
 `;

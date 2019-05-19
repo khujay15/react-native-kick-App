@@ -44,7 +44,7 @@ export default class LentModal extends React.Component {
     return (
       <>
         <LentInput
-          visible={this.state.LentModalVisible && this.props.visible}
+          visible={this.state.LentModalVisible}
           onPress={() => this.setState({ LentModalVisible: false })}
         />
 

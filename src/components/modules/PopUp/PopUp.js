@@ -19,7 +19,6 @@ export default class PopUp extends React.Component {
   };
 
   render() {
-    console.log(height);
     const MarginTOP = height * 0.15 < 120 ? height * 0.15 : height * 0.3;
     return (
       <Modal
@@ -51,7 +50,8 @@ export default class PopUp extends React.Component {
             width: width * 0.85,
           }}
         >
-          <View style={{ flex: 1, marginTop: 80, marginHorizontal: 30 }}>
+          <s.ExitMark onPress={() => this.toggleOff()} />
+          <View style={{ flex: 1, marginTop: 50, marginHorizontal: 30 }}>
             <Image
               source={this.props.img}
               style={{

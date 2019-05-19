@@ -137,6 +137,29 @@ export class WelcomeScreen extends React.Component {
         console.log(result);
 
         if (result.token) {
+          const data = JSON.stringify({
+            idToken: result.token,
+          });
+
+          axios
+            .post('https://api.oboonmobility.com/member/login.kakao', data, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            .then(res => {
+              console.log(res.data);
+              const { user } = res.data;
+              if (user.kick_serial_number) {
+                // 대여중 상태;
+                console.log('brroinw');
+              }
+
+              if (user.status === 5) {
+                // 핸드폰 미인증 상태
+              }
+            });
+
           RNKakaoLogins.getProfile((err, user) => {
             if (err) {
               console.log(err.toString());
@@ -175,6 +198,7 @@ export class WelcomeScreen extends React.Component {
         ? this.setState({ tutorials: value })
         : this.props.aftertutorial();
     });
+    // this.props.updatepreSeconds({ preSecond: new Date('2019/05/19/03:30:10') });
   }
 
   _apitest() {
@@ -237,12 +261,7 @@ export class WelcomeScreen extends React.Component {
               구글 계정으로 로그인
             </InnerText>
           </TouchableOpacity>
-          {/* 
-          <GoogleLoginTouch onPress={() => this.googlesignIn()}>
-          <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
-            <InnerText>구글 계정으로 로그인</InnerText>
-          </GoogleLoginTouch> */}
-          {/* 카카오로그인 */}
+
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.kakaoLogin()}
@@ -285,12 +304,6 @@ export class WelcomeScreen extends React.Component {
             </InnerText>
           </TouchableOpacity>
 
-          {/* <LocalLoginTouch
-            onPress={() => this.props.navigation.navigate('emaillogin')}
-          >
-            <InnerText local>이메일로 로그인하기</InnerText>
-          </LocalLoginTouch> */}
-
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.props.navigation.navigate('signup')}
@@ -313,7 +326,9 @@ export class WelcomeScreen extends React.Component {
           </TouchableOpacity>
 
           <BottomView>
-            <TouchableHighlight onPress={() => this._apitest()}>
+            <TouchableHighlight
+              onPress={() => this.props.navigation.navigate('mappage')}
+            >
               <BottomText style={{ marginLeft: 300 }}> test</BottomText>
             </TouchableHighlight>
           </BottomView>
@@ -328,6 +343,8 @@ const mapStateToProps = state => ({
   Email: state.LoginReducer.Email,
   Token: state.LoginReducer.Token,
   Tutorial: state.LoginReducer.Tutorial,
+
+  preSecond: state.LentReducer.preSecond,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -342,6 +359,9 @@ const mapDispatchToProps = dispatch => ({
       Token: token,
     }),
   aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
+
+  updatepreSeconds: preSecond =>
+    dispatch({ type: 'UPDATE_PRESECOND', preSecond }),
 });
 
 const WelcomeScreenContainer = connect(
