@@ -6,6 +6,7 @@ import KickboardSelect from './KickboardSelect';
 
 import * as s from './PlaceModal.styled';
 
+
 export default class PlaceModal extends React.Component {
   state = {
     MapmodalVisible: false,

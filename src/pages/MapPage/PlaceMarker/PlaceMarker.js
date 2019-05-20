@@ -17,14 +17,14 @@ export default class PlaceMarker extends React.Component {
       >
         <s.MarkerImage
           source={
-            this.props.selectedMarkerId === this.props.number
+            this.props.selectedMarkerId === this.props.placeId
               ? require('assets/markers/SelectedMarker.png')
               : require('assets/markers/OboonMarker.png')
           }
         >
           <View style={{ marginBottom: 10 }}>
-            {this.props.selectedMarkerId === this.props.number && (
-              <s.MarkerText>{this.props.number}</s.MarkerText>
+            {this.props.selectedMarkerId === this.props.placeId && (
+              <s.MarkerText>{this.props.amount}</s.MarkerText>
             )}
           </View>
         </s.MarkerImage>

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 import {
   SafeAreaView,
   Text,
@@ -20,36 +20,48 @@ import SmartKeyModal from './SmartKeyModal';
 export default class MapPage extends React.Component {
   state = {
     MyLocation: 1,
-    selectedMarkerId: 0,
-    latitude: 37.78825,
-    longitude: 122.4324,
+    selectedMarkerId: '',
+    latitude: 37.245221,
+    longitude: 127.078393,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
 
-    parkingVisiable: false,
-    parking: [
-      {
-        description: '경희대 외대 앞 정류장',
-        amount: '4',
-        kickboardDetail: '',
-      },
-      {
-        description: '경희대 체대 ',
-        amount: '9',
-        kickboardDetail: '',
-      },
-    ],
-    hasLicense: false,
-    hasPayment: false,
-    showLicenseModal: true,
-    showPaymentModal: true,
+   
+    Station: [],
+
+  
 
     isLent: false,
   };
 
   componentDidMount() {
-    // Instead of navigator.geolocation, just use Geolocation.
     this.getLocation();
+    this.getStation();
+  }
+  
+  getStation() {
+    axios
+    .get(
+      'https://api.oboonmobility.com/search/kick_station/geonear',{
+        params: { // query string
+          lat: this.state.latitude,
+          long: this.state.longitude,
+          dist: 1
+        },
+      }
+      
+    )
+    .then(response => {
+      if(response['data']['success'])
+      {
+        this.setState({ Station: response['data']['data'] });
+        console.log(this.state.Station);
+
+      }
+    
+    });
+
+
   }
 
   getLocation() {
@@ -73,7 +85,7 @@ export default class MapPage extends React.Component {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
               });
-              console.log(this.state);
+    
             },
             error => {
               // See error code charts below.
@@ -138,10 +150,10 @@ export default class MapPage extends React.Component {
             style={StyleSheet.absoluteFillObject}
             region={this.state}
           >
-            <PlaceMarker
+            {/* <PlaceMarker
               key={1}
               coordinate={{ latitude: 37.49, longitude: 127.127 }}
-              number={1}
+              amount={1}
               selectedMarkerId={selectedMarkerId}
               onPress={() =>
                 this.setState({
@@ -154,7 +166,7 @@ export default class MapPage extends React.Component {
             <PlaceMarker
               key={2}
               coordinate={{ latitude: 37.49, longitude: 127.125 }}
-              number={2}
+              amount={2}
               selectedMarkerId={selectedMarkerId}
               onPress={() =>
                 this.setState({
@@ -163,13 +175,37 @@ export default class MapPage extends React.Component {
                   longitude: 127.125,
                 })
               }
-            />
+            /> */}
+            {
+              this.state.Station.map((data,i) => {
+              
+                const point = data['geometry'].replace(/[A-Z/(/)]/g,"").split(' ');
+             
+              return (
+                <PlaceMarker 
+                key={i}
+                placeId={i} 
+                coordinate={{latitude: Number(point[0]), longitude: Number(point[1])}}
+                 amount={ Number(data['stopped_kickboard_count'])}
+                 selectedMarkerId={selectedMarkerId}
+                 onPress={() =>{
+                 
+                  this.setState({
+                    latitude: Number(point[0]), 
+                    longitude: Number(point[1]),
+                    selectedMarkerId: i,
+                  
+                  })}
+                }
+                 />
+              )
+            })}
           </MapView>
           {this.state.isLent && (
             <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
           )}
 
-          <PlaceModal
+          {/* <PlaceModal
             description="경희대 체대"
             location="용인시 하길동 125"
             placeId={1}
@@ -182,7 +218,22 @@ export default class MapPage extends React.Component {
             placeId={2}
             selectedMarkerId={selectedMarkerId}
             amount={2}
-          />
+          /> */}
+
+            {
+              this.state.Station.map((data,i) => {
+               
+              return (
+                <PlaceModal 
+               key={i}
+                placeId={i} 
+                 amount={ Number(data['stopped_kickboard_count'])}
+                 selectedMarkerId={selectedMarkerId}
+                description={data['name']}
+                location={data['address']}
+                 />
+              )
+            })}
 
           {/* <PayModal />
           <LicenseModal /> */}
@@ -202,7 +253,10 @@ export default class MapPage extends React.Component {
             right={30}
             bottom={180}
             img={require('assets/icons/RefreshButton.png')}
-            onPress={() => this.setState({ isLent: true })}
+            onPress={() => {
+              this.getLocation();
+               this.getStation();
+              this.setState({selectedMarkerId: '-1'})}}
           />
           {this.state.isLent ? <SmartKeyModal /> : <LentModal />}
         </SafeAreaView>
