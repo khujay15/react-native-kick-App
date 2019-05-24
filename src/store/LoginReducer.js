@@ -6,6 +6,9 @@ const INITIAL_STATE = {
   Platform: 'NO-PLATFORM',
   Token: 'NO-TOKEN',
   Tutorial: 'watch',
+  License: false,
+  Phone: false,
+  Payment: true,
 };
 
 export default function LoginReducer(state = INITIAL_STATE, action) {
@@ -29,6 +32,22 @@ export default function LoginReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         Tutorial: 'NO',
+      };
+    case LoginAction.LICENSE:
+      return {
+        ...state,
+        License: true,
+      };
+    case LoginAction.PHONE:
+      return {
+        ...state,
+        Phone: true,
+      };
+
+    case LoginAction.PAYMENT:
+      return {
+        ...state,
+        Payment: true,
       };
 
     default:

@@ -20,11 +20,14 @@ import Payment from 'pages/Payment';
 import License from 'pages/License';
 import Tutorial from 'pages/Tutorial';
 import { authtest } from '/pages/Login/authtest';
+import authtestResult from 'pages/Login/authtestResult';
 import FindPassword from 'pages/FindPassword';
 import SmartKey from 'pages/SmartKey';
+import LentModal from 'pages/MapPage/LentModal';
 
 const WelcomeStackNavigator = createStackNavigator(
   {
+  
     login: WelcomeScreenContainer,
     emaillogin: EmailLogin,
     authemail: AuthEmail,
@@ -43,6 +46,8 @@ export const MapDrawerNavigator = createDrawerNavigator(
   {
     mappage: { screen: MapPage },
     coupon: { screen: Coupon },
+    
+    
   },
   {
     contentComponent: DrawerContainer,
@@ -58,9 +63,12 @@ const BaseRouter = createSwitchNavigator(
     FindPassword,
     license: License,
     SmartKey,
+    authtest,
+    authtestResult,
+
   },
   {
-    initialRouteName: 'map',
+    initialRouteName: 'login',
   },
 );
 

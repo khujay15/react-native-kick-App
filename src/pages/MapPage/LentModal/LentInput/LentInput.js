@@ -1,4 +1,7 @@
 import React from 'react';
+import { networks } from 'components/networks';
+import { connect } from 'react-redux';
+
 import {
   Text,
   View,
@@ -14,7 +17,7 @@ import TimerModal from 'pages/MapPage/TimerModal';
 import color from 'theme/color';
 import * as s from './LentInput.styled';
 
-export default class LentInput extends React.Component {
+ class LentInput extends React.Component {
   state = {
     Code: '',
     BottomColor: 'grey',
@@ -25,11 +28,29 @@ export default class LentInput extends React.Component {
   };
 
   handleCode = num => {
-    if (num.length === 4) {
+    
       this.setState({ Code: num, BottomColor: color.oboon });
-    } else {
-      this.setState({ BottomColor: 'grey' });
-    }
+    
+  };
+  LentRequest = () => {
+
+    
+    //8 9 10 11 12
+    networks
+      .put(`https://api.oboonmobility.com/kickboard/${this.state.Code}/rent`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => {
+        console.log(res);
+        const startTime= new Date(res.data.data['rent_time']);
+        if(res.data.success===true || res.data.success==='true'){
+          this.props.lentstart(startTime, this.state.Code);
+
+        }
+      })
+      .catch(err => console.log(err.response));
   };
 
   render() {
@@ -56,41 +77,7 @@ export default class LentInput extends React.Component {
             maxLength={4}
             autoFocus
           />
-          {/* <s.Digit
-            keyboardType="numeric"
-            maxLength={1}
-            autoFocus
-            onChangeText={code => {
-              this.setState({ firstCode: code });
-              this.second.focus();
-            }}
-          />
-          <s.Digit
-            keyboardType="numeric"
-            maxLength={1}
-            ref={ref => (this.second = ref)}
-            onChangeText={code => {
-              this.setState({ secondCode: code });
-              this.third.focus();
-            }}
-          />
-          <s.Digit
-            keyboardType="numeric"
-            maxLength={1}
-            ref={ref => (this.third = ref)}
-            onChangeText={code => {
-              this.setState({ thirdCode: code });
-              this.fourth.focus();
-            }}
-          />
-          <s.Digit
-            keyboardType="numeric"
-            maxLength={1}
-            ref={ref => (this.fourth = ref)}
-            onChangeText={code => {
-              this.setState({ fourthCode: code });
-            }}
-          /> */}
+         
         </s.LentView>
 
         <FooterClick
@@ -98,7 +85,7 @@ export default class LentInput extends React.Component {
           text="대여하기"
           onPress={() =>
             this.state.BottomColor === color.oboon
-              ? console.log('activate')
+              ? this.LentRequest()
               : null
           }
         />
@@ -106,3 +93,24 @@ export default class LentInput extends React.Component {
     );
   }
 }
+
+
+const mapStateToProps = state => ({
+  preSecond: state.LentReducer.preSecond,
+  
+  kickboard_serial: state.LentReducer.kickboard_serial,
+});
+
+const mapDispatchToProps = dispatch => ({
+
+  lentstart: (preSecond,kickboard_serial) => dispatch({ type: 'LENT_START', preSecond, kickboard_serial }),
+
+});
+
+const TimeLent = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LentInput);
+
+export default TimeLent;
+

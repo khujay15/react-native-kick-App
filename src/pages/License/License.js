@@ -1,28 +1,23 @@
 import React from 'react';
-import {
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Platform,
-  PermissionsAndroid,
-  View,
-  Image,
-} from 'react-native';
+import { Text, Platform, PermissionsAndroid } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import Arrow from 'components/modules/Arrow';
 import FooterClick from 'components/modules/FooterClick';
 import ThemeText from 'components/modules/ThemeText';
 import color from 'theme/color';
 import { connect } from 'react-redux';
+import { networks } from 'components/networks';
 import * as s from './License.styled';
 
-export default class License extends React.Component {
+class License extends React.Component {
   componentDidMount() {
     this.checkPermission();
   }
 
   state = {
+    hasImg: false,
     img: '',
+    type: '',
   };
 
   IsGranted = false;
@@ -67,16 +62,46 @@ export default class License extends React.Component {
       ImagePicker.showImagePicker(options, res => {
         if (res.didCancel || res.error) return;
         console.log(res);
-        this.setState({ img: res.uri });
+        this.setState({ img: res.uri, hasImg: true, type: res.type });
       });
     }
+  };
+
+  sendImage = () => {
+    const ImageForm = new FormData();
+    const imguri =
+      Platform.OS === 'android'
+        ? this.state.img
+        : this.state.img.replace('file://', '');
+    console.log(imguri);
+    ImageForm.append('license', {
+      uri: imguri,
+      name: this.props.Email,
+      type: this.state.type,
+    });
+
+    networks
+      .post('https://api.oboonmobility.com/member/license', ImageForm, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => {
+        console.log(res);
+        if(res.data.success === true || res.data.success === 'true'){
+          this.props.hasLicense();
+          this.props.navigation.navigate('mappage');
+
+        }
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     const { img } = this.state;
     return (
       <>
-        <Arrow />
+        <Arrow onPress={() => this.props.navigation.goBack()} />
         <s.SkipText onPress={() => this.props.navigation.navigate('mappage')}>
           <Text style={{ color: 'rgb(106,106,106)' }}>건너뛰기</Text>
         </s.SkipText>
@@ -110,12 +135,36 @@ export default class License extends React.Component {
             </s.DotView>
           </s.DescView>
         </s.LicenseView>
-        <FooterClick
-          text="등록하기"
-          color={color.oboon}
-          onPress={this.handleImagePicker}
-        />
+        {this.state.hasImg ? (
+          <FooterClick
+            text="확인"
+            color={color.oboon}
+            onPress={this.sendImage}
+          />
+        ) : (
+          <FooterClick
+            text="면허증 등록하기"
+            color={color.oboon}
+            onPress={this.handleImagePicker}
+          />
+        )}
       </>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  License: state.LoginReducer.License,
+  Email: state.LoginReducer.Email,
+});
+
+const mapDispatchToProps = dispatch => ({
+  hasLicense: () => dispatch({ type: 'LICENSE' }),
+});
+
+const LicensetContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(License);
+
+export default LicensetContainer;

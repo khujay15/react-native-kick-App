@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+
+import {networks} from 'components/networks';
 import {
   SafeAreaView,
   Text,
@@ -16,8 +17,10 @@ import PlaceModal from './PlaceModal';
 import LentModal from './LentModal';
 import TimerModal from './TimerModal';
 import SmartKeyModal from './SmartKeyModal';
+import ReturnModal from './ReturnModal';
+import {connect} from 'react-redux';
 
-export default class MapPage extends React.Component {
+class MapPage extends React.Component {
   state = {
     MyLocation: 1,
     selectedMarkerId: '',
@@ -31,7 +34,7 @@ export default class MapPage extends React.Component {
 
   
 
-    isLent: false,
+    isLent: true,
   };
 
   componentDidMount() {
@@ -39,8 +42,10 @@ export default class MapPage extends React.Component {
     this.getStation();
   }
   
+
+
   getStation() {
-    axios
+    networks
     .get(
       'https://api.oboonmobility.com/search/kick_station/geonear',{
         params: { // query string
@@ -52,7 +57,7 @@ export default class MapPage extends React.Component {
       
     )
     .then(response => {
-      if(response['data']['success'])
+      if(response['data']['success']=== true || response['data']['success']=== 'true')
       {
         this.setState({ Station: response['data']['data'] });
         console.log(this.state.Station);
@@ -150,32 +155,7 @@ export default class MapPage extends React.Component {
             style={StyleSheet.absoluteFillObject}
             region={this.state}
           >
-            {/* <PlaceMarker
-              key={1}
-              coordinate={{ latitude: 37.49, longitude: 127.127 }}
-              amount={1}
-              selectedMarkerId={selectedMarkerId}
-              onPress={() =>
-                this.setState({
-                  selectedMarkerId: 1,
-                  latitude: 37.49,
-                  longitude: 127.127,
-                })
-              }
-            />
-            <PlaceMarker
-              key={2}
-              coordinate={{ latitude: 37.49, longitude: 127.125 }}
-              amount={2}
-              selectedMarkerId={selectedMarkerId}
-              onPress={() =>
-                this.setState({
-                  selectedMarkerId: 2,
-                  latitude: 37.49,
-                  longitude: 127.125,
-                })
-              }
-            /> */}
+            
             {
               this.state.Station.map((data,i) => {
               
@@ -201,24 +181,9 @@ export default class MapPage extends React.Component {
               )
             })}
           </MapView>
-          {this.state.isLent && (
+          {this.props.isLent && (
             <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
           )}
-
-          {/* <PlaceModal
-            description="경희대 체대"
-            location="용인시 하길동 125"
-            placeId={1}
-            selectedMarkerId={selectedMarkerId}
-            amount={3}
-          />
-          <PlaceModal
-            description="경희대 외대"
-            location="용인시 하길동 125"
-            placeId={2}
-            selectedMarkerId={selectedMarkerId}
-            amount={2}
-          /> */}
 
             {
               this.state.Station.map((data,i) => {
@@ -235,8 +200,7 @@ export default class MapPage extends React.Component {
               )
             })}
 
-          {/* <PayModal />
-          <LicenseModal /> */}
+         
           <DrawHead onPress={() => navigation.openDrawer()} />
           <MapButton
             right={30}
@@ -251,16 +215,28 @@ export default class MapPage extends React.Component {
           />
           <MapButton
             right={30}
-            bottom={180}
+            bottom={150}
             img={require('assets/icons/RefreshButton.png')}
             onPress={() => {
               this.getLocation();
                this.getStation();
               this.setState({selectedMarkerId: '-1'})}}
           />
-          {this.state.isLent ? <SmartKeyModal /> : <LentModal />}
+          <ReturnModal />
+          {this.props.isLent ? <SmartKeyModal /> : <LentModal navigation={this.props.navigation}/>}
         </SafeAreaView>
       </>
     );
   }
 }
+
+const mapStateToProps = state => ({
+ 
+  isLent: state.LentReducer.isLent,
+});
+
+const MapPageContainer = connect(
+  mapStateToProps,
+)(MapPage);
+
+export default MapPageContainer;

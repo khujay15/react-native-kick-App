@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import color from 'theme/color';
 
 export const PhoneMainView = styled.View`
   margin-top: 50;
@@ -18,11 +19,9 @@ export const Line = styled.View`
 `;
 
 export const ErrorText = styled.Text`
-
-margin-left: auto
-color: red;
-font-size: 13;
-
+  margin-right: auto;
+  color: ${color.oboon};
+  font-size: 13;
 `;
 
 export const ServiceTerms = styled.TouchableHighlight`

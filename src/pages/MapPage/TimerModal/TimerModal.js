@@ -10,7 +10,8 @@ const timeFormat = (time: number) => `${time < 10 ? '0' : ''}${time}`;
 function convertSecToTime(time: number) {
   const minute = Math.floor(time / 60);
   const second = time % 60;
-  return `${timeFormat(minute)}:${timeFormat(second)}`;
+  // return `${timeFormat(minute)}:${timeFormat(second)}`;
+  return `${timeFormat(minute)}`;
 }
 
 class TimerModal extends React.Component {
@@ -60,8 +61,9 @@ class TimerModal extends React.Component {
   };
 
   render() {
+    if (!this.props.isLent) return null;
     return (
-      <s.UPModalView
+      <s.TimeModalView
         style={{
           shadowRadius: 3,
           shadowColor: 'rgb(0, 0, 0.7)',
@@ -69,7 +71,7 @@ class TimerModal extends React.Component {
           shadowOffset: { width: 0, height: 5 },
         }}
       >
-        <s.SInnerView>
+        <s.TimeInnerView>
           <Image
             source={require('assets/icons/PlaceModal.png')}
             style={{ width: 40, height: 40, marginRight: 10 }}
@@ -83,12 +85,13 @@ class TimerModal extends React.Component {
           <s.TimeView>
             <Text style={{ color: color.oboon }}>
               {convertSecToTime(this.state.seconds)}
+분
             </Text>
           </s.TimeView>
 
           {/* <s.Line /> */}
-        </s.SInnerView>
-      </s.UPModalView>
+        </s.TimeInnerView>
+      </s.TimeModalView>
     );
   }
 }

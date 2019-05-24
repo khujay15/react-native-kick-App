@@ -1,32 +1,30 @@
 import React from 'react';
 import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
-
+import { connect } from 'react-redux';
 import PopUp from 'components/modules/PopUp';
+import axios from 'axios';
 import * as s from './LentModal.styled';
 import LentInput from './LentInput';
 
-export default class LentModal extends React.Component {
+class LentModal extends React.Component {
   state = {
     LentModalVisible: false,
-
-    hasPayment: false, // this two gonna get from reducer
-    hasLicense: true,
 
     showPayPopup: false,
     showLicensePopup: false,
   };
 
   handleClick = () => {
-    if (!this.state.hasPayment) {
+    if (!this.props.Payment) {
       this.setState({ showPayPopup: true });
       return;
     }
-    if (!this.state.hasLicense) {
+    if (!this.props.License) {
       this.setState({ showLicensePopup: true });
       return;
     }
 
-    if (this.state.hasLicense && this.state.hasLicense)
+    if (this.props.Payment && this.props.License)
       this.setState({ LentModalVisible: true });
 
     // onPress={() => this.setState({ LentModalVisible: true })}
@@ -51,7 +49,7 @@ export default class LentModal extends React.Component {
         <PopUp
           visible={this.state.showPayPopup}
           onExit={this.closePayPopup}
-          FooterOnPress={this.closePayPopup}
+          FooterOnPress={() => this.props.navigation.navigate('payment')}
           FooterText="등록하기"
           img={require('assets/popup/PayPopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
@@ -61,7 +59,7 @@ export default class LentModal extends React.Component {
         <PopUp
           visible={this.state.showLicensePopup}
           onExit={this.closeLicensePopup}
-          FooterOnPress={this.closeLicensePopup}
+          FooterOnPress={() => this.props.navigation.navigate('license')}
           FooterText="등록하기"
           img={require('assets/popup/LicensePopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
@@ -75,3 +73,11 @@ export default class LentModal extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  License: state.LoginReducer.License,
+  Payment: state.LoginReducer.Payment,
+});
+
+const LentModalContainer = connect(mapStateToProps)(LentModal);
+
+export default LentModalContainer;

@@ -3,6 +3,7 @@ import { Text, View, Platform } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
+import { connect } from 'react-redux';
 import InputBox from 'components/modules/InputBox';
 import FooterClick from 'components/modules/FooterClick';
 import {
@@ -12,7 +13,7 @@ import {
   BottomText,
 } from './Payment.styled';
 
-export default class Payment extends React.Component {
+class Payment extends React.Component {
   state = {
     CardNumber: '',
     CardDate: '',
@@ -34,6 +35,11 @@ export default class Payment extends React.Component {
 
   handlePasswordTwo = num => {
     this.setState({ PasswordTwo: num });
+  };
+
+  handleTouch = () => {
+    this.props.hasPayment();
+    this.props.navigation.navigate('mappage');
   };
 
   render() {
@@ -84,7 +90,6 @@ export default class Payment extends React.Component {
         </SignUpMainView>
 
         <FooterClick
-          onPress={() => console.log('axios come on')}
           color={
             this.state.CardNumber &&
             this.state.CardDate &&
@@ -93,9 +98,32 @@ export default class Payment extends React.Component {
               ? color.oboon
               : 'grey'
           }
+          onPress={() =>
+            this.state.CardNumber &&
+            this.state.CardDate &&
+            this.state.Birth &&
+            this.state.PasswordTwo
+              ? this.handleTouch()
+              : null
+          }
           text="등록하기"
         />
       </View>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  Payment: state.LoginReducer.Payment,
+});
+
+const mapDispatchToProps = dispatch => ({
+  hasPayment: () => dispatch({ type: 'PAYMENT' }),
+});
+
+const PaymentContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Payment);
+
+export default PaymentContainer;

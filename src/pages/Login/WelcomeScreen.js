@@ -7,12 +7,13 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import axios from 'axios';
+import { networks,setHeader } from 'components/networks';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import SInfo from 'react-native-sensitive-info';
 import TalkCloud from 'components/modules/TalkCloud';
+
 // need min 9.1 ios vesion
 
 import {
@@ -26,21 +27,90 @@ import {
   BottomText,
 } from './WelcomScreen.styled';
 
+
 export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isKakaoLogging: false,
-      token: 'token has not fetched',
-      id: '',
-      autoLoginName: '',
-      autoLoginEmail: '',
-      googleUser: 'default',
+      AutoToken: '',
       tutorials: false,
+      cookie: '',
     };
   }
+  componentDidMount() {
+   
+    SInfo.getItem('tutorials', {}).then(value => {
+      console.log(value);
 
-  // Somewhere in your code
+      value === 'watch'
+        ? this.setState({ tutorials: value })
+        : this.props.aftertutorial();
+    });
+
+
+    SInfo.getItem('AutoToken', {}).then(value => {
+      console.log(value);
+      this.setState({AutoToken: value});
+    });
+    
+  }
+  AutoLogin = (platform) => {
+
+    let data;
+    if(platform === 'google') {
+      data = JSON.stringify({
+        idToken: this.state.token,
+      }); 
+    }
+    else if(platform === 'kakao') {
+      data = JSON.stringify({
+        accessToken: this.state.token,
+      });
+    }
+    networks
+      .post(`https://api.oboonmobility.com/member/login.${platform}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => {
+        console.log(res);
+        if (res.data.success === true || res.data.success === 'true') {
+          
+          setHeader(`oboon_session=${res.data.oboon_session}`);
+          this.setReducer(res);
+          SInfo.setItem('platform', platform, {});
+          SInfo.setItem('AutoToken',`oboon_session=${res.data.oboon_session}`, {});
+        }
+      })
+}
+
+
+  setReducer = res => {
+    console.log(res);
+    const { status } = res.data.memberInfo;
+    const {kickboard} = res.data.memberInfo;
+
+    if(kickboard) {
+      const LentTime = new Date(kickboard["rent_date"]);
+      this.props.hasLicense();
+      this.props.hasPhone();
+      this.props.aleadyLent(LentTime,kickboard["kick_serial_number"]);
+      this.props.navigation.navigate('mappage');
+    }
+    else{
+      if (status === 0 || status === '0' || status === 4 || status === '4') {
+        this.props.hasLicense();
+        this.props.hasPhone();
+      } else if (status === 3 || status === '3') {
+        this.props.hasPhone();
+      }
+      else if( status === 1 || status ==='1') {
+      ///탈퇴
+    }
+  }
+  };
+
   googlesignIn = async () => {
     GoogleSignin.configure({
       scopes: ['email', 'profile'],
@@ -60,40 +130,34 @@ export class WelcomeScreen extends React.Component {
       console.log(userInfo);
 
       const { idToken } = userInfo;
-      console.log('id;');
-      console.log(idToken);
-      this.setState({ token: idToken });
 
-      console.log(this.state.token);
+      this.setState({ token: idToken });
 
       const data = JSON.stringify({
         idToken: this.state.token,
       });
-      console.log(data);
 
-      axios
+      networks
         .post('https://api.oboonmobility.com/member/login.google', data, {
           headers: {
             'Content-Type': 'application/json',
           },
         })
         .then(res => {
-          console.log(res.data);
-          const { user } = res.data;
-          if (user.kick_serial_number) {
-            // 대여중 상태;
-            console.log('brroinw');
-          }
-
-          if (user.status === 5) {
-            // 핸드폰 미인증 상태
+          console.log(res);
+          if (res.data.oboon_session) {
+            
+            setHeader(`oboon_session=${res.data.oboon_session}`);
+            this.setReducer(res);
+            SInfo.setItem('platform', 'google', {});
+            SInfo.setItem('AutoToken',`oboon_session=${res.data.oboon_session}`, {});
           }
 
           if (this.state.tutorials === 'watch')
             this.props.navigation.navigate('mappage');
           else this.props.navigation.navigate('tutorial');
         })
-        .catch(err => console.log('ERROR! : ', err));
+        .catch(err => console.log(err.response));
 
       this.props.afterGOOGLELogin(user.name, user.email, idToken);
     } catch (error) {
@@ -125,7 +189,7 @@ export class WelcomeScreen extends React.Component {
   }
 
   kakaoLogin() {
-    if (!this.state.autoLoginName) {
+    if (this.state.autoLoginName) {
       this.props.navigation.navigate('mappage');
     } else {
       console.log('   kakaoLogin   ');
@@ -137,39 +201,40 @@ export class WelcomeScreen extends React.Component {
         console.log(result);
 
         if (result.token) {
-          const data = JSON.stringify({
-            idToken: result.token,
+            const data = JSON.stringify({
+            accessToken: result.token,
           });
-
-          axios
-            .post('https://api.oboonmobility.com/member/login.kakao', data, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            })
-            .then(res => {
-              console.log(res.data);
-              const { user } = res.data;
-              if (user.kick_serial_number) {
-                // 대여중 상태;
-                console.log('brroinw');
-              }
-
-              if (user.status === 5) {
-                // 핸드폰 미인증 상태
-              }
-            });
-
-          RNKakaoLogins.getProfile((err, user) => {
-            if (err) {
-              console.log(err.toString());
-              return;
+        
+    
+          networks
+          .post('https://api.oboonmobility.com/member/login.kakao', data, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          .then(res => {
+            console.log(res);
+            if (res.data.oboon_session) {
+              console.log(res.data.oboon_session);
+              setHeader(`oboon_session=${res.data.oboon_session}`);
+              this.setReducer(res);
+              this.props.navigation.navigate('mappage');
             }
-            console.log(user);
-
-            this.props.afterKAKAOLogin(user.nickname, result.token);
-            this.props.navigation.navigate('authemail');
-          });
+            else {
+              RNKakaoLogins.getProfile((err, user) => {
+                if (err) {
+                  console.log(err.toString());
+                  return;
+                }
+                console.log(user);
+    
+                this.props.afterKAKAOLogin(user.nickname, result.token);
+                this.props.navigation.navigate('authemail');
+              });
+            }
+          })
+          .catch(err => console.log(err));
+         
         }
       });
     }
@@ -186,53 +251,9 @@ export class WelcomeScreen extends React.Component {
     });
   }
 
-  componentDidMount() {
-    SInfo.getItem('Name', {}).then(value => {
-      console.log(value); // value2
-      this.setState({ autoLoginName: value });
-    });
-    SInfo.getItem('tutorials', {}).then(value => {
-      console.log(value);
+  
 
-      value === 'watch'
-        ? this.setState({ tutorials: value })
-        : this.props.aftertutorial();
-    });
-    // this.props.updatepreSeconds({ preSecond: new Date('2019/05/19/03:30:10') });
-  }
-
-  _apitest() {
-    console.log(this.state.token);
-    const data = JSON.stringify({
-      email: 'aaaaaaaaa@naver.com',
-      phone_num: '01011111111',
-      token: this.props.Token,
-      name: '장재혁이',
-      platform_type: 'google',
-    });
-
-    const data2 = JSON.stringify({
-      email: 'snssnsnsns@naver.com',
-      phone_num: '01077777777',
-      token: 'snsnsnsnsnsnsnsnsn',
-      name: '장재혁',
-      platform_type: 'google',
-    });
-
-    axios
-      .post('https://api.oboonmobility.com/member/login.google', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(res => {
-        console.log(res.data);
-      });
-
-    // axios
-    //   .get('https://api.oboonmobility.com/member/login.google')
-    //   .then(res => console.log(res));
-  }
+  
 
   render() {
     return (
@@ -343,7 +364,9 @@ const mapStateToProps = state => ({
   Email: state.LoginReducer.Email,
   Token: state.LoginReducer.Token,
   Tutorial: state.LoginReducer.Tutorial,
-
+  License: state.LoginReducer.License,
+  Phone: state.LoginReducer.Phone,
+  kickboard_serial : state.LentReducer.kickboard_serial,
   preSecond: state.LentReducer.preSecond,
 });
 
@@ -360,8 +383,11 @@ const mapDispatchToProps = dispatch => ({
     }),
   aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
 
-  updatepreSeconds: preSecond =>
-    dispatch({ type: 'UPDATE_PRESECOND', preSecond }),
+  aleadyLent: (preSecond,kickboard_serial ) =>
+    dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),
+
+  hasLicense: () => dispatch({ type: 'LICENSE' }),
+  hasPhone: () => dispatch({ type: 'PHONE' }),
 });
 
 const WelcomeScreenContainer = connect(

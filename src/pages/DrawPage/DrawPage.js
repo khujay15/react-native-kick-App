@@ -74,7 +74,7 @@ export class DrawPage extends React.Component {
                   onPress={() => this.props.navigation.navigate('coupon')}
                 >
                   <InnerCirCle>
-                    <Image source={require('/assets/icons/GoogleLogo.png')} />
+                    <Image source={require('/assets/icons/Coupon.png')} />
                   </InnerCirCle>
                 </Circle>
                 <Text style={{ marginTop: 10, fontWeight: '200' }}>내쿠폰</Text>
@@ -90,7 +90,7 @@ export class DrawPage extends React.Component {
                   }}
                 >
                   <InnerCirCle>
-                    <Image source={require('/assets/icons/GoogleLogo.png')} />
+                    <Image source={require('/assets/icons/Card.png')} />
                   </InnerCirCle>
                 </Circle>
                 <Text style={{ marginTop: 10, fontWeight: '200' }}>
@@ -107,7 +107,7 @@ export class DrawPage extends React.Component {
                   }}
                 >
                   <InnerCirCle>
-                    <Image source={require('/assets/icons/GoogleLogo.png')} />
+                    <Image source={require('/assets/icons/History.png')} />
                   </InnerCirCle>
                 </Circle>
                 <Text style={{ marginTop: 10, fontWeight: '200' }}>

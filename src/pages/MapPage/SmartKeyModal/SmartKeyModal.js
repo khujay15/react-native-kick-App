@@ -9,7 +9,6 @@ import * as s from './SmartKeyModal.styeld';
 export default class SmartKeyModal extends React.Component {
   state = {
     keyModalVisible: false,
-    returnModalVisible: false,
   };
 
   render() {
@@ -22,10 +21,9 @@ export default class SmartKeyModal extends React.Component {
         <SmartKey
           visible={this.state.keyModalVisible}
           onPress={() => this.setState({ keyModalVisible: false })}
-          onKickboardReturn={() => this.setState({ returnModalVisible: true })}
         />
 
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent
           visible={this.state.returnModalVisible}
@@ -126,7 +124,7 @@ export default class SmartKeyModal extends React.Component {
             </s.FooterTouch>
           </View>
           </s.DummyView>
-        </Modal>
+        </Modal> */}
 
         <s.BotButton onPress={() => this.setState({ keyModalVisible: true })}>
           <Text style={{ color: 'white', fontSize: 20 }}> 스마트키 </Text>

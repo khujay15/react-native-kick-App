@@ -10,25 +10,39 @@ import {
 } from 'react-native';
 import Arrow from 'components/modules/Arrow';
 import FooterClick from 'components/modules/FooterClick';
-import TimerModal from 'pages/MapPage/TimerModal';
+import { networks } from 'components/networks';
+import { connect } from 'react-redux';
 
 import color from 'theme/color';
 import * as s from './SmartKey.styled';
 
-export default class SmartKey extends React.Component {
+class SmartKey extends React.Component {
   toggleOff = () => {
     this.props.onPress();
   };
 
   returnKickboard = () => {
-
-    //서버 통신 //
-
-
-     this.props.onKickboardReturn();
-     this.props.onPress();
-
-  }
+    networks
+      .put(
+        `https://api.oboonmobility.com/kickboard/${
+          this.props.kickboard_serial
+        }/return`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      .then(res => {
+        if (res.data.success === true || res.data.success === 'true') {
+          this.props.onPress();
+          this.props.endLent(res.data.data.pointBalance);
+          
+          
+        }
+      })
+      .catch(err => console.log(err.response));
+  };
 
   render() {
     return (
@@ -126,3 +140,19 @@ export default class SmartKey extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  kickboard_serial: state.LentReducer.kickboard_serial,
+  point: state.LentReducer.point,
+});
+
+const mapDispatchToProps = dispatch => ({
+  endLent: Leftpoint => dispatch({ type: 'LENT_END', point: Leftpoint }),
+});
+
+const SmartKeyContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SmartKey);
+
+export default SmartKeyContainer;

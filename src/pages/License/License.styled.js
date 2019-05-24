@@ -15,14 +15,18 @@ export const InnerText = styled.Text`
 
 export const ImageView = styled.View`
   align-items: center;
+  justify-content: center;
+
   margin-left: 24;
+  margin-right: 24;
 
   margin-top: ${height * 0.08};
 `;
 
 export const License = styled.Image`
-  width: ${width};
+  width: ${width - 48};
   height: ${height * 0.35};
+  align-self: center;
 
   resize-mode: contain;
 `;
