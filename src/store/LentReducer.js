@@ -48,6 +48,11 @@ export default function LentReducer(state = INITIAL_STATE, action) {
         ...state,
         returnmodal: false,
       };
+    case 'UPDATE_POINT':
+      return {
+        ...state,
+        point: action.poing,
+      };
 
     default:
       return state;

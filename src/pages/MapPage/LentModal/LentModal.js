@@ -25,7 +25,7 @@ class LentModal extends React.Component {
     }
 
     if (this.props.Payment && this.props.License)
-      this.setState({ LentModalVisible: true });
+      this.props.navigation.navigate('lentinput');
 
     // onPress={() => this.setState({ LentModalVisible: true })}
   };
@@ -41,10 +41,10 @@ class LentModal extends React.Component {
   render() {
     return (
       <>
-        <LentInput
+        {/* <LentInput
           visible={this.state.LentModalVisible}
           onPress={() => this.setState({ LentModalVisible: false })}
-        />
+        /> */}
 
         <PopUp
           visible={this.state.showPayPopup}

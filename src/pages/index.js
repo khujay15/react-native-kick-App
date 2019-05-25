@@ -23,11 +23,12 @@ import { authtest } from '/pages/Login/authtest';
 import authtestResult from 'pages/Login/authtestResult';
 import FindPassword from 'pages/FindPassword';
 import SmartKey from 'pages/SmartKey';
-import LentModal from 'pages/MapPage/LentModal';
+import MyCard from 'pages/MyCard';
+import LentInput from 'pages/MapPage/LentModal/LentInput';
 
 const WelcomeStackNavigator = createStackNavigator(
   {
-  
+    
     login: WelcomeScreenContainer,
     emaillogin: EmailLogin,
     authemail: AuthEmail,
@@ -46,7 +47,9 @@ export const MapDrawerNavigator = createDrawerNavigator(
   {
     mappage: { screen: MapPage },
     coupon: { screen: Coupon },
-    
+    pay: { screen: Payment },
+    lentinput : {screen : LentInput},
+    mycard : { screen: MyCard},
     
   },
   {

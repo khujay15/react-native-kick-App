@@ -32,9 +32,11 @@ export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      AutoToken: '',
+      token: '',
+      AutoToken: false,
       tutorials: false,
-      cookie: '',
+      firstLogin: false,
+      
     };
   }
   componentDidMount() {
@@ -50,60 +52,88 @@ export class WelcomeScreen extends React.Component {
 
     SInfo.getItem('AutoToken', {}).then(value => {
       console.log(value);
-      this.setState({AutoToken: value});
-    });
-    
-  }
-  AutoLogin = (platform) => {
-
-    let data;
-    if(platform === 'google') {
-      data = JSON.stringify({
-        idToken: this.state.token,
-      }); 
-    }
-    else if(platform === 'kakao') {
-      data = JSON.stringify({
-        accessToken: this.state.token,
+      const data = JSON.stringify({
+        accesstoken: value,
       });
-    }
-    networks
-      .post(`https://api.oboonmobility.com/member/login.${platform}`, data, {
+      networks
+      .get(`https://api.oboonmobility.com/auth/tokeninfo`,{
         headers: {
           'Content-Type': 'application/json',
+          'Authorization' : value,
         },
       })
       .then(res => {
         console.log(res);
         if (res.data.success === true || res.data.success === 'true') {
-          
-          setHeader(`oboon_session=${res.data.oboon_session}`);
-          this.setReducer(res);
-          SInfo.setItem('platform', platform, {});
-          SInfo.setItem('AutoToken',`oboon_session=${res.data.oboon_session}`, {});
+          setHeader(`oboon_session=${value}`);
+          this.AUTOLOGIN_WITHOUTLOADING();
         }
       })
+      .catch(err => console.log(err.response));
+    });
+    
+  }
+
+  AUTOLOGIN_WITHOUTLOADING = () => {
+    networks
+      .get(`https://api.oboonmobility.com/member`)
+      .then(res => {
+        if (res.data.success === true || res.data.success === 'true') {
+          this.setReducer(res);
+          this.props.navigation.navigate('mappage');
+        }
+      })
+  }
+
+
+  AutoLogin = (platform) => {
+    if(this.state.AutoToken) {
+      console.log('AUTO_LOGIN');
+    networks
+      .get(`https://api.oboonmobility.com/member`)
+      .then(res => {
+        if (res.data.success === true || res.data.success === 'true') {
+          this.setReducer(res);
+          this.props.navigation.navigate('mappage');
+        }
+      })
+    }
+    else{
+      if(platform ==='google') this.googlesignIn();
+      else if(platform==='kakao') this.kakaoLogin();
+      else if(platform ==='local') this.props.navigation.navigate('emaillogin');
+    }
 }
 
 
   setReducer = res => {
     console.log(res);
-    const { status } = res.data.memberInfo;
-    const {kickboard} = res.data.memberInfo;
+    const { status } = res.data.member;
+    
+    const {kickboard} = res.data.member;
+    const {name} = res.data.member;
+    const {email} = res.data.member;
+    const {point} = res.data.member;
 
     if(kickboard) {
       const LentTime = new Date(kickboard["rent_date"]);
-      this.props.hasLicense();
-      this.props.hasPhone();
+      this.props.member(name,email,status);
+      this.props.updatePoint(point);
       this.props.aleadyLent(LentTime,kickboard["kick_serial_number"]);
       this.props.navigation.navigate('mappage');
     }
     else{
-      if (status === 0 || status === '0' || status === 4 || status === '4') {
-        this.props.hasLicense();
+      if (status === 0 || status === '0' || status === 4 || status === '4' || status === 6|| status ==='6') {
+       
+        this.props.member(name,email,status);
+        this.props.updatePoint(point);
+      } 
+      else if (status === 3 || status === '3') {
+        this.props.afterGOOGLELogin(name, email, this.state.token);
         this.props.hasPhone();
-      } else if (status === 3 || status === '3') {
-        this.props.hasPhone();
+      }
+      else if (status === 5 || status === '5') {
+        this.props.afterGOOGLELogin(name, email, this.state.token);
       }
       else if( status === 1 || status ==='1') {
       ///탈퇴
@@ -149,17 +179,16 @@ export class WelcomeScreen extends React.Component {
             
             setHeader(`oboon_session=${res.data.oboon_session}`);
             this.setReducer(res);
-            SInfo.setItem('platform', 'google', {});
-            SInfo.setItem('AutoToken',`oboon_session=${res.data.oboon_session}`, {});
+            SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
           }
 
-          if (this.state.tutorials === 'watch')
-            this.props.navigation.navigate('mappage');
-          else this.props.navigation.navigate('tutorial');
+          if (this.state.firstLogin)
+            this.props.navigation.navigate('authphone');
+          else this.props.navigation.navigate('mappage');
         })
-        .catch(err => console.log(err.response));
+        .catch(err => console.log(err));
 
-      this.props.afterGOOGLELogin(user.name, user.email, idToken);
+      
     } catch (error) {
       console.log(error);
 
@@ -264,7 +293,7 @@ export class WelcomeScreen extends React.Component {
 
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
-            onPress={() => this.googlesignIn()}
+            onPress={() => this.AutoLogin('google')}
           >
             <LoginTouch
               style={{
@@ -285,7 +314,7 @@ export class WelcomeScreen extends React.Component {
 
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
-            onPress={() => this.kakaoLogin()}
+            onPress={() => this.AutoLogin('kakao')}
           >
             <LoginTouch
               style={{
@@ -306,7 +335,7 @@ export class WelcomeScreen extends React.Component {
           {/* 이메일로그인 */}
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
-            onPress={() => this.props.navigation.navigate('emaillogin')}
+            onPress={() => this.AutoLogin('local')}
           >
             <LoginTouch
               style={{
@@ -366,6 +395,9 @@ const mapStateToProps = state => ({
   Tutorial: state.LoginReducer.Tutorial,
   License: state.LoginReducer.License,
   Phone: state.LoginReducer.Phone,
+  Status: state.LoginReducer.Status,
+
+  point: state.LentReducer.point,
   kickboard_serial : state.LentReducer.kickboard_serial,
   preSecond: state.LentReducer.preSecond,
 });
@@ -379,14 +411,21 @@ const mapDispatchToProps = dispatch => ({
       type: 'GOOGLE_LOGIN',
       Name: nickname,
       Email: email,
-      Token: token,
+      Token: token,  
     }),
   aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
 
   aleadyLent: (preSecond,kickboard_serial ) =>
     dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),
 
-  hasLicense: () => dispatch({ type: 'LICENSE' }),
+  member: (name, email, status) => 
+  dispatch({ type: 'MEMBERINFO',
+  Name: name,
+  Email: email, 
+  Status: status,
+  }),
+  updatePoint: (LeftPoint) => dispatch({type: 'UPDATE_POINT', point: LeftPoint}),
+
   hasPhone: () => dispatch({ type: 'PHONE' }),
 });
 

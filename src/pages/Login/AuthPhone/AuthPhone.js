@@ -77,12 +77,6 @@ export default class AuthPhone extends React.Component {
               {' '}
               본인인증을 위해 본인의 핸드폰 번호를 입력해주세요
             </SubText>
-            {this.state.IsError ? (
-              <ErrorText>
-                {' '}
-                잘못된 번호 형식입니다.('-'은 제외해주세요)
-              </ErrorText>
-            ) : null}
 
             <InputBox
               keyboardType="numeric"
@@ -91,6 +85,12 @@ export default class AuthPhone extends React.Component {
               toggle={this.state.IsError}
               autoFocus
             />
+            {this.state.IsError ? (
+              <ErrorText>
+                {' '}
+                잘못된 번호 형식입니다.('-'은 제외해주세요)
+              </ErrorText>
+            ) : null}
           </PhoneMainView>
 
           <UnderView>
@@ -108,7 +108,7 @@ export default class AuthPhone extends React.Component {
         <NextPageArrow
           onPress={() =>
             !this.state.IsError && this.state.IsPhoneInput == color.oboon
-              ? this.props.navigation.navigate('authphoneinput', {
+              ? this.props.navigation.navigate('tutorial', {
                   number: this.state.number,
                 })
               : null

@@ -37,8 +37,7 @@ class SmartKey extends React.Component {
         if (res.data.success === true || res.data.success === 'true') {
           this.props.onPress();
           this.props.endLent(res.data.data.pointBalance);
-          
-          
+
         }
       })
       .catch(err => console.log(err.response));
@@ -148,6 +147,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   endLent: Leftpoint => dispatch({ type: 'LENT_END', point: Leftpoint }),
+ 
 });
 
 const SmartKeyContainer = connect(

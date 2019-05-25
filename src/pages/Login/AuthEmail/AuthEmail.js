@@ -63,6 +63,7 @@ class AuthEmail extends React.Component {
         },
       })
       .then(res => {
+        console.log(res);
         if (res.data.oboon_session) {
           console.log(res.data.oboon_session);
           setHeader(`oboon_session=${res.data.oboon_session}`);
@@ -70,11 +71,7 @@ class AuthEmail extends React.Component {
         }
       })
       .catch(err => console.log(err));
-    
-    
     }
-
-   
   };
 
   render() {

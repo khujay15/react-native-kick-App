@@ -55,10 +55,7 @@ export class DrawPage extends React.Component {
               <DrawArrowShape source={require('/assets/icons/Arrow.png')} />
             </DrawArrowTouch>
             <NameView>
-              <NameText> 
-                {' '}
-                {this.props.Name}
-              </NameText>
+              <NameText>{this.props.Name}</NameText>
               <Nim> 님</Nim>
             </NameView>
 
@@ -88,6 +85,7 @@ export class DrawPage extends React.Component {
                     shadowOpacity: 0.1,
                     shadowOffset: { width: 0, height: 5 },
                   }}
+                  onPress={() => this.props.navigation.navigate('mycard')}
                 >
                   <InnerCirCle>
                     <Image source={require('/assets/icons/Card.png')} />
@@ -124,7 +122,7 @@ export class DrawPage extends React.Component {
               </NavItemView>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this._apitest()}>
+            <TouchableOpacity>
               <NavItemView>
                 <NavItemText>이벤트</NavItemText>
 
@@ -132,7 +130,7 @@ export class DrawPage extends React.Component {
               </NavItemView>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this._apitest()}>
+            <TouchableOpacity>
               <NavItemView>
                 <NavItemText>고객지원</NavItemText>
 
@@ -140,7 +138,7 @@ export class DrawPage extends React.Component {
               </NavItemView>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this._apitest()}>
+            <TouchableOpacity>
               <NavItemView>
                 <NavItemText>설정</NavItemText>
 
