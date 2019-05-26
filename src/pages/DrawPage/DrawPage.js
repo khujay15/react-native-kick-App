@@ -74,7 +74,9 @@ export class DrawPage extends React.Component {
                     <Image source={require('/assets/icons/Coupon.png')} />
                   </InnerCirCle>
                 </Circle>
-                <Text style={{ marginTop: 10, fontWeight: '200' }}>내쿠폰</Text>
+                <Text style={{ marginTop: 10, fontWeight: '200' }}>
+                  내 포인트
+                </Text>
               </View>
 
               <View style={{ alignItems: 'center', marginRight: 20 }}>
@@ -138,9 +140,11 @@ export class DrawPage extends React.Component {
               </NavItemView>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('setting')}
+            >
               <NavItemView>
-                <NavItemText>설정</NavItemText>
+                <NavItemText>설정*</NavItemText>
 
                 <NavImage source={require('/assets/icons/NavImage.png')} />
               </NavItemView>

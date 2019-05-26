@@ -5,8 +5,8 @@ const INITIAL_STATE = {
   Email: 'NO-EMAIL',
   Platform: 'NO-PLATFORM',
   Token: 'NO-TOKEN',
-  Tutorial: 'watch',
-  License: true,
+  Tutorial: 'NO-WATCH',
+  License: false,
   Phone: false,
   Payment: true,
   Status: -1,
@@ -32,7 +32,7 @@ export default function LoginReducer(state = INITIAL_STATE, action) {
     case LoginAction.TUTORIALS:
       return {
         ...state,
-        Tutorial: 'NO',
+        Tutorial: 'watch',
       };
     case LoginAction.MEMBERINFO:
       return {

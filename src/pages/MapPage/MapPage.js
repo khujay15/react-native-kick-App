@@ -21,19 +21,15 @@ import ReturnModal from './ReturnModal';
 import {connect} from 'react-redux';
 
 class MapPage extends React.Component {
+  FirstPosition =[];
   state = {
-    MyLocation: 1,
+    MyLocation: 0,
     selectedMarkerId: '',
     latitude: 37.245221,
     longitude: 127.078393,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
-
-   
     Station: [],
-
-  
-
     isLent: true,
   };
 
@@ -83,40 +79,33 @@ class MapPage extends React.Component {
             PermissionsAndroid.RESULTS.GRANTED
         ) {
           console.log('permission granted');
-          Geolocation.watchPosition(
-            position => {
-              console.log(position);
-              this.setState({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              });
-    
-            },
-            error => {
-              // See error code charts below.
-              console.log(error.code, error.message);
-            },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-          );
+          this.GeoAPI();
         }
       });
     } else {
       console.log('permission granted');
-      Geolocation.watchPosition(
-        position => {
-          console.log(position);
-          this.setState({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        error => {
-          // See error code charts below.
-          console.log(error.code, error.message);
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-      );
+      this.GeoAPI();
     }
+  }
+
+  GeoAPI = () => {
+    Geolocation.watchPosition(
+      position => {
+        console.log(position);
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+        this.FirstPosition['latitude']=position.coords.latitude;
+        this.FirstPosition['longitude']=position.coords.longitude;
+      },
+      error => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+    )
+
   }
 
   CurrentButton = () => {
@@ -211,7 +200,8 @@ class MapPage extends React.Component {
             right={30}
             bottom={90}
             img={require('assets/icons/MyLocationButton.png')}
-            onPress={() => this.setState({ MyLocation: 1 })}
+            onPress={() => this.setState({ latitude: this.FirstPosition['latitude'], 
+              longitude: this.FirstPosition['longitude'] })}
           />
           <MapButton
             right={30}

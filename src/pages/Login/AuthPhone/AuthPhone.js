@@ -7,6 +7,7 @@ import NextPageArrow from '/components/modules/NextPageArrow';
 
 import InputBox from 'components/modules/InputBox';
 import IMP from 'iamport-react-native';
+import { networks } from 'components/networks';
 import {
   PhoneMainView,
   InnerText,
@@ -48,6 +49,8 @@ export default class AuthPhone extends React.Component {
     IsError: false,
     IsPhoneInput: 'grey',
     number: '',
+
+    NetworkError: false,
   };
 
   handlePhone = TypedText => {
@@ -63,6 +66,27 @@ export default class AuthPhone extends React.Component {
         number: TypedText,
       });
     }
+  };
+
+  AddPhone = () => {
+    const data = JSON.stringify({
+      phone_num: this.state.number,
+    });
+
+    networks
+      .patch('https://api.oboonmobility.com/member/phone', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => {
+        if (res.data.success === true || res.data.success === 'true') {
+          this.props.navigation.navigate('tutorial');
+        }
+      })
+      .catch(err =>
+        this.setState({ NetworkError: '네트워크에 문제가 발생했습니다. 앱을 종료 후 다시 실행해주세요' }),
+      );
   };
 
   render() {
@@ -91,6 +115,9 @@ export default class AuthPhone extends React.Component {
                 잘못된 번호 형식입니다.('-'은 제외해주세요)
               </ErrorText>
             ) : null}
+            {this.state.NetworkError && (
+              <ErrorText>{this.state.NetworkError}</ErrorText>
+            )}
           </PhoneMainView>
 
           <UnderView>
@@ -108,9 +135,7 @@ export default class AuthPhone extends React.Component {
         <NextPageArrow
           onPress={() =>
             !this.state.IsError && this.state.IsPhoneInput == color.oboon
-              ? this.props.navigation.navigate('tutorial', {
-                  number: this.state.number,
-                })
+              ? this.AddPhone()
               : null
           }
           color={

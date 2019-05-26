@@ -46,7 +46,7 @@ export default class EmailLogin extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
-        <ThemeText>이메일로 로그인</ThemeText>
+        <ThemeText>이메일로 로그인(베타테스트 시 미사용)</ThemeText>
 
         <EmailMainView>
           <InputBox

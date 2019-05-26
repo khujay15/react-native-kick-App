@@ -9,4 +9,5 @@ export function setHeader(token) {
 
 export function removeHeader() {
   delete networks.defaults.headers.common.Authorization;
+  delete networks.defaults.headers.common.cookie;
 }

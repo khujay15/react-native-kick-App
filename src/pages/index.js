@@ -13,6 +13,7 @@ import PrivacyTerms from 'pages/Login/AuthPhone/Terms/PrivacyTerms';
 import ServiceTerms from 'pages/Login/AuthPhone/Terms/ServiceTerms';
 import SignUp from 'pages/Login/SignUp';
 import Coupon from 'pages/Coupon';
+import Setting from 'pages/Setting';
 import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
 import Payment from 'pages/Payment';
@@ -25,6 +26,7 @@ import FindPassword from 'pages/FindPassword';
 import SmartKey from 'pages/SmartKey';
 import MyCard from 'pages/MyCard';
 import LentInput from 'pages/MapPage/LentModal/LentInput';
+import Splash from 'components/splash';
 
 const WelcomeStackNavigator = createStackNavigator(
   {
@@ -50,6 +52,8 @@ export const MapDrawerNavigator = createDrawerNavigator(
     pay: { screen: Payment },
     lentinput : {screen : LentInput},
     mycard : { screen: MyCard},
+    setting : { screen : Setting},
+    
     
   },
   {
@@ -59,6 +63,7 @@ export const MapDrawerNavigator = createDrawerNavigator(
 
 const BaseRouter = createSwitchNavigator(
   {
+    splash:Splash,
     map: MapDrawerNavigator,
     login: WelcomeStackNavigator,
     tutorial: Tutorial,
@@ -68,10 +73,11 @@ const BaseRouter = createSwitchNavigator(
     SmartKey,
     authtest,
     authtestResult,
+    authphone: AuthPhone,
 
   },
   {
-    initialRouteName: 'login',
+    initialRouteName: 'splash',
   },
 );
 

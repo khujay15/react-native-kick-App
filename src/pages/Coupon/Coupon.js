@@ -1,72 +1,89 @@
 import React from 'react';
-import {
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Platform,
-  PermissionsAndroid,
-  View,
-} from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import { Text, SafeAreaView, ScrollView, View } from 'react-native';
+import color from 'theme/color';
 import Arrow from 'components/modules/Arrow';
+import ThemeText from 'components/modules/ThemeText';
+import InputBox from 'components/modules/InputBox';
 import FooterClick from 'components/modules/FooterClick';
+import {connect} from 'react-redux';
+import * as s from './Coupon.styled';
 
-import { DrawerItems } from 'react-navigation';
-import { connect } from 'react-redux';
-
-export default class Coupon extends React.Component {
-  checkPermission = () => {
-    if (Platform.OS === 'ios') return true;
-    if (Platform.Version < 23) return true;
-
-    if (Platform.OS === 'android') {
-      PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      ]).then(response => {
-        console.log('response: ', response);
-        if (
-          response['android.permission.CAMERA'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          response['android.permission.READ_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          response['android.permission.WRITE_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED
-        )
-          return true;
-      });
-    }
+class Coupon extends React.Component {
+  state = {
+    Code: '',
+    IsError: false,
   };
 
-  handleImagePicker = async () => {
-    if (await this.checkPermission()) {
-      const options = {
-        title: '프로필 선택',
-        takePhotoButtonTitle: '사진 찍기',
-        chooseFromLibraryButtonTitle: '앨범에서 사진 선택',
-        customButtons: [{ name: 'default', title: '우동댕 기본 이미지' }],
-        cancelButtonTitle: '취소',
-        quality: 0.6,
-        storageOptions: { skipBackup: true, path: 'images' },
-      };
-      ImagePicker.showImagePicker(options, res => {
-        if (res.didCancel || res.error) return;
-        console.log('enter ');
-      });
-    }
+  handleCode = Text => {
+    this.setState({ Code: Text });
   };
 
   render() {
+    let shadowStyle = {
+      shadowRadius: 4,
+      shadowColor: 'rgb(0, 0, 0.7)',
+      shadowOpacity: 0.08,
+      shadowOffset: { width: 0, height: 5 },
+    };
+    
+    let selectedShadow = {...shadowStyle,backgroundColor: color.oboon};
     return (
-      <SafeAreaView>
-        <Arrow />
-
-        <TouchableOpacity onPress={this.handleImagePicker}>
-          <Text>면허증 올리기 </Text>
-        </TouchableOpacity>
-        <FooterClick />
-      </SafeAreaView>
+      <>
+        <View style={{ flex: 1 }}>
+          <Arrow onPress={() => this.props.navigation.navigate('mappage')} />
+          <ThemeText>내 포인트</ThemeText>
+          <s.CouponView>
+            <s.InnerText>현재 보유 포인트</s.InnerText>
+            <s.PointText>{this.props.point}P</s.PointText>
+            <View style={{ flexDirection: 'row' }}>
+              <s.ChangeMenu
+                style={shadowStyle}
+                onPress={() => this.props.navigation.navigate('pointpage')}
+              >
+                <Text style={{ color: color.oboon }}>포인트 충전하기</Text>
+              </s.ChangeMenu>
+              <s.ChangeMenu2
+                style={selectedShadow}
+              >
+                <Text style={{ color: 'white' }}>쿠폰 등록하기</Text>
+              </s.ChangeMenu2>
+            </View>
+              <View style={{marginLeft:1, marginRight: 1}}> 
+            <InputBox
+              onChangeText={this.handleCode}
+              placeholder="  쿠폰을 입력해 주세요"
+              placeholderTextColor="rgb(106, 106, 106)"
+              toggle={this.state.IsError}
+            />
+            </View>
+          </s.CouponView>
+        </View>
+        <FooterClick color={color.oboon} text="등록하기" />
+      </>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  Name: state.LoginReducer.Name,
+  Email: state.LoginReducer.Email,
+  Token: state.LoginReducer.Token,
+  Tutorial: state.LoginReducer.Tutorial,
+  License: state.LoginReducer.License,
+  Phone: state.LoginReducer.Phone,
+  Status: state.LoginReducer.Status,
+  point: state.LentReducer.point,
+  kickboard_serial : state.LentReducer.kickboard_serial,
+  preSecond: state.LentReducer.preSecond,
+});
+
+const mapDispatchToProps = dispatch => ({
+  updatePoint: (LeftPoint) => dispatch({type: 'UPDATE_POINT', point: LeftPoint}),
+});
+
+const CouponContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Coupon);
+
+export default CouponContainer;

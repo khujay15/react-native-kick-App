@@ -87,22 +87,22 @@ export class WelcomeScreen extends React.Component {
 
 
   AutoLogin = (platform) => {
-    if(this.state.AutoToken) {
-      console.log('AUTO_LOGIN');
-    networks
-      .get(`https://api.oboonmobility.com/member`)
-      .then(res => {
-        if (res.data.success === true || res.data.success === 'true') {
-          this.setReducer(res);
-          this.props.navigation.navigate('mappage');
-        }
-      })
-    }
-    else{
+    // if(this.state.AutoToken) {
+    //   console.log('AUTO_LOGIN');
+    // networks
+    //   .get(`https://api.oboonmobility.com/member`)
+    //   .then(res => {
+    //     if (res.data.success === true || res.data.success === 'true') {
+    //       this.setReducer(res);
+    //       this.props.navigation.navigate('mappage');
+    //     }
+    //   })
+    // }
+    // else{
       if(platform ==='google') this.googlesignIn();
       else if(platform==='kakao') this.kakaoLogin();
       else if(platform ==='local') this.props.navigation.navigate('emaillogin');
-    }
+    
 }
 
 
@@ -134,6 +134,7 @@ export class WelcomeScreen extends React.Component {
       }
       else if (status === 5 || status === '5') {
         this.props.afterGOOGLELogin(name, email, this.state.token);
+        this.setState({firstLogin: true});
       }
       else if( status === 1 || status ==='1') {
       ///탈퇴
@@ -247,6 +248,7 @@ export class WelcomeScreen extends React.Component {
               console.log(res.data.oboon_session);
               setHeader(`oboon_session=${res.data.oboon_session}`);
               this.setReducer(res);
+              SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
               this.props.navigation.navigate('mappage');
             }
             else {

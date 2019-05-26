@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import { networks ,setHeader} from 'components/networks';
 import { PhoneMainView, ErrorText, SubText } from './AuthEmail.styled';
 import ThemeText from '/components/modules/ThemeText';
+import SInfo from 'react-native-sensitive-info';
 import color from 'theme/color';
 
 class AuthEmail extends React.Component {
@@ -65,9 +66,12 @@ class AuthEmail extends React.Component {
       .then(res => {
         console.log(res);
         if (res.data.oboon_session) {
+
           console.log(res.data.oboon_session);
           setHeader(`oboon_session=${res.data.oboon_session}`);
-          this.props.navigation.navigate('mappage');
+          this.setReducer(res);
+          SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
+          this.props.navigation.navigate('tutorial');
         }
       })
       .catch(err => console.log(err));

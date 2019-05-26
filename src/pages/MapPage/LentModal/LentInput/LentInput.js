@@ -22,8 +22,10 @@ class LentInput extends React.Component {
     BottomColor: 'grey',
 
     modalVisible: false,
+
     spin: new Animated.Value(0),
     stopAni: false,
+    IsSuccess: true,
   };
 
 
@@ -31,10 +33,11 @@ class LentInput extends React.Component {
     Animated.timing(
       this.state.spin
     ).stop();
+    this.setState({stopAni: true});
   };
 
   spinning = () => {
-    this.setState({stopAni: true});
+    
     Animated.loop(
       Animated.timing(this.state.spin, {
         toValue: 1,
@@ -79,12 +82,14 @@ class LentInput extends React.Component {
       outputRange: ['0deg', '360deg'],
     });
 
+    const {IsSuccess} = this.state;
+    const {modalVisible} = this.state;
     return (
       <>
         <Modal
           animationType="slide"
           transparent
-          visible={this.state.modalVisible}
+          visible={modalVisible}
           onRequestClose={() => {}}
         >
           <View
@@ -111,15 +116,19 @@ class LentInput extends React.Component {
           >
             <s.ExitMark onPress={() => this.toggleOff()} />
             <View style={{ flex: 1, marginHorizontal: 30 }}>
+              {IsSuccess ? 
+
+              (<>
+
               <Image
-                source={require('assets/icons/ic_logo.png')}
+                source={require('assets/popup/KickPopup.png')}
                 style={{
                   alignSelf: 'center',
-                  width: 100,
-                  height: 100,
+                  marginTop: 70,
                   position: 'absolute',
                 }}
               />
+
               <Animated.Image
                 source={require('assets/popup/LoadingPopup.png')}
                 style={{
@@ -134,15 +143,29 @@ class LentInput extends React.Component {
                   킥보드를 대여중입니다.
                 </Text>
               </View>
+    </>) : <>
+              <Image
+                source={require('assets/popup/LoadingFailed.png')}
+                style={{
+                  alignSelf: 'center',
+                  
+                 
+                }}
+              />
+              
+              <View style={{ marginTop: 30, alignItems: 'center' }}>
+                <Text style={{ fontSize: 20, fontWeight: '200' }}>
+                  대여가 불가능한 킥보드입니다!{"\n"}
+                  다른 킥보드를 이용해 주세요.
+                </Text>
             </View>
-
-            {this.state.modalVisible && (
-              <s.FooterClick
+           </>}
+            </View>
+              { this.state.stopAni ? (<s.FooterClick
                 color={color.oboon}
                 text={'확인'}
                 onPress={() => this.toggleOff()}
-              />
-            )}
+              />) : null}
           </View>
         </Modal>
 
