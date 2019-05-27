@@ -18,7 +18,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyBjFdaKWSE8AQnrfXdGRK6TFvqrey0NPQQ"/>
+        android:value="AIzaSyBR1KHUkzBRdMe9-GKCig6jxbDJ7BzH4Og"/>
       <activity
         android:name="com.oboon.client.android.MainActivity"
         android:label="@string/app_name"

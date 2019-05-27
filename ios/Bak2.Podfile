@@ -52,9 +52,6 @@ pod 'react-native-ble-plx-swift', :path => '../node_modules/react-native-ble-plx
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
-# pod 'react-native-cookies', :path => '../node_modules/react-native-cookies/ios'
-
-
   # target 'OboonClientTests' do
   #   inherit! :search_paths
   #   # Pods for testing

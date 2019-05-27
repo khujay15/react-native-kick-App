@@ -30,6 +30,7 @@
 		699801F37AB50207320EBD6D /* libPods-OboonClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23C59DD9FCB2F197D7AAC5C /* libPods-OboonClient.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		BD5B2633634549AD9501ED23 /* libRNCookieManagerIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70416E5E229B45E0A949CBE1 /* libRNCookieManagerIOS.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		FBEDBAE2EB314E5B90F46A8A /* libRNKakaoLogins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A074996E8444F6CA445C1FB /* libRNKakaoLogins.a */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = OboonClient;
+		};
+		04A273CD229C3C5D0057EB9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6ACBE690D3D24E4C9D9868F6 /* RNCookieManagerIOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1BD725DA1CF77A8B005DBD79;
+			remoteInfo = RNCookieManagerIOS;
 		};
 		04C737C12264A27900B8BFEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -362,10 +370,14 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A074996E8444F6CA445C1FB /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		6ACBE690D3D24E4C9D9868F6 /* RNCookieManagerIOS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCookieManagerIOS.xcodeproj; path = "../node_modules/react-native-cookies/ios/RNCookieManagerIOS.xcodeproj"; sourceTree = "<group>"; };
+		6BDF065B18B74C5D9268A119 /* libRNCookieManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCookieManager.a; sourceTree = "<group>"; };
+		70416E5E229B45E0A949CBE1 /* libRNCookieManagerIOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCookieManagerIOS.a; sourceTree = "<group>"; };
 		715F0D4552224A5793AA4435 /* RNKakaoLogins.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKakaoLogins.xcodeproj; path = "../node_modules/react-native-kakao-logins/ios/RNKakaoLogins.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		D07DFA12CE784F1AB28BE708 /* RNCookieManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RNCookieManagerTests.xctest; sourceTree = "<group>"; };
 		E23C59DD9FCB2F197D7AAC5C /* libPods-OboonClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OboonClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -401,6 +413,7 @@
 				699801F37AB50207320EBD6D /* libPods-OboonClient.a in Frameworks */,
 				FBEDBAE2EB314E5B90F46A8A /* libRNKakaoLogins.a in Frameworks */,
 				13DB8ABC977546F48CC77AC9 /* libIamportReactNative.a in Frameworks */,
+				BD5B2633634549AD9501ED23 /* libRNCookieManagerIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +479,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		04A273CA229C3C5D0057EB9E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04A273CE229C3C5D0057EB9E /* libRNCookieManagerIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		04C737BE2264A27900B8BFEC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +500,9 @@
 			children = (
 				3A074996E8444F6CA445C1FB /* libRNKakaoLogins.a */,
 				1E9BCEC25A16454F968CB903 /* libIamportReactNative.a */,
+				6BDF065B18B74C5D9268A119 /* libRNCookieManager.a */,
+				D07DFA12CE784F1AB28BE708 /* RNCookieManagerTests.xctest */,
+				70416E5E229B45E0A949CBE1 /* libRNCookieManagerIOS.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -614,6 +638,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				715F0D4552224A5793AA4435 /* RNKakaoLogins.xcodeproj */,
 				0E7334B3C6994F88B505CDA0 /* IamportReactNative.xcodeproj */,
+				6ACBE690D3D24E4C9D9868F6 /* RNCookieManagerIOS.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -719,7 +744,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 4APG4YR4B6;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 940;
 					};
 				};
 			};
@@ -789,6 +814,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 04A273CA229C3C5D0057EB9E /* Products */;
+					ProjectRef = 6ACBE690D3D24E4C9D9868F6 /* RNCookieManagerIOS.xcodeproj */;
+				},
+				{
 					ProductGroup = 04FE8DE2225FA47000EE80D0 /* Products */;
 					ProjectRef = 04FE8DE1225FA47000EE80D0 /* RNGestureHandler.xcodeproj */;
 				},
@@ -839,6 +868,13 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A273CE229C3C5D0057EB9E /* libRNCookieManagerIOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCookieManagerIOS.a;
+			remoteRef = 04A273CD229C3C5D0057EB9E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		04C737C22264A27900B8BFEC /* libIamportReactNative.a */ = {
@@ -1225,12 +1261,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-cookie/ios",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = OboonClientTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1254,12 +1295,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-cookie/ios",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = OboonClientTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1286,6 +1332,8 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-cookie/ios",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = OboonClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1317,6 +1365,8 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/iamport-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-cookie/ios",
+					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
 				);
 				INFOPLIST_FILE = OboonClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

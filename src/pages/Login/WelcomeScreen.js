@@ -50,27 +50,27 @@ export class WelcomeScreen extends React.Component {
     });
 
 
-    SInfo.getItem('AutoToken', {}).then(value => {
-      console.log(value);
-      const data = JSON.stringify({
-        accesstoken: value,
-      });
-      networks
-      .get(`https://api.oboonmobility.com/auth/tokeninfo`,{
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization' : value,
-        },
-      })
-      .then(res => {
-        console.log(res);
-        if (res.data.success === true || res.data.success === 'true') {
-          setHeader(`oboon_session=${value}`);
-          this.AUTOLOGIN_WITHOUTLOADING();
-        }
-      })
-      .catch(err => console.log(err.response));
-    });
+    // SInfo.getItem('AutoToken', {}).then(value => {
+    //   console.log(value);
+    //   const data = JSON.stringify({
+    //     accesstoken: value,
+    //   });
+    //   networks
+    //   .get(`https://api.oboonmobility.com/auth/tokeninfo`,{
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization' : value,
+    //     },
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     if (res.data.success === true || res.data.success === 'true') {
+    //       setHeader(`oboon_session=${value}`);
+    //       this.AUTOLOGIN_WITHOUTLOADING();
+    //     }
+    //   })
+    //   .catch(err => console.log(err.response));
+    // });
     
   }
 

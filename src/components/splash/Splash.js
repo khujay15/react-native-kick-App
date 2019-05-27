@@ -1,11 +1,13 @@
 import React from 'react';
-import { Image, View, Animated, Easing } from 'react-native';
+import { Image, View, Animated, Easing, Text } from 'react-native';
 import SInfo from 'react-native-sensitive-info';
-import { networks, setHeader } from 'components/networks';
+import { networks, setHeader, removeHeader } from 'components/networks';
 import { connect } from 'react-redux';
+import CookieManager from 'react-native-cookies';
 
 class Splash extends React.Component {
   state = {
+    token: '',
     spin: new Animated.Value(0),
   };
 
@@ -23,7 +25,6 @@ class Splash extends React.Component {
       this.props.member(name, email, status);
       this.props.updatePoint(point);
       this.props.aleadyLent(LentTime, kickboard.kick_serial_number);
-      this.props.navigation.navigate('mappage');
     } else if (
       status === 0 ||
       status === '0' ||
@@ -46,56 +47,58 @@ class Splash extends React.Component {
     }
   };
 
+  componentWillMount() {}
+
   componentDidMount() {
     SInfo.getItem('AutoToken', {}).then(value => {
       console.log(value);
-      const data = JSON.stringify({
-        accesstoken: value,
-      });
-      networks
-        .get(`https://api.oboonmobility.com/auth/tokeninfo`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: value,
-          },
-        })
-        .then(res => {
-          console.log(res);
-          if (res.data.success === true || res.data.success === 'true') {
-            setHeader(`oboon_session=${value}`);
-            this.AUTOLOGIN_WITHOUTLOADING();
-          }
-        })
-        .catch(err => this.props.navigation.navigate('login'));
+      this.verifyingToken(value);
     });
   }
 
-  AUTOLOGIN_WITHOUTLOADING = () => {
+  verifyingToken = async value => {
+    await networks
+      .get(`https://api.oboonmobility.com/auth/tokeninfo`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: value,
+        },
+        withCredentials: false,
+      })
+      .then(res => {
+        console.log(res);
+        if (res.data.success === true || res.data.success === 'true') {
+          this.setState({ token: value });
+          this.AUTOLOGIN_WITHOUTLOADING(value);
+        }
+      })
+      .catch(err => {
+        console.log('verify failed');
+        this.props.navigation.navigate('login');
+      });
+  };
+
+  AUTOLOGIN_WITHOUTLOADING = async value => {
+    await CookieManager.clearAll();
+    const head = {
+      headers: {
+        'Content-Type': 'application/json',
+        cookie: `oboon_session=${value}`,
+      },
+    };
+
     networks
-      .get(`https://api.oboonmobility.com/member`)
+      .get(`https://api.oboonmobility.com/member`, head)
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
           this.setReducer(res);
-          this.props.navigation.navigate('mappage');
         }
       })
-      .catch(err => this.props.navigation.navigate('login'));
-  };
-
-  hideLoading = () => {
-    Animated.timing(this.state.spin).stop();
-    this.setState({ stopAni: true });
-  };
-
-  spinning = () => {
-    Animated.loop(
-      Animated.timing(this.state.spin, {
-        toValue: 1,
-        duration: 1600,
-        easing: Easing.bezier(0.58, 0.07, 0.46, 0.96),
-        useNativeDriver: true,
-      }),
-    ).start();
+      .then(() => this.props.navigation.navigate('mappage'))
+      .catch(err => {
+        console.log('auto', err.response);
+        this.props.navigation.navigate('login');
+      });
   };
 
   render() {

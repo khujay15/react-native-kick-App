@@ -26,6 +26,7 @@ class LentInput extends React.Component {
     spin: new Animated.Value(0),
     stopAni: false,
     IsSuccess: true,
+    ErrorMsg: '',
   };
 
 
@@ -54,10 +55,13 @@ class LentInput extends React.Component {
   handleCode = num => {
     this.setState({ Code: num, BottomColor: color.oboon });
   };
+  handleExit = () => {
+    this.toggleOff();
+    this.props.navigation.navigate('mappage');
+  }
   LentRequest = () => {
     this.setState({ modalVisible: true });
     this.spinning();
-    //8 9 10 11 12
     networks
       .put(`https://api.oboonmobility.com/kickboard/${this.state.Code}/rent`, {
         headers: {
@@ -72,7 +76,7 @@ class LentInput extends React.Component {
           this.hideLoading();
         }
       })
-      .catch(err => console.log(err.response));
+      .catch(err => this.setState({IsSuccess: false, topAni: true, ErrorMsg: err.response.data.msg}));
   };
 
   render() {
@@ -155,8 +159,7 @@ class LentInput extends React.Component {
               
               <View style={{ marginTop: 30, alignItems: 'center' }}>
                 <Text style={{ fontSize: 20, fontWeight: '200' }}>
-                  대여가 불가능한 킥보드입니다!{"\n"}
-                  다른 킥보드를 이용해 주세요.
+                  {this.state.ErrorMsg}
                 </Text>
             </View>
            </>}
@@ -164,7 +167,7 @@ class LentInput extends React.Component {
               { this.state.stopAni ? (<s.FooterClick
                 color={color.oboon}
                 text={'확인'}
-                onPress={() => this.toggleOff()}
+                onPress={() => this.handleExit()}
               />) : null}
           </View>
         </Modal>

@@ -29,7 +29,7 @@ const TalkCloud = props => {
           첫 로그인 시
           {' '}
           <Text style={{ color: color.oboon, fontWeight: 'normal' }}>
-            일주일 무료!
+            포인트 증정!
           </Text>
         </Text>
       </View>

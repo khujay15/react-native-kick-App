@@ -10,7 +10,6 @@ import * as s from './Setting.styled';
 
 class Setting extends React.Component {
   state = {
-    logoutSuccess: false,
   };
 
   LogOut = () => {
@@ -40,6 +39,7 @@ class Setting extends React.Component {
               <Image source={require('/assets/icons/NavImage.png')} />
             </s.SelectBoxInside>
           </s.SelectBox>
+          
           {this.state.logoutSuccess ? (
             <s.ErrorText>로그아웃 되셨습니다.</s.ErrorText>
           ) : null}

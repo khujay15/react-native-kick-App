@@ -106,8 +106,8 @@ android {
         applicationId "com.oboon.client.android"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "0.0.1"
+        versionCode 5
+        versionName "0.0.5"
     }
     splits {
         abi {
@@ -139,6 +139,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-cookies')
+
     implementation project(':react-native-image-picker')
     implementation project(':react-native-webview')
     implementation project(':react-native-ble-plx')
