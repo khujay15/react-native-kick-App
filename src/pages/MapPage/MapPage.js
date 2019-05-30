@@ -65,33 +65,50 @@ class MapPage extends React.Component {
 
   }
 
-  getLocation() {
-    if (Platform.OS === 'android') {
+  getLocation =  () => {
+  if (Platform.OS === 'ios') this.GeoAPI();
+  if (Platform.Version < 23) this.GeoAPI();
+  if (Platform.OS === 'android') {
       PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-      ]).then(response => {
-        console.log('response: ', response);
-        if (
-          response['android.permission.ACCESS_FINE_LOCATION'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          response['android.permission.ACCESS_COARSE_LOCATION'] ===
-            PermissionsAndroid.RESULTS.GRANTED
-        ) {
-          console.log('permission granted');
-          this.GeoAPI();
-        }
-      });
-    } else {
-      console.log('permission granted');
-      this.GeoAPI();
-    }
+       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+       PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+     ]).then(response => {
+       if (
+         response['android.permission.ACCESS_FINE_LOCATION'] ===
+           PermissionsAndroid.RESULTS.GRANTED &&
+         response['android.permission.ACCESS_COARSE_LOCATION'] ===
+           PermissionsAndroid.RESULTS.GRANTED
+       ) {
+        this.GeoAPI();
+       }
+     });
   }
+  }
+  getPermission = () => {
+  if (Platform.OS === 'ios') return true;
+  if (Platform.Version < 23) return true;
+  if (Platform.OS === 'android') {
+      PermissionsAndroid.requestMultiple([
+       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+       PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+     ]).then(response => {
+       if (
+         response['android.permission.ACCESS_FINE_LOCATION'] ===
+           PermissionsAndroid.RESULTS.GRANTED &&
+         response['android.permission.ACCESS_COARSE_LOCATION'] ===
+           PermissionsAndroid.RESULTS.GRANTED
+       ) {
+         return true;
+       }
+       else return false;
+     });
+  }
+}
 
   GeoAPI = () => {
     Geolocation.watchPosition(
       position => {
-        console.log(position);
+        console.log("location: ",position);
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -199,7 +216,7 @@ class MapPage extends React.Component {
           <MapButton
             right={30}
             bottom={90}
-            img={require('assets/icons/MyLocationButton.png')}
+            img={require('assets/icons/buttons/MyLocationButton.png')}
             onPress={() => this.setState({ latitude: this.FirstPosition['latitude'], 
               longitude: this.FirstPosition['longitude'] })}
           />

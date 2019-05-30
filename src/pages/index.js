@@ -12,7 +12,7 @@ import AuthPhoneInput from 'pages/Login/AuthPhone/AuthPhoneInput';
 import PrivacyTerms from 'pages/Login/AuthPhone/Terms/PrivacyTerms';
 import ServiceTerms from 'pages/Login/AuthPhone/Terms/ServiceTerms';
 import SignUp from 'pages/Login/SignUp';
-import Coupon from 'pages/Coupon';
+import Point from 'pages/Point';
 import Setting from 'pages/Setting';
 import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
@@ -48,7 +48,7 @@ const WelcomeStackNavigator = createStackNavigator(
 export const MapDrawerNavigator = createDrawerNavigator(
   {
     mappage: { screen: MapPage },
-    coupon: { screen: Coupon },
+    coupon: { screen: Point },
     pay: { screen: Payment },
     lentinput : {screen : LentInput},
     mycard : { screen: MyCard},
@@ -74,6 +74,7 @@ const BaseRouter = createSwitchNavigator(
     authtest,
     authtestResult,
     authphone: AuthPhone,
+    authemail: AuthEmail,
 
   },
   {

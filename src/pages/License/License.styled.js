@@ -60,6 +60,5 @@ export const SkipText = styled.TouchableOpacity`
   position: absolute;
   right: 24;
   top: ${height * 0.06};
-  width: 60;
   height: 40;
 `;

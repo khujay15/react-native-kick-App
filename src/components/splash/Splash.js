@@ -9,6 +9,7 @@ class Splash extends React.Component {
   state = {
     token: '',
     spin: new Animated.Value(0),
+    firstLogin: false,
   };
 
   setReducer = res => {
@@ -35,7 +36,12 @@ class Splash extends React.Component {
     ) {
       this.props.member(name, email, status);
       this.props.updatePoint(point);
-    } else if (status === 3 || status === '3') {
+    } else if (
+      status === 3 ||
+      status === '3' ||
+      status === 7 ||
+      status === '7'
+    ) {
       this.props.afterGOOGLELogin(name, email, this.state.token);
       this.props.hasPhone();
     } else if (status === 5 || status === '5') {
@@ -54,6 +60,11 @@ class Splash extends React.Component {
       console.log(value);
       this.verifyingToken(value);
     });
+
+    SInfo.getItem('tutorials', {}).then(value => {
+      console.log(value);
+      value === 'watch' ? this.props.aftertutorial() : null;
+    });
   }
 
   verifyingToken = async value => {
@@ -68,7 +79,6 @@ class Splash extends React.Component {
       .then(res => {
         console.log(res);
         if (res.data.success === true || res.data.success === 'true') {
-          this.setState({ token: value });
           this.AUTOLOGIN_WITHOUTLOADING(value);
         }
       })
@@ -80,10 +90,10 @@ class Splash extends React.Component {
 
   AUTOLOGIN_WITHOUTLOADING = async value => {
     await CookieManager.clearAll();
+    setHeader(`oboon_session=${value}`);
     const head = {
       headers: {
         'Content-Type': 'application/json',
-        cookie: `oboon_session=${value}`,
       },
     };
 
@@ -94,9 +104,12 @@ class Splash extends React.Component {
           this.setReducer(res);
         }
       })
-      .then(() => this.props.navigation.navigate('mappage'))
+      .then(() => {
+        if (this.state.firstLogin) this.props.navigation.navigate('authphone');
+        else this.props.navigation.navigate('mappage');
+      })
       .catch(err => {
-        console.log('auto', err.response);
+        console.log('auto', err);
         this.props.navigation.navigate('login');
       });
   };
@@ -126,6 +139,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
+  afterGOOGLELogin: (nickname, email, token) =>
+    dispatch({
+      type: 'GOOGLE_LOGIN',
+      Name: nickname,
+      Email: email,
+      Token: token,
+    }),
 
   aleadyLent: (preSecond, kickboard_serial) =>
     dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),

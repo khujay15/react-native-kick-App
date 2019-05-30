@@ -53,10 +53,9 @@ export const TopTouch = styled.TouchableOpacity`
 `;
 
 export const FooterTouch = styled.TouchableOpacity`
-  position: absolute;
   bottom: 0;
   width: ${width};
-  height: 68;
+  height: 60;
   background-color: ${props => props.color};
 
   align-items: center;

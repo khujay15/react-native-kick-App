@@ -7,7 +7,7 @@ export const DummyView = styled.View`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 110;
   justify-content: center;
   align-items: center;
 `;
@@ -80,4 +80,25 @@ export const TotalCost = styled.Text`
   margin-left: auto;
   margin-top: 20;
   color: ${color.oboon};
+`;
+
+export const RemainPoint = styled.Text`
+  margin-left: auto;
+  color: ${props => (props.paid ? color.grey : 'red')};
+`;
+
+export const UnpaidText = styled.Text`
+  text-decoration-line: underline;
+  font-size: 14;
+  color: ${color.grey};
+`;
+
+export const Circle = styled.View`
+  width: 20;
+  height: 20;
+  border-radius: 10;
+  justify-content: center;
+  align-items: center;
+  border-width: 1;
+  border-color: red;
 `;

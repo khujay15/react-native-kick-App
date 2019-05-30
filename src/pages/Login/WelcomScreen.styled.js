@@ -10,6 +10,7 @@ export const ImgStyle = StyleSheet.create({
     height: 60,
     marginTop: height * 0.15,
     alignSelf: 'center',
+    marginBottom: height * 0.2,
   },
   innerImage: {
     width: 34,

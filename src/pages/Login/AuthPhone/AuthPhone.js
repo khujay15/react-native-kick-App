@@ -54,7 +54,7 @@ export default class AuthPhone extends React.Component {
   };
 
   handlePhone = TypedText => {
-    const regExp = /^[0-9]{9,20}$/;
+    const regExp = /^[0-9]{9,14}$/;
     if (TypedText.match(regExp) != null) {
       this.setState({
         IsError: false,
@@ -85,7 +85,10 @@ export default class AuthPhone extends React.Component {
         }
       })
       .catch(err =>
-        this.setState({ NetworkError: '네트워크에 문제가 발생했습니다. 앱을 종료 후 다시 실행해주세요' }),
+        this.setState({
+          NetworkError:
+            '네트워크에 문제가 발생했습니다. 앱을 종료 후 다시 실행해주세요',
+        }),
       );
   };
 
@@ -94,13 +97,10 @@ export default class AuthPhone extends React.Component {
       <>
         <SafeAreaView style={{ flex: 1 }}>
           <Arrow onPress={() => this.props.navigation.goBack()} />
-          <ThemeText>본인인증</ThemeText>
+          <ThemeText>핸드폰번호 등록</ThemeText>
 
           <PhoneMainView>
-            <SubText>
-              {' '}
-              본인인증을 위해 본인의 핸드폰 번호를 입력해주세요
-            </SubText>
+            <SubText>본인인증을 위해 본인의 핸드폰 번호를 입력해주세요</SubText>
 
             <InputBox
               keyboardType="numeric"
@@ -110,10 +110,7 @@ export default class AuthPhone extends React.Component {
               autoFocus
             />
             {this.state.IsError ? (
-              <ErrorText>
-                {' '}
-                잘못된 번호 형식입니다.('-'은 제외해주세요)
-              </ErrorText>
+              <ErrorText>잘못된 번호 형식입니다.('-'은 제외해주세요)</ErrorText>
             ) : null}
             {this.state.NetworkError && (
               <ErrorText>{this.state.NetworkError}</ErrorText>

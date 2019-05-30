@@ -4,19 +4,22 @@ import Arrow from '/components/modules/Arrow';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
 import { connect } from 'react-redux';
-import { removeHeader } from 'components/networks';
+import { removeHeader, networks } from 'components/networks';
 import SInfo from 'react-native-sensitive-info';
 import * as s from './Setting.styled';
 
 class Setting extends React.Component {
-  state = {
-  };
+  state = {};
 
   LogOut = () => {
-    this.props.memberReset();
-    removeHeader();
-    SInfo.setItem('AutoToken', 'no', {});
-    this.setState({ logoutSuccess: true });
+    networks.delete('https://api.oboonmobility.com/member/logout').then(res => {
+      if (res.data.success === true || res.data.success === 'true') {
+        this.props.memberReset();
+        removeHeader();
+        SInfo.setItem('AutoToken', 'no', {});
+        this.setState({ logoutSuccess: true });
+      }
+    });
   };
 
   render() {
@@ -39,7 +42,7 @@ class Setting extends React.Component {
               <Image source={require('/assets/icons/NavImage.png')} />
             </s.SelectBoxInside>
           </s.SelectBox>
-          
+
           {this.state.logoutSuccess ? (
             <s.ErrorText>로그아웃 되셨습니다.</s.ErrorText>
           ) : null}

@@ -5,12 +5,17 @@ import React from 'react';
 export const NameView = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 40;
+  margin-bottom: 10;
 `;
 export const NameText = styled.Text`
   color: ${color.oboon};
   font-size: 20;
   font-weight: bold;
+`;
+export const EmailText = styled.Text`
+  color: ${color.grey};
+  font-size: 15;
+  margin-bottom: 20;
 `;
 
 export const Nim = styled.Text`

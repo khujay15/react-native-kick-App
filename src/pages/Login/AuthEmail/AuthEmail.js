@@ -13,13 +13,48 @@ import color from 'theme/color';
 class AuthEmail extends React.Component {
   state = {
     Email: '',
-    Phone: '',
+    
     IsEmailError: false,
-    IsPhoneError: false,
+    ErrorText: false,
+  };
+
+
+  setReducer = res => {
+    console.log(res);
+    const { status } = res.data.member;
+    
+    const {kickboard} = res.data.member;
+    const {name} = res.data.member;
+    const {email} = res.data.member;
+    const {point} = res.data.member;
+    this.props.updatePoint(point);
+
+    if(kickboard) {
+      const LentTime = new Date(kickboard["rent_date"]);
+      this.props.member(name,email,status);
+      this.props.aleadyLent(LentTime,kickboard["kick_serial_number"]);
+      this.props.navigation.navigate('mappage');
+    }
+    else{
+      if (status === 0 || status === '0' || status === 4 || status === '4' || status === 6|| status ==='6') {
+       
+        this.props.member(name,email,status);
+      } 
+      else if (status === 3 || status === '3'|| status === 7 || status === '7') {
+        this.props.afterGOOGLELogin(name, email, this.state.token);
+        this.props.hasPhone();
+      }
+      else if (status === 5 || status === '5') {
+        this.props.afterGOOGLELogin(name, email, this.state.token);
+      }
+      else if( status === 1 || status ==='1') {
+      ///탈퇴
+    }
+  }
   };
 
   IsOk =() => {
-    return (this.state.Email !=='' && this.state.Phone!=='' && !this.state.IsEmailError && !this.state.IsPhoneError);
+    return (this.state.Email !==''  && !this.state.IsEmailError );
   }
   handleEmail = TypedText => {
     const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -33,19 +68,7 @@ class AuthEmail extends React.Component {
     }
   };
 
-  handlePhone = TypedText => {
-    const regExp = /^[0-9]{9,15}$/;
-    if (TypedText.match(regExp) != null) {
-      this.setState({
-        Phone: TypedText,
-        IsPhoneError: false,
-      });
-    } else {
-      this.setState({
-        IsPhoneError: true,
-      });
-    }
-  };
+  
 
   KakaoLogin = () => {
   
@@ -53,7 +76,7 @@ class AuthEmail extends React.Component {
       const data = JSON.stringify({
         accessToken: this.props.Token,
         name : this.props.Name,
-        email : this.props.Email
+        email : this.state.Email,
       });
     
 
@@ -71,10 +94,10 @@ class AuthEmail extends React.Component {
           setHeader(`oboon_session=${res.data.oboon_session}`);
           this.setReducer(res);
           SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
-          this.props.navigation.navigate('tutorial');
+          this.props.navigation.navigate('authphone');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => this.setState({ErrorText: '네트워크에 문제가 있습니다. 앱을 다시 실행해주세요'}));
     }
   };
 
@@ -83,10 +106,10 @@ class AuthEmail extends React.Component {
       <>
         <SafeAreaView style={{ flex: 1 }}>
           <Arrow onPress={() => this.props.navigation.goBack()} />
-          <ThemeText>이메일과 핸드폰 인증하기</ThemeText>
+          <ThemeText>이메일 등록하기</ThemeText>
 
           <PhoneMainView>
-            <SubText>고객님의 이메일 주소와 핸드폰 번호를 입력해주세요</SubText>
+            <SubText>고객님의 이메일 주소를 입력해주세요</SubText>
 
             <InputBox
               placeholder="이메일 주소를 입력해주세요"
@@ -96,20 +119,14 @@ class AuthEmail extends React.Component {
             {this.state.IsEmailError ? (
               <ErrorText> 잘못된 이메일 형식입니다.</ErrorText>
             ) : null}
-
-            <InputBox
-              keyboardType="numeric"
-              onChangeText={this.handlePhone}
-              placeholder="핸드폰 번호를 입력해주세요"
-              toggle={this.state.IsPhoneError}
-            />
-            {this.state.IsPhoneError ? (
-              <ErrorText>잘못된 번호 형식입니다.('-'은 제외해주세요)</ErrorText>
+             {this.state.ErrorText ? (
+              <ErrorText> {this.state.ErrorText}</ErrorText>
             ) : null}
+
           </PhoneMainView>
         </SafeAreaView>
         <FooterClick
-          text="시작하기"
+          text="등록하기"
           color={this.IsOk() ? color.oboon : color.grey}
           onPress={() => this.IsOk() ? this.KakaoLogin(): null}
         />
@@ -132,11 +149,27 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  afterKAKAOLogin: (nickname, token) =>
-    dispatch({ type: 'KAKAO_LOGIN', Name: nickname, Token: token }),
 
   aleadyLent: (preSecond,kickboard_serial ) =>
     dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),
+
+  member: (name, email, status) => 
+  dispatch({ type: 'MEMBERINFO',
+  Name: name,
+  Email: email, 
+  Status: status,
+  }),
+  updatePoint: (LeftPoint) => dispatch({type: 'UPDATE_POINT', point: LeftPoint}),
+
+  afterGOOGLELogin: (nickname, email, token) =>
+    dispatch({
+      type: 'GOOGLE_LOGIN',
+      Name: nickname,
+      Email: email,
+      Token: token,  
+    }),
+  afterKAKAOLogin: (nickname, token) =>
+    dispatch({ type: 'KAKAO_LOGIN', Name: nickname, Token: token }),
 
   hasLicense: () => dispatch({ type: 'LICENSE' }),
   hasPhone: () => dispatch({ type: 'PHONE' }),

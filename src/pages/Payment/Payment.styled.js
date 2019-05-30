@@ -15,9 +15,8 @@ export const InnerText = styled.Text`
 `;
 export const SkipText = styled.TouchableOpacity`
   position: absolute;
-  right: 24;
   top: ${height * 0.06};
-  width: 60;
+  right: 24;
   height: 40;
 `;
 

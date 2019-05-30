@@ -43,9 +43,13 @@ class Payment extends React.Component {
   };
 
   render() {
+    const hideArrow = this.props.navigation.getParam('hideArrow', false);
+
     return (
       <View style={{ flex: 1 }}>
-        <Arrow onPress={() => this.props.navigation.goBack()} />
+        {hideArrow ? null : (
+          <Arrow onPress={() => this.props.navigation.goBack()} />
+        )}
         <SkipText onPress={() => this.props.navigation.navigate('mappage')}>
           <Text style={{ color: 'rgb(106,106,106)' }}>건너뛰기</Text>
         </SkipText>

@@ -46,15 +46,11 @@ class PointPage extends React.Component {
     return (
       <>
         <View style={{ flex: 1 }}>
-          <Arrow onPress={() => this.props.navigation.navigate('mappage')} />
-          <ThemeText>내 포인트</ThemeText>
+          <Arrow onPress={() => this.props.navigation.navigate('mypoint')} />
+          <ThemeText>포인트 충전하기</ThemeText>
           <s.CouponView>
-            <s.InnerText>현재 보유 포인트</s.InnerText>
-            <View style={{flexDirection: 'row'}}>
-            <s.PointText>{this.props.point}</s.PointText>
-            <s.PointText>P</s.PointText>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
+            
+            <View style={{ flexDirection: 'row', marginBottom: 20 }}>
               <s.ChangeMenu
                 style={selectedShadow}
               >

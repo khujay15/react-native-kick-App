@@ -49,11 +49,7 @@ export default class PlaceModal extends React.Component {
             source={require('assets/icons/PlaceModal.png')}
             style={{ width: 30, height: 30, marginRight: 10 }}
           />
-          <TouchableOpacity
-            onPress={() => {
-              this.setMapModalVisible(true);
-            }}
-          >
+          <TouchableOpacity>
             <s.LocationText>{this.props.description}</s.LocationText>
             <s.LocationTextDetail>{this.props.location}</s.LocationTextDetail>
           </TouchableOpacity>

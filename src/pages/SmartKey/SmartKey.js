@@ -35,15 +35,22 @@ class SmartKey extends React.Component {
       )
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
-          this.props.onPress();
-          this.props.endLent(res.data.data.pointBalance);
-
+          this.toggleOff();
+          console.log(res);
+          this.props.endLent(res.data.data.pointBalance, res.data.data);
         }
       })
       .catch(err => console.log(err.response));
   };
 
   render() {
+    const shadowStyle = {
+      shadowRadius: 5,
+      shadowColor: 'rgb(0, 0, 0.7)',
+      shadowOpacity: 0.1,
+      shadowOffset: { width: 0, height: 5 },
+    };
+
     return (
       <Modal
         animationType="slide"
@@ -55,14 +62,7 @@ class SmartKey extends React.Component {
         <s.SmartKeyView>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity style={{ alignItems: 'center' }}>
-              <s.Circle
-                style={{
-                  shadowRadius: 5,
-                  shadowColor: 'rgb(0, 0, 0.7)',
-                  shadowOpacity: 0.1,
-                  shadowOffset: { width: 0, height: 5 },
-                }}
-              >
+              <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image source={require('/assets/icons/smartkey/Lock.png')} />
                 </s.InnerCirCle>
@@ -72,14 +72,7 @@ class SmartKey extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity style={{ alignItems: 'center' }}>
-              <s.Circle
-                style={{
-                  shadowRadius: 3,
-                  shadowColor: 'rgb(0, 0, 0.7)',
-                  shadowOpacity: 0.1,
-                  shadowOffset: { width: 0, height: 5 },
-                }}
-              >
+              <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image
                     source={require('/assets/icons/smartkey/UnLock.png')}
@@ -93,14 +86,7 @@ class SmartKey extends React.Component {
 
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity style={{ alignItems: 'center' }}>
-              <s.Circle
-                style={{
-                  shadowRadius: 5,
-                  shadowColor: 'rgb(0, 0, 0.7)',
-                  shadowOpacity: 0.1,
-                  shadowOffset: { width: 0, height: 5 },
-                }}
-              >
+              <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image
                     source={require('/assets/icons/smartkey/HeadLight.png')}
@@ -112,14 +98,7 @@ class SmartKey extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity style={{ alignItems: 'center' }}>
-              <s.Circle
-                style={{
-                  shadowRadius: 3,
-                  shadowColor: 'rgb(0, 0, 0.7)',
-                  shadowOpacity: 0.1,
-                  shadowOffset: { width: 0, height: 5 },
-                }}
-              >
+              <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image
                     source={require('/assets/icons/smartkey/Report.png')}
@@ -143,11 +122,12 @@ class SmartKey extends React.Component {
 const mapStateToProps = state => ({
   kickboard_serial: state.LentReducer.kickboard_serial,
   point: state.LentReducer.point,
+  returndata: state.LentReducer.returndata,
 });
 
 const mapDispatchToProps = dispatch => ({
-  endLent: Leftpoint => dispatch({ type: 'LENT_END', point: Leftpoint }),
- 
+  endLent: (Leftpoint, Returndata) =>
+    dispatch({ type: 'LENT_END', point: Leftpoint, returndata: Returndata }),
 });
 
 const SmartKeyContainer = connect(

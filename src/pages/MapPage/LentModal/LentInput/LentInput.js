@@ -27,6 +27,7 @@ class LentInput extends React.Component {
     stopAni: false,
     IsSuccess: true,
     ErrorMsg: '',
+
   };
 
 
@@ -76,7 +77,9 @@ class LentInput extends React.Component {
           this.hideLoading();
         }
       })
-      .catch(err => this.setState({IsSuccess: false, topAni: true, ErrorMsg: err.response.data.msg}));
+      .catch(err => { 
+        this.hideLoading();
+        this.setState({IsSuccess: false, ErrorMsg: err.response.data.msg}) });
   };
 
   render() {
@@ -121,10 +124,8 @@ class LentInput extends React.Component {
             <s.ExitMark onPress={() => this.toggleOff()} />
             <View style={{ flex: 1, marginHorizontal: 30 }}>
               {IsSuccess ? 
-
               (<>
-
-              <Image
+                <Image
                 source={require('assets/popup/KickPopup.png')}
                 style={{
                   alignSelf: 'center',
@@ -132,7 +133,6 @@ class LentInput extends React.Component {
                   position: 'absolute',
                 }}
               />
-
               <Animated.Image
                 source={require('assets/popup/LoadingPopup.png')}
                 style={{
@@ -144,10 +144,10 @@ class LentInput extends React.Component {
               />
               <View style={{ marginTop: 30, alignItems: 'center' }}>
                 <Text style={{ fontSize: 20, fontWeight: '200' }}>
-                  킥보드를 대여중입니다.
+                  {this.state.stopAni? "대여가 완료되었습니다.":"킥보드를 대여중입니다."}
                 </Text>
               </View>
-    </>) : <>
+                </>) : (<>
               <Image
                 source={require('assets/popup/LoadingFailed.png')}
                 style={{
@@ -157,12 +157,12 @@ class LentInput extends React.Component {
                 }}
               />
               
-              <View style={{ marginTop: 30, alignItems: 'center' }}>
+              <View style={{ marginTop: 20, alignItems: 'center' }}>
                 <Text style={{ fontSize: 20, fontWeight: '200' }}>
                   {this.state.ErrorMsg}
                 </Text>
             </View>
-           </>}
+    </>)}
             </View>
               { this.state.stopAni ? (<s.FooterClick
                 color={color.oboon}
@@ -176,8 +176,8 @@ class LentInput extends React.Component {
           <Arrow onPress={() => this.props.navigation.goBack()} />
 
           <View style={{ marginLeft: 30, marginRight: 30, marginTop: 100 }}>
-            <Text style={{ fontSize: 24 }}>킥보드 '어디'의</Text>
-            <Text style={{ fontSize: 24 }}>숫자 4자리를 입력해주세요</Text>
+            <Text style={{ fontSize: 24 }}>킥보드에 적힌</Text>
+            <Text style={{ fontSize: 24 }}>숫자를 입력해주세요</Text>
           </View>
 
           <s.LentView>

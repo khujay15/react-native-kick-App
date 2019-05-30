@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { width, height } from 'theme/size';
 
 export const DrawShape = styled.Image`
-  width: 70;
-  height: 70;
+  width: 50;
+  height: 50;
 `;
 
 export const DrawTouch = styled.TouchableOpacity`

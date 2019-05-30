@@ -5,6 +5,7 @@ import PopUp from 'components/modules/PopUp';
 import axios from 'axios';
 import * as s from './LentModal.styled';
 import LentInput from './LentInput';
+import TutorialPopup from './TutorialPopup';
 
 class LentModal extends React.Component {
   state = {
@@ -12,9 +13,12 @@ class LentModal extends React.Component {
 
     showPayPopup: false,
     showLicensePopup: false,
+    showUnPaidPopup: false,
+    showTutorialPopup: false,
   };
 
   handleClick = () => {
+    const Paid = this.props.point > -1;
     if (!this.props.Payment) {
       this.setState({ showPayPopup: true });
       return;
@@ -23,8 +27,17 @@ class LentModal extends React.Component {
       this.setState({ showLicensePopup: true });
       return;
     }
+    if(this.props.Tutorial !== 'watch'){
+      this.setState({ showTutorialPopup: true });
+      return;
+    }
 
-    if (this.props.Payment && this.props.License)
+    if (!Paid) {
+      this.setState({ showUnPaidPopup: true });
+      return;
+    }
+
+    if (this.props.Payment && this.props.License && Paid)
       this.props.navigation.navigate('lentinput');
 
     // onPress={() => this.setState({ LentModalVisible: true })}
@@ -38,6 +51,13 @@ class LentModal extends React.Component {
     this.setState({ showLicensePopup: false });
   };
 
+  closeUnPaidPopup = () => {
+    this.setState({ showUnPaidPopup: false });
+  };
+  closeTutorialPopup = () => {
+    this.setState({ showTutorialPopup: false });
+  };
+
   render() {
     return (
       <>
@@ -49,7 +69,11 @@ class LentModal extends React.Component {
         <PopUp
           visible={this.state.showPayPopup}
           onExit={this.closePayPopup}
-          FooterOnPress={() => this.props.navigation.navigate('payment')}
+          FooterOnPress={() =>
+            this.props.navigation.navigate('payment', {
+              hideArrow: true,
+            })
+          }
           FooterText="등록하기"
           img={require('assets/popup/PayPopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
@@ -59,12 +83,35 @@ class LentModal extends React.Component {
         <PopUp
           visible={this.state.showLicensePopup}
           onExit={this.closeLicensePopup}
-          FooterOnPress={() => this.props.navigation.navigate('license')}
+          FooterOnPress={() =>
+            this.props.navigation.navigate('license', {
+              hideArrow: true,
+            })
+          }
           FooterText="등록하기"
           img={require('assets/popup/LicensePopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
           SecondLineText="먼저 면허증을 등록해주세요!"
         />
+
+        <PopUp
+          visible={this.state.showUnPaidPopup}
+          onExit={this.closeUnPaidPopup}
+          FooterOnPress={() => {
+            this.closeUnPaidPopup();
+            this.props.navigation.navigate('coupon');
+          }}
+          FooterText="포인트 충전하기"
+          img={require('assets/popup/UnpaidPopup.png')}
+          FirstLineText="미완료된 결제가 있습니다!"
+          SecondLineText="포인트를 충전해 주세요."
+        />
+
+        <TutorialPopup 
+        visible={this.state.showTutorialPopup}
+        onExit={this.closeTutorialPopup}
+        />
+        
 
         <s.LentButton onPress={this.handleClick}>
           <Text style={{ color: 'white', fontSize: 20 }}> 대여하기 </Text>
@@ -76,6 +123,10 @@ class LentModal extends React.Component {
 const mapStateToProps = state => ({
   License: state.LoginReducer.License,
   Payment: state.LoginReducer.Payment,
+  Tutorial: state.LoginReducer.Tutorial,
+
+  point: state.LentReducer.point,
+  
 });
 
 const LentModalContainer = connect(mapStateToProps)(LentModal);

@@ -23,6 +23,7 @@ import {
   Line,
   Circle,
   InnerCirCle,
+  EmailText,
 } from './DrawPage.styled';
 
 export class DrawPage extends React.Component {
@@ -58,6 +59,7 @@ export class DrawPage extends React.Component {
               <NameText>{this.props.Name}</NameText>
               <Nim> 님</Nim>
             </NameView>
+            <EmailText>{this.props.Email}</EmailText>
 
             <View style={{ flexDirection: 'row' }}>
               <View style={{ alignItems: 'center', marginRight: 20 }}>
@@ -159,6 +161,7 @@ export class DrawPage extends React.Component {
 const mapStateToProps = state => ({
   Name: state.LoginReducer.Name,
   Token: state.LoginReducer.Token,
+  Email: state.LoginReducer.Email,
 });
 
 const DrawerContainer = connect(mapStateToProps)(DrawPage);

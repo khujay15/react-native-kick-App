@@ -36,42 +36,11 @@ export class WelcomeScreen extends React.Component {
       AutoToken: false,
       tutorials: false,
       firstLogin: false,
+      err: false,
       
     };
   }
   componentDidMount() {
-   
-    SInfo.getItem('tutorials', {}).then(value => {
-      console.log(value);
-
-      value === 'watch'
-        ? this.setState({ tutorials: value })
-        : this.props.aftertutorial();
-    });
-
-
-    // SInfo.getItem('AutoToken', {}).then(value => {
-    //   console.log(value);
-    //   const data = JSON.stringify({
-    //     accesstoken: value,
-    //   });
-    //   networks
-    //   .get(`https://api.oboonmobility.com/auth/tokeninfo`,{
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization' : value,
-    //     },
-    //   })
-    //   .then(res => {
-    //     console.log(res);
-    //     if (res.data.success === true || res.data.success === 'true') {
-    //       setHeader(`oboon_session=${value}`);
-    //       this.AUTOLOGIN_WITHOUTLOADING();
-    //     }
-    //   })
-    //   .catch(err => console.log(err.response));
-    // });
-    
   }
 
   AUTOLOGIN_WITHOUTLOADING = () => {
@@ -87,22 +56,9 @@ export class WelcomeScreen extends React.Component {
 
 
   AutoLogin = (platform) => {
-    // if(this.state.AutoToken) {
-    //   console.log('AUTO_LOGIN');
-    // networks
-    //   .get(`https://api.oboonmobility.com/member`)
-    //   .then(res => {
-    //     if (res.data.success === true || res.data.success === 'true') {
-    //       this.setReducer(res);
-    //       this.props.navigation.navigate('mappage');
-    //     }
-    //   })
-    // }
-    // else{
       if(platform ==='google') this.googlesignIn();
       else if(platform==='kakao') this.kakaoLogin();
-      else if(platform ==='local') this.props.navigation.navigate('emaillogin');
-    
+      else if(platform ==='local') this.props.navigation.navigate('emaillogin');   
 }
 
 
@@ -114,11 +70,12 @@ export class WelcomeScreen extends React.Component {
     const {name} = res.data.member;
     const {email} = res.data.member;
     const {point} = res.data.member;
+    this.props.updatePoint(point);
 
     if(kickboard) {
       const LentTime = new Date(kickboard["rent_date"]);
       this.props.member(name,email,status);
-      this.props.updatePoint(point);
+      
       this.props.aleadyLent(LentTime,kickboard["kick_serial_number"]);
       this.props.navigation.navigate('mappage');
     }
@@ -126,9 +83,9 @@ export class WelcomeScreen extends React.Component {
       if (status === 0 || status === '0' || status === 4 || status === '4' || status === 6|| status ==='6') {
        
         this.props.member(name,email,status);
-        this.props.updatePoint(point);
+      
       } 
-      else if (status === 3 || status === '3') {
+      else if (status === 3 || status === '3'|| status === 7 || status === '7') {
         this.props.afterGOOGLELogin(name, email, this.state.token);
         this.props.hasPhone();
       }
@@ -251,7 +208,8 @@ export class WelcomeScreen extends React.Component {
               SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
               this.props.navigation.navigate('mappage');
             }
-            else {
+          })
+          .catch(error => {
               RNKakaoLogins.getProfile((err, user) => {
                 if (err) {
                   console.log(err.toString());
@@ -262,9 +220,8 @@ export class WelcomeScreen extends React.Component {
                 this.props.afterKAKAOLogin(user.nickname, result.token);
                 this.props.navigation.navigate('authemail');
               });
-            }
-          })
-          .catch(err => console.log(err));
+            
+            this.setState({err: JSON.stringify(error.response.data)}) });
          
         }
       });
@@ -291,14 +248,15 @@ export class WelcomeScreen extends React.Component {
       <>
         <SafeAreaView style={{ flex: 1 }}>
           <MainLogo />
-          <TalkCloud />
+
+  {this.state.err? <Text>{this.state.err}</Text>: null}
 
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.AutoLogin('google')}
           >
             <LoginTouch
-              style={{
+                style={{
                 shadowRadius: 3,
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,

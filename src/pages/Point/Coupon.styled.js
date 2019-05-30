@@ -11,13 +11,12 @@ export const InnerText = styled.Text`
 `;
 export const PointText = styled.Text`
   color: ${color.oboon};
-  margin-top: 20;
-  margin-bottom: 20;
   font-size: 24;
 `;
-export const CouponView = styled.ScrollView`
+export const CouponView = styled.View`
   margin-left: 24;
   margin-right: 24;
+  margin-top: 60;
 `;
 
 export const ChangeMenu = styled.TouchableOpacity`
@@ -47,7 +46,7 @@ export const ChangeMenu2 = styled.TouchableOpacity`
 export const SelectBox = styled.TouchableOpacity`
   margin-left: 1;
   margin-right: 1;
-  margin-top: 20;
+  margin-top: 10;
   border-width: 0.5;
   border-bottom-width: 0.5;
   border-radius: 1;
@@ -70,4 +69,30 @@ export const SelectBoxInside = styled.View`
   padding-left: 1;
   padding-top: 1;
   padding-bottom: 1;
+`;
+
+export const Line = styled.View`
+  border-bottom-width: 1;
+  border-bottom-color: rgb(106, 106, 106);
+  margin-top: 40;
+  margin-bottom: 20;
+`;
+
+export const InPointText = styled.Text`
+  font-size: 16;
+  color: ${color.oboon};
+  margin-left: auto;
+`;
+
+export const PointTouch = styled.TouchableOpacity`
+  flex-direction: row;
+  align-content: center;
+  height: 36;
+`;
+
+export const InView = styled.View`
+  margin-left: auto;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 8;
 `;

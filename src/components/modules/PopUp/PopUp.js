@@ -51,14 +51,11 @@ export default class PopUp extends React.Component {
           }}
         >
           <s.ExitMark onPress={() => this.toggleOff()} />
-          <View style={{ flex: 1, marginTop: 50, marginHorizontal: 30 }}>
+          <View style={{ flex: 1, marginTop: 50, marginHorizontal: 20 }}>
             <Image
               source={this.props.img}
               style={{
                 alignSelf: 'center',
-
-                width: 150,
-                height: 101,
               }}
             />
             <View style={{ marginTop: 50, alignItems: 'center' }}>

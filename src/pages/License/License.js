@@ -73,7 +73,6 @@ class License extends React.Component {
       Platform.OS === 'android'
         ? this.state.img
         : this.state.img.replace('file://', '');
-    console.log(imguri);
     ImageForm.append('license', {
       uri: imguri,
       name: this.props.Email,
@@ -88,10 +87,9 @@ class License extends React.Component {
       })
       .then(res => {
         console.log(res);
-        if(res.data.success === true || res.data.success === 'true'){
+        if (res.data.success === true || res.data.success === 'true') {
           this.props.hasLicense();
           this.props.navigation.navigate('mappage');
-
         }
       })
       .catch(err => console.log(err));
@@ -99,9 +97,12 @@ class License extends React.Component {
 
   render() {
     const { img } = this.state;
+    const hideArrow = this.props.navigation.getParam('hideArrow', false);
     return (
       <>
-        <Arrow onPress={() => this.props.navigation.goBack()} />
+        {hideArrow ? null : (
+          <Arrow onPress={() => this.props.navigation.goBack()} />
+        )}
         <s.SkipText onPress={() => this.props.navigation.navigate('mappage')}>
           <Text style={{ color: 'rgb(106,106,106)' }}>건너뛰기</Text>
         </s.SkipText>

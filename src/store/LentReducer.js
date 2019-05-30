@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   isLent: false,
   kickboard_serial: 0,
   returnmodal: false,
+  returndata: false,
   point: 0,
 };
 
@@ -40,8 +41,9 @@ export default function LentReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isLent: false,
-        point: action.point,
         returnmodal: true,
+        point: action.point,
+        returndata: action.returndata,
       };
     case 'CLOSE_MODAL':
       return {

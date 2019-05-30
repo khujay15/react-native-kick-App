@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import color from 'theme/color';
 
 export const MarkerImage = styled.ImageBackground`
-  height: 50;
+  height: 52;
   width: 56;
   align-items: center;
   justify-content: center;
