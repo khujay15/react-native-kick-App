@@ -115,7 +115,7 @@ class License extends React.Component {
           <s.ImageView>
             <s.License
               source={
-                img ? { uri: img } : require('assets/tutorials/Tutorial_4.png')
+                img ? { uri: img } : require('assets/icons/LicenseUpload.png')
               }
             />
           </s.ImageView>

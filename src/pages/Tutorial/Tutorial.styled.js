@@ -8,8 +8,9 @@ export const TutorialView = styled.SafeAreaView`
 // 양쪽으로 마진을 24넣어서 48을 빼줘야함
 export const TutorialImage = styled.Image`
   width: 300;
-  height: 360;
-  margin-left: 20;
+  height: 340;
+  margin-left: 30;
+  align-self: center;
   position: absolute;
   top: ${height * 0.2};
   resize-mode: contain;
@@ -53,9 +54,9 @@ export const TopTouch = styled.TouchableOpacity`
 `;
 
 export const FooterTouch = styled.TouchableOpacity`
-  bottom: 0;
   width: ${width};
   height: 60;
+  bottom: 60;
   background-color: ${props => props.color};
 
   align-items: center;

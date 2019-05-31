@@ -15,20 +15,23 @@ class LentModal extends React.Component {
     showLicensePopup: false,
     showUnPaidPopup: false,
     showTutorialPopup: false,
+
+    watchTutorial: false,
   };
 
   handleClick = () => {
     const Paid = this.props.point > -1;
-    if (!this.props.Payment) {
-      this.setState({ showPayPopup: true });
-      return;
-    }
+   
     if (!this.props.License) {
       this.setState({ showLicensePopup: true });
       return;
     }
-    if(this.props.Tutorial !== 'watch'){
-      this.setState({ showTutorialPopup: true });
+    if (!this.props.Payment) {
+      this.setState({ showPayPopup: true });
+      return;
+    }
+    if(this.props.Tutorial !== 'watch'&& !this.state.watchTutorial){
+      this.setState({ showTutorialPopup: true, watchTutorial: true });
       return;
     }
 
@@ -92,6 +95,7 @@ class LentModal extends React.Component {
           img={require('assets/popup/LicensePopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
           SecondLineText="먼저 면허증을 등록해주세요!"
+          LicenseSize={{width:180, height:120, alignSelf: 'center',}}
         />
 
         <PopUp

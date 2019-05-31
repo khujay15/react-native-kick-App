@@ -202,12 +202,13 @@ class MapPage extends React.Component {
                  selectedMarkerId={selectedMarkerId}
                 description={data['name']}
                 location={data['address']}
+                isLent={this.props.isLent}
                  />
               )
             })}
 
          
-          <DrawHead onPress={() => navigation.openDrawer()} />
+          <DrawHead img={require('assets/markers/Drawer.png')} onPress={() => navigation.openDrawer()} />
           <MapButton
             right={30}
             top={25}

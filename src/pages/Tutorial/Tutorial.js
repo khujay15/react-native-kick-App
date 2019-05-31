@@ -41,7 +41,7 @@ class Tutorial extends React.Component {
   render() {
     return (
       <>
-        <SafeAreaView>
+        <View>
           <s.TopTouch onPress={() => this.props.navigation.navigate('mappage')}>
             <View style={{ height: 100, width: 100 }}>
               <Text>건너뛰기</Text>
@@ -93,7 +93,7 @@ class Tutorial extends React.Component {
                 key: 3,
               },
             ]}
-            style={{ marginLeft: 24, marginRight: 24, marginTop: 50 }}
+            style={{ marginLeft: 24, marginRight: 24, marginTop: 70 }}
             renderItem={({ item }) => (
               <View>
                 <s.TutorialView>
@@ -116,7 +116,7 @@ class Tutorial extends React.Component {
           >
             <Text style={{ color: 'white', fontSize: 20 }}>시작하기</Text>
           </s.FooterTouch>
-        </SafeAreaView>
+        </View>
       </>
     );
   }

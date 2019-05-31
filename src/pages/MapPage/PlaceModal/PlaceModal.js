@@ -6,7 +6,6 @@ import KickboardSelect from './KickboardSelect';
 
 import * as s from './PlaceModal.styled';
 
-
 export default class PlaceModal extends React.Component {
   state = {
     MapmodalVisible: false,
@@ -45,21 +44,40 @@ export default class PlaceModal extends React.Component {
         {/* 
 -------modal out---- */}
         <s.InnerView style={{ flexDirection: 'row' }}>
-          <Image
-            source={require('assets/icons/PlaceModal.png')}
-            style={{ width: 30, height: 30, marginRight: 10 }}
-          />
-          <TouchableOpacity>
-            <s.LocationText>{this.props.description}</s.LocationText>
-            <s.LocationTextDetail>{this.props.location}</s.LocationTextDetail>
-          </TouchableOpacity>
-          <s.NumberView>
-            <s.NumberText>
-              {this.props.amount}
+          {this.props.isLent ? (
+            <>
+              <Image
+                source={require('assets/markers/ParkMark.png')}
+                style={{ width: 30, height: 30, marginRight: 10 }}
+              />
+              <TouchableOpacity>
+                <s.LocationText>{this.props.description}</s.LocationText>
+                <s.LocationTextDetail>
+                  {this.props.location}
+                </s.LocationTextDetail>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <Image
+                source={require('assets/icons/PlaceModal.png')}
+                style={{ width: 30, height: 30, marginRight: 10 }}
+              />
+              <TouchableOpacity>
+                <s.LocationText>{this.props.description}</s.LocationText>
+                <s.LocationTextDetail>
+                  {this.props.location}
+                </s.LocationTextDetail>
+              </TouchableOpacity>
+              <s.NumberView>
+                <s.NumberText>
+                  {this.props.amount}
 대
-              <Text style={{ color: 'black' }}> 이용가능</Text>
-            </s.NumberText>
-          </s.NumberView>
+                  <Text style={{ color: 'black' }}> 이용가능</Text>
+                </s.NumberText>
+              </s.NumberView>
+            </>
+          )}
 
           {/* <s.Line /> */}
         </s.InnerView>

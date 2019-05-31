@@ -73,7 +73,7 @@ export class DrawPage extends React.Component {
                   onPress={() => this.props.navigation.navigate('coupon')}
                 >
                   <InnerCirCle>
-                    <Image source={require('/assets/icons/Coupon.png')} />
+                    <Image source={require('/assets/icons/Point.png')} />
                   </InnerCirCle>
                 </Circle>
                 <Text style={{ marginTop: 10, fontWeight: '200' }}>
