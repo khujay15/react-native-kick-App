@@ -107,6 +107,7 @@ export class DrawPage extends React.Component {
                     shadowOpacity: 0.1,
                     shadowOffset: { width: 0, height: 5 },
                   }}
+                  onPress={() => this.props.navigation.navigate('usage')}
                 >
                   <InnerCirCle>
                     <Image source={require('/assets/icons/History.png')} />

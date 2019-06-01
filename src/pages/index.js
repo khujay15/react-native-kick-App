@@ -17,6 +17,7 @@ import Setting from 'pages/Setting';
 import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
 import Payment from 'pages/Payment';
+import UsageHistory from 'pages/UsageHistory';
 
 import License from 'pages/License';
 import Tutorial from 'pages/Tutorial';
@@ -53,6 +54,7 @@ export const MapDrawerNavigator = createDrawerNavigator(
     lentinput : {screen : LentInput},
     mycard : { screen: MyCard},
     setting : { screen : Setting},
+    usage : {screen: UsageHistory},
     
     
   },

@@ -85,8 +85,11 @@ class ReturnModal extends React.Component {
                   {`${yyyy}.${mm}.${dd}`}
                 </Text>
 
+                <View style={{flexDirection: 'row'}}>
+                  <Image source={require('assets/icons/SrcToDst.png')}/>
+                  <View>
                 <s.LineView>
-                  <s.Dot />
+                
                   <Text style={{ marginRight: 15, fontSize: 16 }}>
                     {`${rent_hour} : ${rent_minute}`}
                   </Text>
@@ -95,10 +98,9 @@ class ReturnModal extends React.Component {
                   </Text>
                 </s.LineView>
 
-                <View style={{ marginLeft: 3, height: 30 }} />
+                <View style={{ marginLeft: 3, height: 20 }} />
 
                 <s.LineView>
-                  <s.Dot />
                   <Text style={{ marginRight: 15, fontSize: 16 }}>
                     {`${return_hour} : ${return_minute}`}
                   </Text>
@@ -106,6 +108,9 @@ class ReturnModal extends React.Component {
                     {return_station_name}
                   </Text>
                 </s.LineView>
+                </View>
+                </View>
+
                 <s.GrayLine />
 
                 <s.InfoView>

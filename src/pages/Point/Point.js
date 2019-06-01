@@ -120,6 +120,7 @@ class Point extends React.Component {
         onEndReached={this.updateHistory}
         onEndReachedThreshold={0.5}
         initialNumToRender={10}
+       
         
       />
         </SafeAreaView>

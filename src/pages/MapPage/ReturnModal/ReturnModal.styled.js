@@ -62,6 +62,7 @@ export const GrayLine = styled.View`
 export const LineView = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-left: 10;
 `;
 
 export const InfoView = styled.View`
