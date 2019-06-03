@@ -10,10 +10,10 @@ export const ModalView = styled.View`
   elevation: 1;
   position: absolute;
   top: 120;
-
-  margin-right: 24;
-  width: ${width * 0.85};
+  margin-left: 30;
+  margin-right: 30;
   height: 62;
+  width: ${width - 60};
 
   background-color: white;
 `;

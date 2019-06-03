@@ -18,6 +18,8 @@ import DrawerContainer from 'pages/DrawPage';
 import MapPage from 'pages/MapPage';
 import Payment from 'pages/Payment';
 import UsageHistory from 'pages/UsageHistory';
+import CustomerService from 'pages/CustomerService';
+import OutOfOrder from 'pages/CustomerService/OutOfOrder';
 
 import License from 'pages/License';
 import Tutorial from 'pages/Tutorial';
@@ -55,8 +57,10 @@ export const MapDrawerNavigator = createDrawerNavigator(
     mycard : { screen: MyCard},
     setting : { screen : Setting},
     usage : {screen: UsageHistory},
-    
-    
+    outoforder : {screen: OutOfOrder},
+     cservice : {screen: CustomerService},
+     
+  
   },
   {
     contentComponent: DrawerContainer,
@@ -77,7 +81,9 @@ const BaseRouter = createSwitchNavigator(
     authtestResult,
     authphone: AuthPhone,
     authemail: AuthEmail,
-
+    
+  
+   
   },
   {
     initialRouteName: 'splash',

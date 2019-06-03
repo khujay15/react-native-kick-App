@@ -21,7 +21,7 @@ class LentModal extends React.Component {
 
   handleClick = () => {
     const Paid = this.props.point > -1;
-   
+
     if (!this.props.License) {
       this.setState({ showLicensePopup: true });
       return;
@@ -30,7 +30,7 @@ class LentModal extends React.Component {
       this.setState({ showPayPopup: true });
       return;
     }
-    if(this.props.Tutorial !== 'watch'&& !this.state.watchTutorial){
+    if (this.props.Tutorial !== 'watch' && !this.state.watchTutorial) {
       this.setState({ showTutorialPopup: true, watchTutorial: true });
       return;
     }
@@ -57,6 +57,7 @@ class LentModal extends React.Component {
   closeUnPaidPopup = () => {
     this.setState({ showUnPaidPopup: false });
   };
+
   closeTutorialPopup = () => {
     this.setState({ showTutorialPopup: false });
   };
@@ -95,7 +96,7 @@ class LentModal extends React.Component {
           img={require('assets/popup/LicensePopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
           SecondLineText="먼저 면허증을 등록해주세요!"
-          LicenseSize={{width:180, height:120, alignSelf: 'center',}}
+          LicenseSize={{ width: 180, height: 120, alignSelf: 'center' }}
         />
 
         <PopUp
@@ -111,11 +112,10 @@ class LentModal extends React.Component {
           SecondLineText="포인트를 충전해 주세요."
         />
 
-        <TutorialPopup 
-        visible={this.state.showTutorialPopup}
-        onExit={this.closeTutorialPopup}
+        <TutorialPopup
+          visible={this.state.showTutorialPopup}
+          onExit={this.closeTutorialPopup}
         />
-        
 
         <s.LentButton onPress={this.handleClick}>
           <Text style={{ color: 'white', fontSize: 20 }}> 대여하기 </Text>
@@ -130,7 +130,6 @@ const mapStateToProps = state => ({
   Tutorial: state.LoginReducer.Tutorial,
 
   point: state.LentReducer.point,
-  
 });
 
 const LentModalContainer = connect(mapStateToProps)(LentModal);

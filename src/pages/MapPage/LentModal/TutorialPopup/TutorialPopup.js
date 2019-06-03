@@ -92,19 +92,19 @@ export default class TutorialPopup extends React.Component {
           <FlatList
             data={[
               {
-                img: require('assets/popup/UnpaidPopup.png'),
+                img: require('assets/popup/Tutorialpopup_1.png'),
                 Text: '발을 두번 굴러 킥보드를 움직이세요!',
                
                 key: 0,
               },
               {
-                img: require('assets/popup/UnpaidPopup.png'),
+                img: require('assets/popup/Tutorialpopup_2.png'),
                 Text: '오른쪽의 가속 레버를 누르세요',
               
                 key: 1,
               },
               {
-                img: require('assets/popup/UnpaidPopup.png'),
+                img: require('assets/popup/Tutorialpopup_3.png'),
                 Text: '멈출땐 왼쪽 브레이크를 잡아주세요',
             
                 key: 2,

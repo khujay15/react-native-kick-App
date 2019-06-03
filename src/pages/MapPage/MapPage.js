@@ -213,6 +213,7 @@ class MapPage extends React.Component {
             right={30}
             top={25}
             img={require('assets/icons/InfoButton.png')}
+            onPress={() => this.props.navigation.navigate('cservice')}
           />
           <MapButton
             right={30}

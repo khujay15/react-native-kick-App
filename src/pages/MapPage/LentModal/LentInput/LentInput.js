@@ -74,6 +74,7 @@ class LentInput extends React.Component {
         const startTime = new Date(res.data.data['rent_time']);
         if (res.data.success === true || res.data.success === 'true') {
           this.props.lentstart(startTime, this.state.Code);
+          this.setState({IsSuccess: true})
           this.hideLoading();
         }
       })

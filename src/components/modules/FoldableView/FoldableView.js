@@ -6,6 +6,7 @@ import {
   Platform,
   UIManager,
   Image,
+  ScrollView,
 } from 'react-native';
 import * as s from './FoldableView.styled';
 
@@ -29,10 +30,14 @@ export default class FoldableView extends Component {
     const iconImage = this.state.expanded
       ? require('assets/icons/Arrow.png')
       : require('assets/icons/NavImage.png');
-    const ViewHeight = 300; // null if you want to fit in window
+    const ViewHeight = 600; // null if you want to fit in window
     return (
       <>
-        <s.StyledBox activeOpacity={0.8} onPress={this.changeLayout}>
+        <s.StyledBox
+          activeOpacity={0.8}
+          onPress={this.changeLayout}
+          style={this.props.style}
+        >
           <Text style={{ fontSize: 20 }}>{this.props.title}</Text>
           <Image source={iconImage} style={{ marginLeft: 'auto' }} />
         </s.StyledBox>

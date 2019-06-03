@@ -6,6 +6,7 @@ import Arrow from 'components/modules/Arrow';
 import ThemeText from 'components/modules/ThemeText';
 import InputBox from 'components/modules/InputBox';
 import FooterClick from 'components/modules/FooterClick';
+import moment from 'moment';
 import {connect} from 'react-redux';
 import {networks} from 'components/networks';
 import * as s from './Coupon.styled';
@@ -21,15 +22,21 @@ class Point extends React.Component {
   };
 
   componentWillMount() {
-    networks.get('https://api.oboonmobility.com/member/point_history?page=1')
+    this.FirstPage();
+  }
+
+  FirstPage() {
+  networks.get('https://api.oboonmobility.com/member/point_history?page=1')
     .then(res=> {
-      console.log(res);
+      console.log("FirstPage:",res);
         if(res.data.success==='true'||res.data.success===true)
         {
             this.setState({history: res.data.data})
+            console.log("FirstPage: ",res.data.data);
         }
     })
     .catch(err => console.log(err.response))
+
   }
   updateHistory = async () => {
     if(!this.holdFeedUpdate){
@@ -74,7 +81,7 @@ class Point extends React.Component {
   }
   componentWillReceiveProps() {
     this.holdFeedUpdate= false;
-   this.updateHistory();
+    this.FirstPage();
   }
 
   render() {    
@@ -102,14 +109,12 @@ class Point extends React.Component {
         data={this.state.history}
         renderItem={({ item }) => {
             const date = new Date(item.point_usage_datetime);
-            const YYYY = date.getFullYear();
-            const MM = date.getMonth();
-            const DD = date.getDay();
-            const hh = date.getHours();
-            const mm = date.getMinutes();
+            
+            const ddd = moment(date).format('YYYY-MM-DD HH:mm'); 
             return (
                     <View style={{marginBottom: 20}}>
-                    <Text style={{color: color.grey, fontSize: 14}}>{`${YYYY}.${MM}.${DD} ${hh}:${mm}`}</Text>
+                    {/* <Text style={{color: color.grey, fontSize: 14}}>{`${YYYY}.${MM}.${DD} ${hh}:${mm}`}</Text> */}
+                    <Text style={{color: color.grey, fontSize: 14}}>{ddd}</Text>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={{fontSize: 16}}>{item.usage_type}</Text>
                         <s.InPointText>{item.usage_point} </s.InPointText>

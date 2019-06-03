@@ -10,10 +10,10 @@ export const TimeModalView = styled.View`
 
   elevation: 1;
 
-  top: 200;
+  top: 190;
   margin-left: 30;
-  margin-right: 24;
-  width: ${width * 0.85};
+  margin-right: 30;
+  width: ${width - 60};
   height: 62;
 
   background-color: white;
