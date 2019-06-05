@@ -10,7 +10,6 @@ export const SelectBox = styled.TouchableOpacity`
   border-bottom-width: 0.5;
   border-radius: 5;
   border-color: #ddd;
-  elevation: 1;
   height: 60;
   justify-content: center;
   margin-bottom: 1;

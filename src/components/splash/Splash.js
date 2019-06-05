@@ -116,7 +116,14 @@ class Splash extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}
+      >
         <Image source={require('/assets/icons/ic_logo.png')} />
       </View>
     );

@@ -8,7 +8,6 @@ export const SelectBox = styled.TouchableOpacity`
   border-bottom-width: 0.1;
   border-radius: 1;
   border-color: #ddd;
-  elevation: 1;
   height: 60;
   justify-content: center;
   margin-bottom: 1;
@@ -30,9 +29,8 @@ export const SelectBoxInside = styled.View`
 
 export const SmallSelectBox = styled.TouchableOpacity`
   border-bottom-width: 0.5;
-  border-radius: 1;
+  border-radius: 5;
   border-color: #ddd;
-  elevation: 1;
   height: 60;
   width: 100;
   margin-bottom: 1;
@@ -51,12 +49,11 @@ export const IndicatorText = styled.Text`
 
 export const DescriptionInput = styled.TextInput`
   border-width: 0.3;
-  border-radius: 1;
+  border-radius: 5;
   border-color: #ddd;
   border-top-width: 0;
   border-bottom-width: 0;
 
-  elevation: 1;
   height: 160;
   margin-bottom: 80;
   background-color: white;

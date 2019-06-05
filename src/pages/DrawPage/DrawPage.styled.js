@@ -62,9 +62,6 @@ export const Line = styled.View`
   margin-top: 40;
 `;
 export const Circle = styled.TouchableOpacity`
-  elevation: 1;
-  border-width: 0.3;
-  border-color: rgba(0, 0, 0, 0.2);
   align-items: center;
   justify-content: center;
 

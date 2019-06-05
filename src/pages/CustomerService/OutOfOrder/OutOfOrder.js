@@ -106,7 +106,7 @@ export default class OutOfOrder extends React.Component {
 
     return (
       <>
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1,  backgroundColor: 'white', }}>
           <Arrow onPress={() => this.props.navigation.navigate('cservice')} />
           <ThemeText style={{ marginBottom: 60 }}>고장신고</ThemeText>
           <View style={{marginHorizontal:24}}>
@@ -120,31 +120,12 @@ export default class OutOfOrder extends React.Component {
             <s.IndicatorText>킥보드 위치</s.IndicatorText>
          
         <View>
-          {Platform.OS==='ios' ?
-            (<s.SelectBox style={shadowStyle} onPress={()=> this.showActionSheet() }>
-            <s.SelectBoxInside>
-              <Text 
-              style={{ fontSize: 16, color:"rgb(106, 106, 106)", paddingLeft: 20 }}
-              >{this.state.location}</Text>
-              <Image
-                source={require('assets/icons/NavImage.png')}
-                style={{ marginLeft: 'auto', marginRight: 15 }}
-              />
-            </s.SelectBoxInside>
-          </s.SelectBox>):
-            
-            (<s.SelectBox>
-            <Picker 
-            style={{elevation: 1, borderWidth:1}}
-            selectedValue = {this.state.location} 
-            onValueChange = {this.updateLocation}>
-               <Picker.Item label = "    외국어대학관" value = "외국어대학관" />
-               <Picker.Item label = "    전자정보대학관" value = "전자정보대학관" />
-              
-            </Picker>
-            </s.SelectBox>
-            )
-          }
+        <InputBox
+              onChangeText={this.handleName}
+              placeholder="   킥보드 위치를 입력해주세요"
+              placeholderTextColor="rgb(106, 106, 106)"
+            />
+
          <s.IndicatorText style={{marginTop:10}}>고장난 부분 선택</s.IndicatorText>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop:10}}>
             <s.SmallSelectBox style={this.handleViewStyle(shadowStyle,1)} onPress={() => this.ClickHandler(1)}>

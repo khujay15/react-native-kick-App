@@ -48,6 +48,13 @@ export class DrawPage extends React.Component {
   }
 
   render() {
+    const shadowStyle = {
+      shadowOffset: { width: 0, height: 5 },
+      shadowRadius: 6,
+      shadowColor: 'rgb(0, 0, 0.7)',
+      shadowOpacity: 0.12,
+    };
+
     return (
       <SafeAreaView>
         <ScrollView>
@@ -64,12 +71,7 @@ export class DrawPage extends React.Component {
             <View style={{ flexDirection: 'row' }}>
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 <Circle
-                  style={{
-                    shadowRadius: 5,
-                    shadowColor: 'rgb(0, 0, 0.7)',
-                    shadowOpacity: 0.1,
-                    shadowOffset: { width: 0, height: 5 },
-                  }}
+                  style={shadowStyle}
                   onPress={() => this.props.navigation.navigate('coupon')}
                 >
                   <InnerCirCle>
@@ -83,12 +85,7 @@ export class DrawPage extends React.Component {
 
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 <Circle
-                  style={{
-                    shadowRadius: 5,
-                    shadowColor: 'rgb(0, 0, 0.7)',
-                    shadowOpacity: 0.1,
-                    shadowOffset: { width: 0, height: 5 },
-                  }}
+                  style={shadowStyle}
                   onPress={() => this.props.navigation.navigate('mycard')}
                 >
                   <InnerCirCle>
@@ -101,12 +98,7 @@ export class DrawPage extends React.Component {
               </View>
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 <Circle
-                  style={{
-                    shadowRadius: 5,
-                    shadowColor: 'rgb(0, 0, 0.7)',
-                    shadowOpacity: 0.1,
-                    shadowOffset: { width: 0, height: 5 },
-                  }}
+                  style={shadowStyle}
                   onPress={() => this.props.navigation.navigate('usage')}
                 >
                   <InnerCirCle>

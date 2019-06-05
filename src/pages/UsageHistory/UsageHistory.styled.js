@@ -21,8 +21,6 @@ export const InnerView = styled.ScrollView`
   border-color: #ddd;
   border-top-width: 0;
   border-bottom-width: 0;
-
-  elevation: 1;
 `;
 
 export const BotButton = styled.TouchableOpacity`

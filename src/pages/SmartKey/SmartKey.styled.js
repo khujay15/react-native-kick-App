@@ -23,7 +23,6 @@ export const Circle = styled.TouchableOpacity`
   margin-right: 30;
   margin-bottom: 20;
   margin-top: 20;
-  elevation: 1;
   border-width: 0.3;
   border-color: rgba(0, 0, 0, 0.2);
   align-items: center;

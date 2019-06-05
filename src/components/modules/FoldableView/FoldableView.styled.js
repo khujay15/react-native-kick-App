@@ -8,7 +8,5 @@ export const StyledBox = styled.TouchableOpacity`
   border-color: #ddd;
   border-top-width: 0;
   border-bottom-width: 0;
-
-  background-color: white;
   flex-direction: row;
 `;

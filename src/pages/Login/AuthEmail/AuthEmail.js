@@ -104,7 +104,7 @@ class AuthEmail extends React.Component {
   render() {
     return (
       <>
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1,  backgroundColor: 'white', }}>
           <Arrow onPress={() => this.props.navigation.goBack()} />
           <ThemeText>이메일 등록하기</ThemeText>
 

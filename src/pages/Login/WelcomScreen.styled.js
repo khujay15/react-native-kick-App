@@ -110,7 +110,6 @@ export const LoginView = styled.View`
 
 export const LoginTouch = styled.View`
   margin-left: 30;
-  elevation: 1;
   border-width: 0.3;
   border-color: rgba(0, 0, 0, 0.2);
   align-items: center;
@@ -119,4 +118,5 @@ export const LoginTouch = styled.View`
   width: 60;
   height: 60;
   border-radius: 30;
+  elevation: 1;
 `;

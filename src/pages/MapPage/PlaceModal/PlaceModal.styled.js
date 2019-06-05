@@ -3,11 +3,9 @@ import color from 'theme/color';
 import { width, height } from 'theme/size';
 
 export const ModalView = styled.View`
-  elevation: 1;
   border-width: 1;
   border-color: rgba(0, 0, 0, 0.2);
 
-  elevation: 1;
   position: absolute;
   top: 120;
   margin-left: 30;

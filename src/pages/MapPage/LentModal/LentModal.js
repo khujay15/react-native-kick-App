@@ -14,7 +14,7 @@ class LentModal extends React.Component {
     showPayPopup: false,
     showLicensePopup: false,
     showUnPaidPopup: false,
-    showTutorialPopup: false,
+    showTutorialPopup: true,
 
     watchTutorial: false,
   };

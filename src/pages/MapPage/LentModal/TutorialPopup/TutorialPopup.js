@@ -26,22 +26,29 @@ export default class TutorialPopup extends React.Component {
   onScrollEnd = e => {
     const { contentOffset } = e.nativeEvent;
     const viewSize = e.nativeEvent.layoutMeasurement;
+    console.log("contentOffset: ", contentOffset);
+    console.log("viewSize: ", viewSize);
 
     // Divide the horizontal offset by the width of the view to see which page is visible
 
     this.setState({
-      Currentpage: Math.floor(contentOffset.x / viewSize.width),
+      Currentpage: Math.round(contentOffset.x / viewSize.width),
     });
-    if (Math.floor(contentOffset.x / viewSize.width) === 2) {
+    if (Math.round(contentOffset.x / viewSize.width) === 2) {
       this.setState({ bottomColor: color.oboon });
     }
   };
 
   handleBottom = () => {
-    this.state.bottomColor === color.oboon
-      ? this.toggleOff()
-      : null;
+    this.toggleOff();
   };
+
+  onViewableItemsChanged = ({ viewableItems, changed }) => {
+    console.log("Visible items are", viewableItems);
+    this.setState({Currentpage: viewableItems.length-1});
+    console.log("Changed in this iteration", changed);
+  };
+
 
 
   render() {
@@ -57,9 +64,10 @@ export default class TutorialPopup extends React.Component {
         <View
           style={{ flex: 1, opacity: 0.3, backgroundColor: 'rgb(78,78,78)' }}
         />
+        <View style={{position: 'absolute'}}>
         <View
           style={{
-            position: 'absolute',
+           
             shadowRadius: 4,
             shadowColor: 'rgb(0, 0, 0.7)',
             shadowOpacity: 0.08,
@@ -69,7 +77,7 @@ export default class TutorialPopup extends React.Component {
             borderColor: '#C0C0C0',
             borderWidth: 1,
             marginLeft: 30,
-            marginRight: 24,
+            marginRight: 30,
             marginTop: MarginTOP,
             height: 400,
             width: width * 0.85,
@@ -90,6 +98,7 @@ export default class TutorialPopup extends React.Component {
           </View>
           <View style={{justifyContent: 'center', alignContent: 'center', flex:1}}>
           <FlatList
+           onViewableItemsChanged={this.onViewableItemsChanged }
             data={[
               {
                 img: require('assets/popup/Tutorialpopup_1.png'),
@@ -110,11 +119,13 @@ export default class TutorialPopup extends React.Component {
                 key: 2,
               },
             ]}
-            style={{marginBottom:20 }}
+            style={{marginBottom:20,  alignContent: 'center'}}
             renderItem={({ item }) => (
-              <View style={{justifyContent: 'center',marginHorizontal: 50}}>
-                <Image style={{marginLeft: 24}} source={item.img} />
-                <Text style={{fontSize:16, marginTop:10}}>{item.Text}</Text>
+              <View style={{width: width*0.85, alignItems: 'center', marginTop:20 }}>
+                <View style={{ alignContent: 'center'}}>
+                <Image source={item.img} style={{alignSelf: 'center'}}/>
+                <Text style={{fontSize:16, marginTop:30}}>{item.Text}</Text>
+                </View>
               </View>
             )}
             horizontal
@@ -131,7 +142,7 @@ export default class TutorialPopup extends React.Component {
           >
             <Text style={{ color: 'white', fontSize: 20 }}>시작하기</Text>
         </s.FooterTouch>
-       
+        </View>
         </View>
       </Modal>
       </>

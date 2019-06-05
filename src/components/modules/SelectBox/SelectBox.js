@@ -4,11 +4,11 @@ import { width, height, MARGIN } from 'theme/size';
 import { Platform } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 import { SHADOW } from 'theme/shadow';
-import * as s from './InputBox.styled';
+import * as s from './SelectBox.styled';
 
-const InputBox = props => {
+const SelectBox = props => {
   if (Platform.OS === 'ios') {
-    console.log('ios');
+
     let shadowIOS = SHADOW.ios;
     if (props.toggle) {
       shadowIOS = {
@@ -20,13 +20,11 @@ const InputBox = props => {
       };
     }
 
-    return <s.StyledInputBox {...props} style={shadowIOS} />;
+    return <s.StyledViewBox {...props} style={shadowIOS} />;
   }
-  console.log('android');
   const boxWidth = width - 2 * MARGIN;
   let shadowANDROID = SHADOW.android;
   shadowANDROID = { ...shadowANDROID, width: boxWidth, height: 60 };
-
   if (props.toggle) {
     const toggle = {
       borderColor: color.oboon,
@@ -34,18 +32,16 @@ const InputBox = props => {
       borderTopWidth: 1,
       borderBottomWidth: 1,
     };
-
     return (
       <BoxShadow setting={shadowANDROID}>
-        <s.StyledInputBox {...props} style={toggle} />
+        <s.StyledViewBox {...props} style={toggle} />
       </BoxShadow>
     );
   }
   return (
-    <BoxShadow setting={shadowANDROID} style={{ marginBottom: 20 }}>
-      <s.StyledInputBox {...props} />
+    <BoxShadow setting={shadowANDROID}>
+      <s.StyledViewBox {...props} />
     </BoxShadow>
   );
 };
-
-export default InputBox;
+export default SelectBox;

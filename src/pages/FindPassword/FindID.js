@@ -10,7 +10,7 @@ export default class FindID extends React.Component {
   render() {
     return (
       <>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: 'white', }}>
           <Arrow onPress={() => this.props.navigation.navigate('login')} />
           <ThemeText>
             아이디 찾기

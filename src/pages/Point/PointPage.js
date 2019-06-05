@@ -2,8 +2,10 @@ import React from 'react';
 import { Text, SafeAreaView, ScrollView, View } from 'react-native';
 import color from 'theme/color';
 import Arrow from 'components/modules/Arrow';
+import SelectBox from 'components/modules/SelectBox';
 import ThemeText from 'components/modules/ThemeText';
 import FooterClick from 'components/modules/FooterClick';
+import {SHADOW} from 'theme/shadow';
 import {connect} from 'react-redux';
 import * as s from './Coupon.styled';
 
@@ -33,16 +35,11 @@ class PointPage extends React.Component {
       }
       else return style;
   }
+ 
 
   render() {
-    let shadowStyle = {
-        shadowRadius: 4,
-        shadowColor: 'rgb(0, 0, 0.7)',
-        shadowOpacity: 0.08,
-        shadowOffset: { width: 0, height: 5 },
-      };
-      
-      let selectedShadow = {...shadowStyle,backgroundColor: color.oboon};
+    let shadowStyle = SHADOW.iosShallow;
+    let selectedShadow = {...shadowStyle,backgroundColor: color.oboon};
     return (
       <>
         <View style={{ flex: 1 }}>
@@ -63,29 +60,37 @@ class PointPage extends React.Component {
                 <Text style={{ color: color.oboon }}>쿠폰 등록하기</Text>
               </s.ChangeMenu2>
             </View>
+            </s.CouponView>
 
-            <s.SelectBox style={this.handleStyle(shadowStyle, 1000)} onPress={() =>this.handleClick(1000)}>
-            <s.SelectBoxInside>              
-                <Text style={{marginLeft: 20,fontSize:16, color: 'rgb(106,106,106)'}}> 1000P 충전</Text>
-                <Text style={{fontSize:16, color: color.oboon, marginLeft:'auto',marginRight: 20}}> 1000원</Text>
-            </s.SelectBoxInside>
-            </s.SelectBox>
+            <s.SelectBoxOutside onPress={() =>this.handleClick(1000)} style={this.handleStyle(shadowStyle, 1000)} >
+            <SelectBox>
+              <s.SelectBoxInside>
+              <Text style={{fontSize:16, color: 'rgb(106,106,106)'}}> 1000P 충전</Text>
+              <Text style={{fontSize:16, color: color.oboon, marginLeft:'auto',marginRight: 20}}> 1000원</Text>
+              </s.SelectBoxInside>
+            </SelectBox>
+            </s.SelectBoxOutside>
 
-            <s.SelectBox style={this.handleStyle(shadowStyle, 3000)} onPress={() =>this.handleClick(3000)}>
-            <s.SelectBoxInside>              
-                <Text style={{marginLeft: 20,fontSize:16, color: 'rgb(106,106,106)'}}> 3000P 충전</Text>
-                <Text style={{fontSize:16, color: color.oboon, marginLeft:'auto',marginRight: 20}}> 3000원</Text>
-            </s.SelectBoxInside>
-            </s.SelectBox>
+            <s.SelectBoxOutside onPress={() =>this.handleClick(3000)} style={this.handleStyle(shadowStyle, 3000)} >
+            <SelectBox>
+              <s.SelectBoxInside>
+              <Text style={{fontSize:16, color: 'rgb(106,106,106)'}}> 3000P 충전</Text>
+              <Text style={{fontSize:16, color: color.oboon, marginLeft:'auto',marginRight: 20}}> 3000원</Text>
+              </s.SelectBoxInside>
+            </SelectBox>
+            </s.SelectBoxOutside>
 
-            <s.SelectBox style={this.handleStyle(shadowStyle, 5000)} onPress={() =>this.handleClick(5000)}>
-            <s.SelectBoxInside>              
-                <Text style={{marginLeft: 20,fontSize:16, color: 'rgb(106,106,106)'}}> 5000P 충전</Text>
-                <Text style={{fontSize:16, color: color.oboon, marginLeft:'auto',marginRight: 20}}> 5000원</Text>
-            </s.SelectBoxInside>
-            </s.SelectBox>
+            <s.SelectBoxOutside onPress={() =>this.handleClick(5000)} style={this.handleStyle(shadowStyle, 5000)} >
+            <SelectBox>
+              <s.SelectBoxInside>
+              <Text style={{fontSize:16, color: 'rgb(106,106,106)'}}> 5000P 충전</Text>
+              <Text style={{fontSize:16, color: color.oboon, marginLeft:'auto',marginRight: 20}}> 5000원</Text>
+              </s.SelectBoxInside>
+            </SelectBox>
+            </s.SelectBoxOutside>
 
-          </s.CouponView>
+
+         
         </View>
         <FooterClick color={color.oboon} text="충전하기" />
       </>

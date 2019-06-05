@@ -52,7 +52,7 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,  backgroundColor: 'white', }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
         <ThemeText>회원가입</ThemeText>
         <InnerText>회원가입을 위해 아래 정보를 입력해주세요</InnerText>

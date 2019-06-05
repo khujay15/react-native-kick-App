@@ -3,6 +3,7 @@ package com.oboon.client.android;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 
 import com.imagepicker.ImagePickerPackage;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
 
             new CookieManagerPackage(),
             new ImagePickerPackage(),
@@ -64,6 +66,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected String getJSMainModuleName() {
       return "index";
     }
+
   };
 
   @Override

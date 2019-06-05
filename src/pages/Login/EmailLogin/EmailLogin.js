@@ -49,22 +49,26 @@ export default class EmailLogin extends React.Component {
         <ThemeText>이메일로 로그인(베타테스트 시 미사용)</ThemeText>
 
         <EmailMainView>
-          <InputBox
-            onChangeText={this.handleEmail}
-            placeholder="   이메일 주소를 입력해주세요"
-            toggle={this.state.IsError}
-          />
-          {this.state.IsError ? (
-            <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
-          ) : null}
+          <View style={{ marginBottom: 20 }}>
+            <InputBox
+              onChangeText={this.handleEmail}
+              placeholder="   이메일 주소를 입력해주세요"
+              toggle={this.state.IsError}
+            />
+            {this.state.IsError ? (
+              <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
+            ) : null}
+          </View>
 
           {/* <TextInput onChangeText={this.handleEmail} autoFocus />
           <Line borderBottomColor={this.state.IsEmailInput} /> */}
 
-          <InputBox
-            onChangeText={this.handlePassword}
-            placeholder="   비밀번호를 입력해주세요"
-          />
+          <View style={{ marginBottom: 20 }}>
+            <InputBox
+              onChangeText={this.handlePassword}
+              placeholder="   비밀번호를 입력해주세요"
+            />
+          </View>
 
           {/* 
           <TextInput onChangeText={this.handlePassword} />

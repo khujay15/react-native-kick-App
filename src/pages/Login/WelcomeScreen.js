@@ -246,7 +246,7 @@ export class WelcomeScreen extends React.Component {
   render() {
     return (
       <>
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 , backgroundColor: 'white' }}>
           <MainLogo />
 
   {this.state.err? <Text>{this.state.err}</Text>: null}
@@ -282,6 +282,7 @@ export class WelcomeScreen extends React.Component {
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,
                 shadowOffset: { width: 0, height: 5 },
+                
               }}
             >
               <LoginView>
@@ -303,6 +304,7 @@ export class WelcomeScreen extends React.Component {
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,
                 shadowOffset: { width: 0, height: 5 },
+         
               }}
             >
               <LoginView>
@@ -324,6 +326,7 @@ export class WelcomeScreen extends React.Component {
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,
                 shadowOffset: { width: 0, height: 5 },
+       
               }}
             >
               <LoginView>

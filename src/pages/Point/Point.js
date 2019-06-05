@@ -19,6 +19,7 @@ class Point extends React.Component {
     page: 1,
     history: [],
     preHistoryLength: 0,
+    ErrorText: false,
   };
 
   componentWillMount() {
@@ -35,7 +36,7 @@ class Point extends React.Component {
             console.log("FirstPage: ",res.data.data);
         }
     })
-    .catch(err => console.log(err.response))
+    .catch(err => this.setState({ErrorText: err.response.data.msg}))
 
   }
   updateHistory = async () => {
@@ -101,6 +102,7 @@ class Point extends React.Component {
             </s.PointTouch>
             <s.Line />
             </s.CouponView>
+            {this.state.ErrorText && <Text>{this.state.ErrorText}</Text>}
        
         <FlatList 
        style={{marginLeft: 24,
