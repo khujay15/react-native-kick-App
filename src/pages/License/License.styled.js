@@ -25,7 +25,6 @@ export const ImageView = styled.View`
 
 export const License = styled.Image`
   width: ${width - 48};
-  height: ${height * 0.35};
   align-self: center;
 
   resize-mode: contain;

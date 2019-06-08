@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import { SHADOW } from 'theme/shadow';
 import * as s from './FoldableView.styled';
 
 export default class FoldableView extends Component {
@@ -30,16 +31,28 @@ export default class FoldableView extends Component {
     const iconImage = this.state.expanded
       ? require('assets/icons/Arrow.png')
       : require('assets/icons/NavImage.png');
-    const ViewHeight = 600; // null if you want to fit in window
+    const ViewHeight = null; // null if you want to fit in window
     return (
       <>
         <s.StyledBox
           activeOpacity={0.8}
           onPress={this.changeLayout}
-          style={this.props.style}
+          style={SHADOW.ios}
         >
-          <Text style={{ fontSize: 20 }}>{this.props.title}</Text>
-          <Image source={iconImage} style={{ marginLeft: 'auto' }} />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              height: 50,
+              width: '100%',
+              paddingLeft: 12,
+              paddingRight: 12,
+            }}
+          >
+            <Text style={{ fontSize: 20 }}>{this.props.title}</Text>
+            <Image source={iconImage} style={{ marginLeft: 'auto' }} />
+          </View>
         </s.StyledBox>
         <View
           style={{

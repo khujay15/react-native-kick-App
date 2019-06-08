@@ -27,7 +27,7 @@ class Point extends React.Component {
   }
 
   FirstPage() {
-  networks.get('https://api.oboonmobility.com/member/point_history?page=1')
+  networks.get('https://api.oboonmobility.com/v0/members/my/point-history?page=1')
     .then(res=> {
       console.log("FirstPage:",res);
         if(res.data.success==='true'||res.data.success===true)
@@ -46,7 +46,7 @@ class Point extends React.Component {
 
 
    console.log(this.state.history.length);
-   await networks.get(`https://api.oboonmobility.com/member/point_history?page=${requestPage}`)
+   await networks.get(`https://api.oboonmobility.com/v0/members/my/point-history?page=${requestPage}`)
     .then(res=> {
       console.log("Update:",res);
         if(res.data.success==='true'||res.data.success===true)
@@ -112,11 +112,11 @@ class Point extends React.Component {
         renderItem={({ item }) => {
             const date = new Date(item.point_usage_datetime);
             
-            const ddd = moment(date).format('YYYY-MM-DD HH:mm'); 
+            const YYYYMMDD = moment(date).format('YYYY-MM-DD HH:mm'); 
             return (
                     <View style={{marginBottom: 20}}>
                     {/* <Text style={{color: color.grey, fontSize: 14}}>{`${YYYY}.${MM}.${DD} ${hh}:${mm}`}</Text> */}
-                    <Text style={{color: color.grey, fontSize: 14}}>{ddd}</Text>
+                    <Text style={{color: color.grey, fontSize: 14}}>{YYYYMMDD}</Text>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={{fontSize: 16}}>{item.usage_type}</Text>
                         <s.InPointText>{item.usage_point} </s.InPointText>

@@ -80,7 +80,7 @@ class License extends React.Component {
     });
 
     networks
-      .post('https://api.oboonmobility.com/member/license', ImageForm, {
+      .post('https://api.oboonmobility.com/v0/members/my/license', ImageForm, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -88,11 +88,15 @@ class License extends React.Component {
       .then(res => {
         console.log(res);
         if (res.data.success === true || res.data.success === 'true') {
-          this.props.hasLicense();
+          const { status } = res.data.member;
+          const { name } = res.data.member;
+          const { email } = res.data.member;
+          this.props.member(name, email, status);
+
           this.props.navigation.navigate('mappage');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.response));
   };
 
   render() {
@@ -157,10 +161,18 @@ class License extends React.Component {
 const mapStateToProps = state => ({
   License: state.LoginReducer.License,
   Email: state.LoginReducer.Email,
+  Name: state.LoginReducer.Name,
+  Status: state.LoginReducer.Status,
 });
 
 const mapDispatchToProps = dispatch => ({
   hasLicense: () => dispatch({ type: 'LICENSE' }),
+  member: (name, email, status) => 
+  dispatch({ type: 'MEMBERINFO',
+  Name: name,
+  Email: email, 
+  Status: status,
+  }),
 });
 
 const LicensetContainer = connect(

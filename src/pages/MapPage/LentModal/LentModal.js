@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PopUp from 'components/modules/PopUp';
 import axios from 'axios';
 import * as s from './LentModal.styled';
-import LentInput from './LentInput';
+
 import TutorialPopup from './TutorialPopup';
 
 class LentModal extends React.Component {
@@ -14,7 +14,7 @@ class LentModal extends React.Component {
     showPayPopup: false,
     showLicensePopup: false,
     showUnPaidPopup: false,
-    showTutorialPopup: true,
+    showTutorialPopup: false,
 
     watchTutorial: false,
   };
@@ -22,7 +22,10 @@ class LentModal extends React.Component {
   handleClick = () => {
     const Paid = this.props.point > -1;
 
-    if (!this.props.License) {
+    if (
+      !this.props.License ||
+      (this.props.Status === 6 || this.props.Status === 3)
+    ) {
       this.setState({ showLicensePopup: true });
       return;
     }
@@ -96,7 +99,12 @@ class LentModal extends React.Component {
           img={require('assets/popup/LicensePopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
           SecondLineText="먼저 면허증을 등록해주세요!"
-          LicenseSize={{ width: 180, height: 120, alignSelf: 'center' }}
+          LicenseSize={{
+            width: 180,
+            height: 121,
+            resizeMode: 'contain',
+            alignSelf: 'center',
+          }}
         />
 
         <PopUp
@@ -128,6 +136,8 @@ const mapStateToProps = state => ({
   License: state.LoginReducer.License,
   Payment: state.LoginReducer.Payment,
   Tutorial: state.LoginReducer.Tutorial,
+
+  Status: state.LoginReducer.Status,
 
   point: state.LentReducer.point,
 });

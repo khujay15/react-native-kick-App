@@ -30,17 +30,15 @@ class Splash extends React.Component {
       status === 0 ||
       status === '0' ||
       status === 4 ||
-      status === '4' ||
-      status === 6 ||
-      status === '6'
+      status === '4'
     ) {
       this.props.member(name, email, status);
       this.props.updatePoint(point);
     } else if (
       status === 3 ||
       status === '3' ||
-      status === 7 ||
-      status === '7'
+      status === 6 ||
+      status === '6'
     ) {
       this.props.afterGOOGLELogin(name, email, this.state.token);
       this.props.hasPhone();
@@ -69,7 +67,7 @@ class Splash extends React.Component {
 
   verifyingToken = async value => {
     await networks
-      .get(`https://api.oboonmobility.com/auth/tokeninfo`, {
+      .get(`https://api.oboonmobility.com/v0/auth/tokeninfo`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: value,
@@ -91,6 +89,7 @@ class Splash extends React.Component {
   AUTOLOGIN_WITHOUTLOADING = async value => {
     await CookieManager.clearAll();
     setHeader(`oboon_session=${value}`);
+    console.log(value);
     const head = {
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +97,7 @@ class Splash extends React.Component {
     };
 
     networks
-      .get(`https://api.oboonmobility.com/member`, head)
+      .get(`https://api.oboonmobility.com/v0/members/myInfo`, head)
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
           this.setReducer(res);

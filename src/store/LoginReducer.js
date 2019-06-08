@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   Tutorial: 'NO-WATCH',
   License: false,
   Phone: false,
-  Payment: false,
+  Payment: true,
   Status: -1,
 };
 

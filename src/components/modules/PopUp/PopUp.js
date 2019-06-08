@@ -20,7 +20,8 @@ export default class PopUp extends React.Component {
 
   render() {
     let styleProp = { alignSelf: 'center' };
-    if (this.props.LicenseSize) styleProp = { ...styleProp, ...this.props.LicenseSize };
+    if (this.props.LicenseSize)
+      styleProp = { ...styleProp, ...this.props.LicenseSize };
     const MarginTOP = height * 0.15 < 120 ? height * 0.15 : height * 0.3;
     return (
       <Modal
@@ -56,10 +57,12 @@ export default class PopUp extends React.Component {
           <View style={{ flex: 1, marginTop: 30, marginHorizontal: 20 }}>
             <Image source={this.props.img} style={styleProp} />
             <View style={{ marginTop: 50, alignItems: 'center' }}>
-              <Text style={{ fontSize: 20, fontWeight: '200' }}>
+              <Text
+                style={{ fontSize: 20, fontWeight: '200' }}
+              >
                 {this.props.FirstLineText}
               </Text>
-              <Text style={{ fontSize: 20, fontWeight: '200' }}>
+              <Text style={{ fontSize: 20, fontWeight: '200', marginTop: 8 }}>
                 {this.props.SecondLineText}
               </Text>
             </View>

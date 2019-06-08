@@ -21,8 +21,8 @@ class PlaceMarker extends React.Component {
           <s.MarkerImage
             source={
               this.props.selectedMarkerId === this.props.placeId
-                ? require('assets/markers/ParkingLot.png')
-                : require('assets/markers/SelectedParkingLot.png')
+                ? require('assets/markers/SelectedParkingLot.png')
+                : require('assets/markers/ParkingLot.png')
             }
           />
         ) : (

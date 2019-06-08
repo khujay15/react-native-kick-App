@@ -12,15 +12,19 @@ export const DummyView = styled.View`
   align-items: center;
 `;
 
-export const InnerView = styled.ScrollView`
-  flex: 1;
-  margin-horizontal: 20;
+export const OuterView = styled.View`
+  margin-bottom: 20;
+  margin-left: 24;
+  margin-right: 24;
+`;
+
+export const InnerView = styled.View`
   border-radius: 5;
-  border-width: 0.3;
+  border-width: 0;
+  background-color: white;
 
   border-color: #ddd;
   border-top-width: 0;
-  border-bottom-width: 0;
 `;
 
 export const BotButton = styled.TouchableOpacity`
@@ -59,14 +63,15 @@ export const Dot = styled.View`
 
 export const GrayLine = styled.View`
   border-bottom-width: 1;
-  border-bottom-color: rgb(214, 214, 214);
-  margin-top: 20;
-  margin-bottom: 20;
+  border-bottom-color: ${color.grey};
+  margin-left: auto;
+  width: 200;
 `;
 
 export const LineView = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-bottom: 3;
 `;
 
 export const InfoView = styled.View`

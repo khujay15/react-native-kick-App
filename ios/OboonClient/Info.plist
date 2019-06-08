@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.0.1</string>
+	<string>0.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -54,11 +54,9 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>140466692410-stfisve8l4u6oonmf1po8i9i7lcuiv0m.apps.googleusercontent.com</string>
+			<string>googleAPI_maybe</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>140466692410-stfisve8l4u6oonmf1po8i9i7lcuiv0m.apps.googleusercontent.com</string>
-			</array>
+			<array/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -72,7 +70,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>280c9d756b61547873fc6b185eab2623</string>
 	<key>LSApplicationCategoryType</key>
@@ -131,19 +129,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>카메라 촬영을 위해 권한이 필요합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>지도를 사용하기 위해 위치 권한이 필요합니다</string>
-
-        <key>NSCameraUsageDescription</key>
-	<string>카메라 촬영을 위해 권한이 필요합니다.</string>
-
-        <key>NSPhotoLibraryUsageDescription</key>
-	<string>앨범에서 사진을 선택해 저장하기 위해 권한이 필요합니다.</string>
-
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>사진을 앨범에 저장하기 위해 권한이 필요합니다.</string>
-
-
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>앨범에서 사진을 선택해 저장하기 위해 권한이 필요합니다.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

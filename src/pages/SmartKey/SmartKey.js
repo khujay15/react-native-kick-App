@@ -17,6 +17,9 @@ import color from 'theme/color';
 import * as s from './SmartKey.styled';
 
 class SmartKey extends React.Component {
+  state = {
+    Error : false,
+  }
   toggleOff = () => {
     this.props.onPress();
   };
@@ -24,7 +27,7 @@ class SmartKey extends React.Component {
   returnKickboard = () => {
     networks
       .put(
-        `https://api.oboonmobility.com/kickboard/${
+        `https://api.oboonmobility.com/v0/kickboards/${
           this.props.kickboard_serial
         }/return`,
         {
@@ -42,6 +45,10 @@ class SmartKey extends React.Component {
       })
       .catch(err => console.log(err.response));
   };
+  betaPress = () => {
+    console.log("beta Press");
+    this.setState({Error: "아직 반납를 제외한 모든 기능은 사용할 수 없습니다. 양해부탁드립니다"});
+  }
 
   render() {
     const shadowStyle = {
@@ -61,17 +68,19 @@ class SmartKey extends React.Component {
         <Arrow onPress={this.toggleOff} />
         <s.SmartKeyView>
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity style={{ alignItems: 'center' }}>
+            <TouchableOpacity  onPress={this.betaPress}>
+              <View style={{ alignItems: 'center' }}>
               <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image source={require('/assets/icons/smartkey/Lock.png')} />
                 </s.InnerCirCle>
               </s.Circle>
-
               <Text style={{ fontSize: 16 }}>잠금</Text>
+              </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ alignItems: 'center' }}>
+            <TouchableOpacity onPress={this.betaPress}>
+              <View style={{ alignItems: 'center' }} >
               <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image
@@ -80,12 +89,14 @@ class SmartKey extends React.Component {
                 </s.InnerCirCle>
               </s.Circle>
               <Text style={{ fontSize: 16 }}>잠금해제</Text>
+              </View>
             </TouchableOpacity>
           </View>
           {/* second line */}
 
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity style={{ alignItems: 'center' }}>
+            <TouchableOpacity onPress={this.betaPress}>
+              <View style={{ alignItems: 'center' }} >
               <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image
@@ -95,9 +106,11 @@ class SmartKey extends React.Component {
               </s.Circle>
 
               <Text style={{ fontSize: 16 }}>헤드라이트</Text>
+              </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ alignItems: 'center' }}>
+            <TouchableOpacity onPress={this.betaPress}>
+              <View style={{ alignItems: 'center' }} >
               <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image
@@ -106,8 +119,12 @@ class SmartKey extends React.Component {
                 </s.InnerCirCle>
               </s.Circle>
               <Text style={{ fontSize: 16 }}>도난신고</Text>
+              </View>
             </TouchableOpacity>
           </View>
+          {
+            this.state.Error && (<Text style={{color: color.oboon}}>{this.state.Error}</Text>)
+          }
         </s.SmartKeyView>
         <FooterClick
           color={color.oboon}

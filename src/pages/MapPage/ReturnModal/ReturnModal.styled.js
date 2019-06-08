@@ -38,6 +38,8 @@ export const FooterTouch = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   font-size: 20;
+  border-bottom-left-radius: 5;
+  border-bottom-right-radius: 5;
 `;
 
 export const Dot = styled.View`

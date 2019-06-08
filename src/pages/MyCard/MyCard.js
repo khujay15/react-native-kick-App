@@ -19,14 +19,20 @@ class MyCard extends React.Component {
         <Arrow onPress={() => this.props.navigation.goBack()} />
         <ThemeText>지불정보</ThemeText>
 
-        <View style={{ marginHorizontal: 30, flex: 1 }}>
+        <View
+          style={{
+            marginHorizontal: 24,
+            flex: 1,
+          }}
+        >
           <ImageBackground
             source={require('assets/icons/MyCard.png')}
             style={{
-              height: 190,
-              borderRadius: 10,
+              resizeMode: 'contain',
               marginTop: 60,
+              width: '100%',
             }}
+            imageStyle={{ borderRadius: 5 }}
           >
             <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
               {this.props.Payment ? (

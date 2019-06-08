@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import SInfo from 'react-native-sensitive-info';
-import TalkCloud from 'components/modules/TalkCloud';
+import CookieManager from 'react-native-cookies';
 
 // need min 9.1 ios vesion
 
@@ -41,18 +41,9 @@ export class WelcomeScreen extends React.Component {
     };
   }
   componentDidMount() {
+    CookieManager.clearAll();
   }
 
-  AUTOLOGIN_WITHOUTLOADING = () => {
-    networks
-      .get(`https://api.oboonmobility.com/member`)
-      .then(res => {
-        if (res.data.success === true || res.data.success === 'true') {
-          this.setReducer(res);
-          this.props.navigation.navigate('mappage');
-        }
-      })
-  }
 
 
   AutoLogin = (platform) => {
@@ -80,12 +71,12 @@ export class WelcomeScreen extends React.Component {
       this.props.navigation.navigate('mappage');
     }
     else{
-      if (status === 0 || status === '0' || status === 4 || status === '4' || status === 6|| status ==='6') {
+      if (status === 0 || status === '0' || status === 4 || status === '4' ) {
        
         this.props.member(name,email,status);
       
       } 
-      else if (status === 3 || status === '3'|| status === 7 || status === '7') {
+      else if (status === 3 || status === '3'|| status === 6 || status === '6') {
         this.props.afterGOOGLELogin(name, email, this.state.token);
         this.props.hasPhone();
       }
@@ -126,7 +117,7 @@ export class WelcomeScreen extends React.Component {
       });
 
       networks
-        .post('https://api.oboonmobility.com/member/login.google', data, {
+        .post('https://api.oboonmobility.com/v0/members/login.google', data, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -138,13 +129,16 @@ export class WelcomeScreen extends React.Component {
             setHeader(`oboon_session=${res.data.oboon_session}`);
             this.setReducer(res);
             SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
-          }
 
-          if (this.state.firstLogin)
+            if (this.state.firstLogin)
             this.props.navigation.navigate('authphone');
           else this.props.navigation.navigate('mappage');
+
+          }
+
+         
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err.response));
 
       
     } catch (error) {
@@ -194,7 +188,7 @@ export class WelcomeScreen extends React.Component {
         
     
           networks
-          .post('https://api.oboonmobility.com/member/login.kakao', data, {
+          .post('https://api.oboonmobility.com/v0/members/login.kakao', data, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -210,6 +204,7 @@ export class WelcomeScreen extends React.Component {
             }
           })
           .catch(error => {
+            console.log(error.response);
               RNKakaoLogins.getProfile((err, user) => {
                 if (err) {
                   console.log(err.toString());
@@ -337,14 +332,14 @@ export class WelcomeScreen extends React.Component {
               이메일 회원가입
             </InnerText>
           </TouchableOpacity>
-
+{/* 
           <BottomView>
             <TouchableHighlight
               onPress={() => this.props.navigation.navigate('mappage')}
             >
               <BottomText style={{ marginLeft: 300 }}> test</BottomText>
             </TouchableHighlight>
-          </BottomView>
+          </BottomView> */}
         </SafeAreaView>
       </>
     );

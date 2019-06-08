@@ -46,8 +46,8 @@ pod 'Firebase/Core'
 
   pod 'react-native-sensitive-info', :path => '../node_modules/react-native-sensitive-info'
 
-  pod 'react-native-ble-plx', :path => '../node_modules/react-native-ble-plx'
-pod 'react-native-ble-plx-swift', :path => '../node_modules/react-native-ble-plx'
+#  pod 'react-native-ble-plx', :path => '../node_modules/react-native-ble-plx'
+#pod 'react-native-ble-plx-swift', :path => '../node_modules/react-native-ble-plx'
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'

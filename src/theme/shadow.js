@@ -3,7 +3,7 @@ export const SHADOW = {
     shadowRadius: 1,
     shadowColor: 'rgb(0, 0, 0.7)',
     shadowOpacity: 0.1,
-    shadowOffset: { width: 5, height: 5 },
+    shadowOffset: { width: 0, height: 5 },
   },
   iosShallow: {
     shadowRadius: 4,
@@ -19,5 +19,13 @@ export const SHADOW = {
     opacity: 0.08,
     x: 0,
     y: 5,
+  },
+  androidShallow: {
+    color: '#000',
+    border: 5,
+    radius: 5,
+    opacity: 0.08,
+    x: 0,
+    y: 3,
   },
 };

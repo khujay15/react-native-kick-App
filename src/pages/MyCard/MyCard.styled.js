@@ -4,7 +4,7 @@ import { width, height } from 'theme/size';
 
 export const StyledBox = styled.View`
   border-width: 0.3;
-  border-radius: 1;
+  border-radius: 5;
   border-color: #ddd;
   border-top-width: 0;
   border-bottom-width: 0;

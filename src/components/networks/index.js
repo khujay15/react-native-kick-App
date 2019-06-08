@@ -1,11 +1,12 @@
 import axios from 'axios';
+import CookieManager from 'react-native-cookies';
 
 export const networks = axios;
 
 export function setHeader(token) {
   // networks.defaults.headers.common.Authorization = token;
+  CookieManager.clearAll();
   networks.defaults.headers.common.cookie = token;
-  console.log('SetHeader:', networks.defaults.headers.common.cookie);
 }
 
 export function removeHeader() {

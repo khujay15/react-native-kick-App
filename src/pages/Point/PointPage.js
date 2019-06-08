@@ -38,7 +38,7 @@ class PointPage extends React.Component {
  
 
   render() {
-    let shadowStyle = SHADOW.iosShallow;
+    let shadowStyle = {};
     let selectedShadow = {...shadowStyle,backgroundColor: color.oboon};
     return (
       <>

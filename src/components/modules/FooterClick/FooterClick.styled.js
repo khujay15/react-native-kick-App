@@ -4,7 +4,7 @@ import { width, height } from 'theme/size';
 export const FooterTouch = styled.TouchableOpacity`
   bottom: 0;
   width: ${width};
-  height: 68;
+  height: 60;
   background-color: ${props => props.color};
 
   align-items: center;

@@ -5,7 +5,6 @@ import { FlatList, View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import { width, height } from 'theme/size';
 import SInfo from 'react-native-sensitive-info';
 
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as s from './Tutorial.styled';
 
 class Tutorial extends React.Component {

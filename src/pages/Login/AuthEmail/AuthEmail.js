@@ -81,7 +81,7 @@ class AuthEmail extends React.Component {
     
 
       networks
-      .post('https://api.oboonmobility.com/member/login.kakao', data, {
+      .post('https://api.oboonmobility.com/v0/members/login.kakao', data, {
         headers: {
           'Content-Type': 'application/json',
         },

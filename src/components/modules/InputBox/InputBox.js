@@ -8,7 +8,6 @@ import * as s from './InputBox.styled';
 
 const InputBox = props => {
   if (Platform.OS === 'ios') {
-    console.log('ios');
     let shadowIOS = SHADOW.ios;
     if (props.toggle) {
       shadowIOS = {

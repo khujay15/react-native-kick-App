@@ -58,12 +58,12 @@ export default class AuthPhone extends React.Component {
     if (TypedText.match(regExp) != null) {
       this.setState({
         IsError: false,
+        number: TypedText,
       });
     } else {
       this.setState({
         IsError: true,
         IsPhoneInput: color.oboon,
-        number: TypedText,
       });
     }
   };
@@ -72,24 +72,27 @@ export default class AuthPhone extends React.Component {
     const data = JSON.stringify({
       phone_num: this.state.number,
     });
+    console.log(data);
 
     networks
-      .patch('https://api.oboonmobility.com/member/phone', data, {
+      .patch('https://api.oboonmobility.com/v0/members/my/phone', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
       .then(res => {
+        console.log(res);
         if (res.data.success === true || res.data.success === 'true') {
           this.props.navigation.navigate('tutorial');
         }
       })
-      .catch(err =>
+      .catch(err => {
+        console.log(err.response);
         this.setState({
           NetworkError:
             '네트워크에 문제가 발생했습니다. 앱을 종료 후 다시 실행해주세요',
-        }),
-      );
+        });
+      });
   };
 
   render() {

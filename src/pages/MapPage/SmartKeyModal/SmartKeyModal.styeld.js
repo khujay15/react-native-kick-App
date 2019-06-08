@@ -22,7 +22,7 @@ export const BotButton = styled.TouchableOpacity`
   position: absolute;
   bottom: 0;
   width: ${width};
-  height: 68;
+  height: 60;
   background-color: ${color.oboon};
 
   align-items: center;

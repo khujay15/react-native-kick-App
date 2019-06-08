@@ -18,7 +18,7 @@ export const InnerCirCle = styled.View`
   justify-content: center;
 `;
 
-export const Circle = styled.TouchableOpacity`
+export const Circle = styled.View`
   margin-left: 30;
   margin-right: 30;
   margin-bottom: 20;

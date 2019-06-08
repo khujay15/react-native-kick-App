@@ -7,7 +7,7 @@ import { Text, TouchableOpacity } from 'react-native';
 export const FooterTouch = styled.TouchableOpacity`
   bottom: 0;
   width: ${width * 0.85};
-  height: 68;
+  height: 60;
   background-color: ${color.oboon};
   align-items: center;
   justify-content: center;

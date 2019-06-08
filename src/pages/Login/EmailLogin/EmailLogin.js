@@ -3,18 +3,20 @@ import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import InputBox from 'components/modules/InputBox';
 import FooterClick from 'components/modules/FooterClick';
+import ThemeText from '/components/modules/ThemeText';
+import color from '/theme/color';
+import { networks, setHeader } from 'components/networks';
+import SInfo from 'react-native-sensitive-info';
+import CookieManager from 'react-native-cookies';
+import { connect } from 'react-redux';
 import {
   EmailMainView,
   UnderLineText,
   ErrorText,
   UnderLineBottomText,
 } from './EmailLogin.styled';
-import ThemeText from '/components/modules/ThemeText';
-import color from '/theme/color';
-import BottomText from '/components/modules/BottomText';
-import NextPageArrow from '/components/modules/NextPageArrow';
 
-export default class EmailLogin extends React.Component {
+class EmailLogin extends React.Component {
   state = {
     keyboardUp: false,
     IsEmailInput: 'grey',
@@ -22,6 +24,17 @@ export default class EmailLogin extends React.Component {
     IsPasswordInput: 'grey',
     Password: '',
     IsError: false,
+
+    NetworkError: false,
+  };
+
+  setReducerSignUP = res => {
+    const { status } = res.data.member;
+    const { name } = res.data.member;
+    const { email } = res.data.member;
+    const { point } = res.data.member;
+    this.props.updatePoint(point);
+    this.props.member(name, email, status);
   };
 
   handleEmail = TypedText => {
@@ -39,14 +52,40 @@ export default class EmailLogin extends React.Component {
 
   handlePassword = TypedText => {
     this.setState({ Password: TypedText, IsPasswordInput: color.oboon });
-    console.log(this.state);
+  };
+
+  handleFooter = () => {
+    const data = JSON.stringify({
+      email: this.state.Email,
+      password: this.state.Password,
+    });
+    networks
+      .post('https://api.oboonmobility.com/v0/members/login.local', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => {
+        console.log(res);
+        if (res.data.oboon_session) {
+          CookieManager.clearAll();
+          setHeader(`oboon_session=${res.data.oboon_session}`);
+          this.setReducerSignUP(res);
+          SInfo.setItem('AutoToken', `${res.data.oboon_session}`, {});
+          this.props.navigation.navigate('mappage');
+        }
+      })
+      .catch(err => {
+        console.log(err.response);
+        this.setState({ NetworkError: err.response.data.msg });
+      });
   };
 
   render() {
     return (
       <View style={{ flex: 1 }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
-        <ThemeText>이메일로 로그인(베타테스트 시 미사용)</ThemeText>
+        <ThemeText>이메일로 로그인</ThemeText>
 
         <EmailMainView>
           <View style={{ marginBottom: 20 }}>
@@ -60,9 +99,6 @@ export default class EmailLogin extends React.Component {
             ) : null}
           </View>
 
-          {/* <TextInput onChangeText={this.handleEmail} autoFocus />
-          <Line borderBottomColor={this.state.IsEmailInput} /> */}
-
           <View style={{ marginBottom: 20 }}>
             <InputBox
               onChangeText={this.handlePassword}
@@ -70,43 +106,16 @@ export default class EmailLogin extends React.Component {
             />
           </View>
 
-          {/* 
-          <TextInput onChangeText={this.handlePassword} />
-          <Line borderBottomColor={this.state.IsPasswordInput} /> */}
-          <UnderLineText onPress={() => console.log('BottomText clicked')}>
-            아이디/비밀번호 찾기
-          </UnderLineText>
+          {this.state.NetworkError && (
+            <ErrorText>{this.state.NetworkError}</ErrorText>
+          )}
         </EmailMainView>
-
-        {/* 
-        <BottomText
-          onPress={() => console.log('BottomText clicked')}
-          Text="비밀번호를 잊으셨나요?"
-        /> */}
-
-        {/* <NextPageArrow
-          onPress={() =>
-            !this.state.IsError &&
-            this.state.IsPasswordInput === color.oboon &&
-            this.state.IsEmailInput === color.oboon
-              ? this.props.navigation.navigate('authphone')
-              : null
-          }
-          color={
-            !this.state.IsError &&
-            this.state.IsPasswordInput === color.oboon &&
-            this.state.IsEmailInput === color.oboon
-              ? color.oboon
-              : 'grey'
-          }
-        /> */}
-
         <FooterClick
           onPress={() =>
             !this.state.IsError &&
             this.state.IsPasswordInput === color.oboon &&
             this.state.IsEmailInput === color.oboon
-              ? this.props.navigation.navigate('authphone')
+              ? this.handleFooter()
               : null
           }
           color={
@@ -122,3 +131,48 @@ export default class EmailLogin extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  Name: state.LoginReducer.Name,
+  Email: state.LoginReducer.Email,
+  Token: state.LoginReducer.Token,
+  Tutorial: state.LoginReducer.Tutorial,
+  License: state.LoginReducer.License,
+  Phone: state.LoginReducer.Phone,
+  Status: state.LoginReducer.Status,
+
+  point: state.LentReducer.point,
+  kickboard_serial: state.LentReducer.kickboard_serial,
+  preSecond: state.LentReducer.preSecond,
+});
+
+const mapDispatchToProps = dispatch => ({
+  afterKAKAOLogin: (nickname, token) =>
+    dispatch({ type: 'KAKAO_LOGIN', Name: nickname, Token: token }),
+
+  afterGOOGLELogin: (nickname, email, token) =>
+    dispatch({
+      type: 'GOOGLE_LOGIN',
+      Name: nickname,
+      Email: email,
+      Token: token,
+    }),
+  aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
+
+  aleadyLent: (preSecond, kickboard_serial) =>
+    dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),
+
+  member: (name, email, status) =>
+    dispatch({ type: 'MEMBERINFO', Name: name, Email: email, Status: status }),
+  updatePoint: LeftPoint =>
+    dispatch({ type: 'UPDATE_POINT', point: LeftPoint }),
+
+  hasPhone: () => dispatch({ type: 'PHONE' }),
+});
+
+const EmailLoginContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EmailLogin);
+
+export default EmailLoginContainer;

@@ -38,18 +38,17 @@ class MapPage extends React.Component {
     this.getStation();
   }
   
-
-
+// {
+//   params: { // query string
+//     lat: this.state.latitude,
+//     long: this.state.longitude,
+//     dist: 1
+//   },
+// }
   getStation() {
     networks
     .get(
-      'https://api.oboonmobility.com/search/kick_station/geonear',{
-        params: { // query string
-          lat: this.state.latitude,
-          long: this.state.longitude,
-          dist: 1
-        },
-      }
+      `https://api.oboonmobility.com/v0/search/kick-stations/geonear?lat=${this.state.latitude}&long=${this.state.longitude}&dist=1`
       
     )
     .then(response => {
@@ -59,8 +58,10 @@ class MapPage extends React.Component {
         console.log(this.state.Station);
 
       }
+     
     
-    });
+    })
+    .catch(err => console.log("STATION ERR: ", err.response))
 
 
   }
@@ -217,7 +218,7 @@ class MapPage extends React.Component {
           />
           <MapButton
             right={30}
-            bottom={90}
+            bottom={72}
             img={require('assets/icons/buttons/MyLocationButton.png')}
             onPress={() => this.setState({ latitude: this.FirstPosition['latitude'], 
               longitude: this.FirstPosition['longitude'] })}

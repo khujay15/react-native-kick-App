@@ -3,6 +3,7 @@ import { networks } from 'components/networks';
 import { connect } from 'react-redux';
 import { width, height } from 'theme/size';
 import color from 'theme/color';
+
 import {
   Text,
   View,
@@ -54,7 +55,7 @@ class LentInput extends React.Component {
     this.setState({ modalVisible: false });
   };
   handleCode = num => {
-    this.setState({ Code: num, BottomColor: color.oboon });
+    this.setState({ Code: Number(num), BottomColor: color.oboon });
   };
   handleExit = () => {
     this.toggleOff();
@@ -64,7 +65,7 @@ class LentInput extends React.Component {
     this.setState({ modalVisible: true });
     this.spinning();
     networks
-      .put(`https://api.oboonmobility.com/kickboard/${this.state.Code}/rent`, {
+      .put(`https://api.oboonmobility.com/v0/kickboards/${this.state.Code}/rent`, {
         headers: {
           'Content-Type': 'application/json',
         },

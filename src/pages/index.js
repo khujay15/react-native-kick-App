@@ -57,8 +57,7 @@ export const MapDrawerNavigator = createDrawerNavigator(
     mycard : { screen: MyCard},
     setting : { screen : Setting},
     usage : {screen: UsageHistory},
-    outoforder : {screen: OutOfOrder},
-     cservice : {screen: CustomerService},
+    cservice : {screen: CustomerService},
      
   
   },
@@ -81,6 +80,8 @@ const BaseRouter = createSwitchNavigator(
     authtestResult,
     authphone: AuthPhone,
     authemail: AuthEmail,
+    signup: SignUp,
+    
     
   
    

@@ -10,32 +10,14 @@ import * as s from './CustomerService.styled';
 
 export default class CustomerService extends React.Component {
   render() {
-    const shadowStyle = {
-      shadowRadius: 3,
-      shadowColor: 'rgb(0, 0, 0.7)',
-      shadowOpacity: 0.1,
-      shadowOffset: { width: 0, height: 5 },
-    };
-    const width2 = width - 48;
-    const shadowOpt = {
-      width: width2,
-      height: 50,
-
-      color: '#000',
-      border: 5,
-      radius: 5,
-      opacity: 0.1,
-      x: 0,
-      y: 5,
-      style: { marginVertical: 5, marginRight: 5 },
-    };
-
     return (
       <>
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Arrow onPress={() => this.props.navigation.navigate('mappage')} />
           <ThemeText style={{ marginBottom: 60 }}>고객지원</ThemeText>
-          <s.SelectBoxOutside onPress={()=> this.props.navigation.navigate('outoforder')}>
+          <s.SelectBoxOutside
+            onPress={() => this.props.navigation.navigate('outoforder')}
+          >
             <SelectBox>
               <s.SelectBoxInside>
                 <Text style={{ fontSize: 16 }}>고장 신고</Text>
@@ -45,33 +27,33 @@ export default class CustomerService extends React.Component {
                 />
               </s.SelectBoxInside>
             </SelectBox>
-            </s.SelectBoxOutside>
-
-            <s.SelectBoxOutside>
-          <SelectBox>
-            <s.SelectBoxInside>
-              <Text style={{ fontSize: 16 }}>카카오톡으로 문의하기</Text>
-              <Image
-                source={require('assets/icons/NavImage.png')}
-                style={{ marginLeft: 'auto', marginRight: 15 }}
-              />
-            </s.SelectBoxInside>
-          </SelectBox>
           </s.SelectBoxOutside>
 
-
-          <s.SelectBoxOutside>
-          <SelectBox>
-            <s.SelectBoxInside>
-              <Text style={{ fontSize: 16 }}>카카오톡으로 문의하기</Text>
-              <Image
-                source={require('assets/icons/NavImage.png')}
-                style={{ marginLeft: 'auto', marginRight: 15 }}
-              />
-            </s.SelectBoxInside>
-          </SelectBox>
+          <s.SelectBoxOutside
+            onPress={() => this.props.navigation.navigate('FAQ')}
+          >
+            <SelectBox>
+              <s.SelectBoxInside>
+                <Text style={{ fontSize: 16 }}>자주 묻는 질문</Text>
+                <Image
+                  source={require('assets/icons/NavImage.png')}
+                  style={{ marginLeft: 'auto', marginRight: 15 }}
+                />
+              </s.SelectBoxInside>
+            </SelectBox>
           </s.SelectBoxOutside>
 
+          {/* <s.SelectBoxOutside>
+            <SelectBox>
+              <s.SelectBoxInside>
+                <Text style={{ fontSize: 16 }}>카카오톡으로 문의하기</Text>
+                <Image
+                  source={require('assets/icons/NavImage.png')}
+                  style={{ marginLeft: 'auto', marginRight: 15 }}
+                />
+              </s.SelectBoxInside>
+            </SelectBox>
+          </s.SelectBoxOutside> */}
         </View>
       </>
     );
