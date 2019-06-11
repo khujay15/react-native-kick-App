@@ -7,17 +7,24 @@ export const DummyView = styled.View`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 110;
+  bottom: 0;
   justify-content: center;
   align-items: center;
 `;
 
 export const InnerView = styled.View`
+  elevation: 3;
   flex: 1;
   margin-top: 20;
   margin-horizontal: 20;
 `;
 
+export const SkipText = styled.Text`
+  color: ${color.grey};
+  font-size: 14;
+  font-weight: 200;
+  margin-left: auto;
+`;
 export const BotButton = styled.TouchableOpacity`
   position: absolute;
   bottom: 0;
@@ -33,7 +40,7 @@ export const BotButton = styled.TouchableOpacity`
 export const FooterTouch = styled.TouchableOpacity`
   bottom: 0;
   width: ${width * 0.85};
-  height: 68;
+  height: 54;
   background-color: ${color.oboon};
   align-items: center;
   justify-content: center;
@@ -81,7 +88,7 @@ export const RightText = styled.Text`
 export const TotalCost = styled.Text`
   font-size: 20;
   margin-left: auto;
-  margin-top: 20;
+
   color: ${color.oboon};
 `;
 

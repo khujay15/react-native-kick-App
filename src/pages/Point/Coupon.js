@@ -29,7 +29,7 @@ class Coupon extends React.Component {
     let selectedShadow = {...shadowStyle,backgroundColor: color.oboon};
     return (
       <>
-        <View style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
           <Arrow onPress={() => this.props.navigation.navigate('mypoint')} />
           <ThemeText>쿠폰 등록하기</ThemeText>
           <s.CouponView>
@@ -56,7 +56,7 @@ class Coupon extends React.Component {
             />
             </View>
           </s.CouponView>
-        </View>
+        </SafeAreaView>
         <FooterClick color={color.oboon} text="등록하기" />
       </>
     );

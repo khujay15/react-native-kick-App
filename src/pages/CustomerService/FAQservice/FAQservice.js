@@ -1,35 +1,38 @@
 import React from 'react';
-import { Text, SafeAreaView, Image, View } from 'react-native';
+import { Text, SafeAreaView, ScrollView, View } from 'react-native';
 import color from 'theme/color';
 import { SHADOW } from 'theme/shadow';
 import SelectBox from 'components/modules/SelectBox';
 import FoldableView from 'components/modules/FoldableView';
 import Arrow from 'components/modules/Arrow';
 import ThemeText from 'components/modules/ThemeText';
+import {width, height} from 'theme/'
 
 export default class FAQservice extends React.Component {
   render() {
+
     return (
       <>
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Arrow onPress={() => this.props.navigation.navigate('cservice')} />
           <ThemeText style={{ marginBottom: 40 }}>자주 묻는 질문</ThemeText>
-          
 
-          <View style={{ marginHorizontal: 24 }}>
-          <View style={{ marginVertical: 10 }} />
+          <ScrollView style={{ marginHorizontal: 24 }}>
+            <View style={{ marginVertical: 10 }} />
             {/* 여백 */}
             <FoldableView title="따로 문의하고 싶어요">
               <View style={{ marginVertical: 10 }}>
                 <Text>
-                  oboonmakers@gmail.com 으로 이메일 주시면 성실하게 처리하도록 하겠습니다.
+                  oboonmakers@gmail.com 으로 이메일 주시면 성실하게 처리하도록
+                  하겠습니다.
                 </Text>
               </View>
             </FoldableView>
 
             <View style={{ marginVertical: 10 }} />
             {/* 여백 */}
-            <FoldableView title="왜 면허가 필요한가요?">
+           
+            <FoldableView  title="왜 면허가 필요한가요?">
               <View style={{ marginVertical: 10 }}>
                 <Text>
                   도로교통법 제2조 제19호에 따르면 ‘배기량 50cc 미만(전기를
@@ -44,7 +47,7 @@ export default class FAQservice extends React.Component {
 
             <View style={{ marginVertical: 10 }} />
             {/* 여백 */}
-            <FoldableView title="인도에서 주행해도 괜찮을까요">
+            <FoldableView  title="인도에서 주행해도 괜찮을까요">
               <View style={{ marginVertical: 10 }}>
                 <Text>
                   전동킥보드는 오토바이와 같은 법적 지위를 가지고 있기에
@@ -57,7 +60,7 @@ export default class FAQservice extends React.Component {
 
             <View style={{ marginVertical: 10 }} />
             {/* 여백 */}
-            <FoldableView title="헬멧을 꼭 착용해야 될까요?">
+            <FoldableView  title="헬멧을 꼭 착용해야 될까요?">
               <View style={{ marginVertical: 10 }}>
                 <Text>
                   안전모 착용은 이륜자동차와 원동기장치자전거, 자전거 운전자의
@@ -65,7 +68,9 @@ export default class FAQservice extends React.Component {
                 </Text>
               </View>
             </FoldableView>
-          </View>
+            <View style={{ marginVertical: 10 }} />
+            {/* 여백 */}
+          </ScrollView>
         </View>
       </>
     );

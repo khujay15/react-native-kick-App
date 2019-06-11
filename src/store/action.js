@@ -8,3 +8,5 @@ export const LICENSE = 'LICENSE';
 export const PHONE = 'PHONE';
 export const PAYMENT = 'PAYMENT';
 export const MEMBERINFO = 'MEMBERINFO';
+
+export const TOKEN = 'TOKEN';

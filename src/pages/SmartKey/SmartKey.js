@@ -67,6 +67,9 @@ class SmartKey extends React.Component {
       >
         <Arrow onPress={this.toggleOff} />
         <s.SmartKeyView>
+        {
+            this.state.Error && (<Text style={{color: color.oboon}}>{this.state.Error}</Text>)
+        }
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity  onPress={this.betaPress}>
               <View style={{ alignItems: 'center' }}>
@@ -110,7 +113,7 @@ class SmartKey extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.betaPress}>
-              <View style={{ alignItems: 'center' }} >
+              <View style={{ alignItems: 'center' }}>
               <s.Circle style={shadowStyle}>
                 <s.InnerCirCle>
                   <Image
@@ -122,9 +125,8 @@ class SmartKey extends React.Component {
               </View>
             </TouchableOpacity>
           </View>
-          {
-            this.state.Error && (<Text style={{color: color.oboon}}>{this.state.Error}</Text>)
-          }
+       
+           
         </s.SmartKeyView>
         <FooterClick
           color={color.oboon}

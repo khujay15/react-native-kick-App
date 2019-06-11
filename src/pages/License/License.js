@@ -118,6 +118,7 @@ class License extends React.Component {
           </s.InnerText>
           <s.ImageView>
             <s.License
+            style={{  resizeMode: 'contain'}}
               source={
                 img ? { uri: img } : require('assets/icons/LicenseUpload.png')
               }

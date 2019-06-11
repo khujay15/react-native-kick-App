@@ -24,10 +24,11 @@ export const ImageView = styled.View`
 `;
 
 export const License = styled.Image`
-  width: ${width - 48};
   align-self: center;
-
-  resize-mode: contain;
+  margin-left: 10;
+  margin-right: 10;
+  width: ${width - 60};
+  height: ${height - 450};
 `;
 
 export const DescView = styled.View`

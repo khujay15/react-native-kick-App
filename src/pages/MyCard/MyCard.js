@@ -5,7 +5,6 @@ import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
 import { connect } from 'react-redux';
 import FooterClick from 'components/modules/FooterClick';
-import FoldableView from 'components/modules/FoldableView';
 import * as s from './MyCard.styled';
 
 class MyCard extends React.Component {

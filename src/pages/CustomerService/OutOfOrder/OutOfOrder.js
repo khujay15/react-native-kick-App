@@ -16,7 +16,8 @@ import FooterClick from 'components/modules/FooterClick';
 import { networks } from 'components/networks';
 import ImagePicker from 'react-native-image-picker';
 import * as s from './OutOfOrder.styled';
-import {SHADOW} from 'theme/shadow';
+import { BoxShadow } from 'react-native-shadow';
+import { SHADOW } from 'theme/shadow';
 import { connect } from 'react-redux';
 
 class OutOfOrder extends React.Component {
@@ -238,19 +239,19 @@ class OutOfOrder extends React.Component {
             <InputBox
               keyboardType="numeric"
               onChangeText={this.handleSerialNumber}
-              placeholder="   킥보드 번호 4자리를 입력해주세요"
+              placeholder="킥보드 번호 4자리를 입력해주세요"
               placeholderTextColor="rgb(106, 106, 106)"
             />
-
-            <View>
-              <s.IndicatorText style={{ marginTop: 10 }}>
+{Platform.OS==='ios'? 
+            (<View>
+              <s.IndicatorText>
                 고장난 부분 선택
               </s.IndicatorText>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  marginTop: 10,
+                
                 }}
               >
                 <s.SmallSelectBox
@@ -305,16 +306,88 @@ class OutOfOrder extends React.Component {
                   <Text style={this.handleTextStyle(TextStyle, 6)}>뒷바퀴</Text>
                 </s.SmallSelectBox>
               </View>
-              <s.SmallSelectBox
-                style={this.handleViewStyle(shadowStyle, 7)}
-                onPress={() => this.ClickHandler(7)}
+            </View>): 
+            // android Shadow
+            
+            (<View>
+              <s.IndicatorText>
+                고장난 부분 선택
+              </s.IndicatorText>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                
+                }}
               >
-                <Text style={this.handleTextStyle(TextStyle, 7)}>기타</Text>
-              </s.SmallSelectBox>
+
+      <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
+              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 1)}
+               onPress={() => this.ClickHandler(1)}>
+                <Text style={this.handleTextStyle(TextStyle, 1)}>
+                    가속레버
+                  </Text>
+              </s.SelectBoxInside>
+            </BoxShadow>
+
+            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
+              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 2)}
+               onPress={() => this.ClickHandler(2)}>
+                <Text style={this.handleTextStyle(TextStyle, 2)}>
+                    핸들
+                  </Text>
+              </s.SelectBoxInside>
+            </BoxShadow>
+
+            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
+              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 3)}
+               onPress={() => this.ClickHandler(3)}>
+                <Text style={this.handleTextStyle(TextStyle, 3)}>
+                    전원
+                  </Text>
+              </s.SelectBoxInside>
+            </BoxShadow>
+
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: 10,
+                  marginBottom: 10,
+                }}
+              >
+                <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
+              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 4)}
+               onPress={() => this.ClickHandler(4)}>
+                <Text style={this.handleTextStyle(TextStyle, 4)}>
+                    발판
+                  </Text>
+              </s.SelectBoxInside>
+            </BoxShadow>
+
+            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
+              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 5)}
+               onPress={() => this.ClickHandler(5)}>
+                <Text style={this.handleTextStyle(TextStyle, 5)}>
+                    앞바퀴
+                  </Text>
+              </s.SelectBoxInside>
+            </BoxShadow>
+
+            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
+              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 6)}
+               onPress={() => this.ClickHandler(6)}>
+                <Text style={this.handleTextStyle(TextStyle, 6)}>
+                    뒷바퀴
+                  </Text>
+              </s.SelectBoxInside>
+            </BoxShadow>
             </View>
+            </View>) }
             <s.IndicatorText>사진 첨부</s.IndicatorText>
             <s.SelectBox
-              style={SHADOW.ios}
+              style={SHADOW.iosSmall}
               onPress={() => this.handleImagePicker()}
             >
               <View style={{backgroundColor: 'white', width:100, height:100 ,justifyContent: 'center', alignItems: 'center'}}>
@@ -325,6 +398,8 @@ class OutOfOrder extends React.Component {
               )}
               </View>
             </s.SelectBox>
+
+            
 {/*             
             <s.IndicatorText>상세 설명</s.IndicatorText>
             <s.DescriptionInput

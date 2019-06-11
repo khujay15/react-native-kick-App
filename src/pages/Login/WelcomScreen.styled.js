@@ -118,5 +118,5 @@ export const LoginTouch = styled.View`
   width: 60;
   height: 60;
   border-radius: 30;
-  elevation: 1;
+  elevation: 3;
 `;

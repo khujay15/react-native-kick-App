@@ -85,28 +85,40 @@ class MapPage extends React.Component {
      });
   }
   }
-  getPermission = () => {
+  getPermission = async () => {
   if (Platform.OS === 'ios') return true;
   if (Platform.Version < 23) return true;
   if (Platform.OS === 'android') {
-      PermissionsAndroid.requestMultiple([
+     await PermissionsAndroid.requestMultiple([
        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
      ]).then(response => {
+      
        if (
          response['android.permission.ACCESS_FINE_LOCATION'] ===
            PermissionsAndroid.RESULTS.GRANTED &&
          response['android.permission.ACCESS_COARSE_LOCATION'] ===
            PermissionsAndroid.RESULTS.GRANTED
        ) {
+       
          return true;
        }
-       else return false;
-     });
+       else 
+       {
+         return false;
+       }
+      
+     })
+     return false;
   }
+
+  return false
+
+  
 }
 
   GeoAPI = () => {
+    console.log('GEOAPI');
     Geolocation.watchPosition(
       position => {
         console.log("location: ",position);
@@ -127,20 +139,23 @@ class MapPage extends React.Component {
   }
 
   CurrentButton = () => {
-    Geolocation.watchPosition(
+    const Permi = this.getPermission();
+    if(Permi) {
+    Geolocation.getCurrentPosition(
       position => {
-        console.log(position);
+        console.log('get position: ', position.coords);
+        
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
       },
       error => {
-        // See error code charts below.
         console.log(error.code, error.message);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
+  }
   };
 
   render() {
@@ -176,7 +191,6 @@ class MapPage extends React.Component {
                  amount={ Number(data['stopped_kickboard_count'])}
                  selectedMarkerId={selectedMarkerId}
                  onPress={() =>{
-                 
                   this.setState({
                     latitude: Number(point[0]), 
                     longitude: Number(point[1]),
@@ -220,8 +234,7 @@ class MapPage extends React.Component {
             right={30}
             bottom={72}
             img={require('assets/icons/buttons/MyLocationButton.png')}
-            onPress={() => this.setState({ latitude: this.FirstPosition['latitude'], 
-              longitude: this.FirstPosition['longitude'] })}
+            onPress={() =>this.CurrentButton()}
           />
           <MapButton
             right={30}

@@ -27,6 +27,7 @@ export const Circle = styled.View`
   border-color: rgba(0, 0, 0, 0.2);
   align-items: center;
   justify-content: center;
+  elevation: 4;
 
   width: 100;
   height: 100;

@@ -48,10 +48,9 @@ export class DrawPage extends React.Component {
             </NameView>
             <EmailText>{this.props.Email}</EmailText>
 
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', marginTop: 30 }}>
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 <Circle
-                  style={shadowStyle}
                   onPress={() => this.props.navigation.navigate('coupon')}
                 >
                   <InnerCirCle>
@@ -65,7 +64,6 @@ export class DrawPage extends React.Component {
 
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 <Circle
-                  style={shadowStyle}
                   onPress={() => this.props.navigation.navigate('mycard')}
                 >
                   <InnerCirCle>
@@ -77,10 +75,7 @@ export class DrawPage extends React.Component {
                 </Text>
               </View>
               <View style={{ alignItems: 'center', marginRight: 20 }}>
-                <Circle
-                  style={shadowStyle}
-                  onPress={() => this.props.navigation.navigate('usage')}
-                >
+                <Circle onPress={() => this.props.navigation.navigate('usage')}>
                   <InnerCirCle>
                     <Image source={require('/assets/icons/History.png')} />
                   </InnerCirCle>
@@ -98,7 +93,9 @@ export class DrawPage extends React.Component {
               <NavItemView>
                 <NavItemText>설정</NavItemText>
 
-                <NavImage source={require('/assets/icons/NavImage.png')} />
+                <NavImage
+                  source={require('/assets/icons/NavImage_oboon.png')}
+                />
               </NavItemView>
             </TouchableOpacity>
           </DrawView>

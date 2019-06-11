@@ -27,6 +27,7 @@ class Point extends React.Component {
   }
 
   FirstPage() {
+  
   networks.get('https://api.oboonmobility.com/v0/members/my/point-history?page=1')
     .then(res=> {
       console.log("FirstPage:",res);

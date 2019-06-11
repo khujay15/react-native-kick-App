@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
-import { AUTO_LOGIN } from 'store/action';
-import OboonZone from './OboonZone';
-import KickboardSelect from './KickboardSelect';
+import {SHADOW} from 'theme/shadow';
 
 import * as s from './PlaceModal.styled';
 
@@ -27,30 +25,26 @@ export default class PlaceModal extends React.Component {
 
     return (
       <s.ModalView
-        style={{
-          shadowRadius: 3,
-          shadowColor: 'rgb(0, 0, 0.7)',
-          shadowOpacity: 0.1,
-          shadowOffset: { width: 0, height: 5 },
-        }}
+        style={SHADOW.iosSmall}
+        isLent={this.props.isLent}
       >
-        <OboonZone
+        {/* <OboonZone
           description="test"
           visible={this.state.MapmodalVisible}
           onPress={() => this.setState({ MapmodalVisible: false })}
           location="용인시 하길동 125"
-        />
+        /> */}
 
         {/* 
 -------modal out---- */}
-        <s.InnerView style={{ flexDirection: 'row' }}>
+        <s.InnerView>
           {this.props.isLent ? (
             <>
               <Image
                 source={require('assets/markers/ParkMark.png')}
                 style={{ width: 30, height: 30, marginRight: 10 }}
               />
-              <TouchableOpacity>
+              <TouchableOpacity >
                 <s.LocationText>{this.props.description}</s.LocationText>
                 <s.LocationTextDetail>
                   {this.props.location}

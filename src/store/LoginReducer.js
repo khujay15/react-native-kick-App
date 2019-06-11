@@ -40,10 +40,15 @@ export default function LoginReducer(state = INITIAL_STATE, action) {
         License: true,
         Phone: true,
         Payment: true,
-        Status: action.Status,
 
+        Status: action.Status,
         Name: action.Name,
         Email: action.Email,
+      };
+    case LoginAction.TOKEN:
+      return {
+        ...state,
+        Token: action.Token,
       };
     case LoginAction.LICENSE:
       return {

@@ -8,8 +8,7 @@ import * as s from './SelectBox.styled';
 
 const SelectBox = props => {
   if (Platform.OS === 'ios') {
-
-    let shadowIOS = SHADOW.ios;
+    let shadowIOS = SHADOW.iosSmall;
     if (props.toggle) {
       shadowIOS = {
         ...shadowIOS,

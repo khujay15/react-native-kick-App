@@ -10,15 +10,17 @@ import SelectBox from 'components/modules/SelectBox';
 import * as s from './Setting.styled';
 
 class Setting extends React.Component {
-  state = {};
+  state = {
+    logoutSuccess: false,
+  };
 
   LogOut = () => {
     networks
       .delete('https://api.oboonmobility.com/v0/members/logout')
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
-          this.props.memberReset();
           removeHeader();
+          this.props.memberReset();
           SInfo.setItem('AutoToken', 'no', {});
           this.setState({ logoutSuccess: true });
         }
@@ -26,43 +28,45 @@ class Setting extends React.Component {
   };
 
   render() {
-    const shadowStyle = {
-      shadowRadius: 4,
-      shadowColor: 'rgb(0, 0, 0.7)',
-      shadowOpacity: 0.08,
-      shadowOffset: { width: 0, height: 5 },
-    };
-
     return (
       <View style={{ flex: 1 }}>
         <Arrow onPress={() => this.props.navigation.goBack()} />
 
         <ThemeText>설정</ThemeText>
-        <ScrollView style={{ marginHorizontal: 24, marginTop: 100 }}>
-          <TouchableOpacity onPress={() => this.LogOut()}>
+        <ScrollView style={{ marginTop: 100 }}>
+          <s.SelectBoxOutside onPress={() => this.LogOut()}>
             <SelectBox>
               <s.SelectBoxInside>
-                <Text style={{ marginRight: 'auto' }}>로그아웃</Text>
-                <Image source={require('/assets/icons/NavImage.png')} />
+                <Text style={{ fontSize: 16 }}>로그아웃</Text>
+                <Image
+                  source={require('assets/icons/NavImage_oboon.png')}
+                  style={{ marginLeft: 'auto', marginRight: 15 }}
+                />
               </s.SelectBoxInside>
             </SelectBox>
-          </TouchableOpacity>
+          </s.SelectBoxOutside>
 
-          {this.state.logoutSuccess ? (
+          {this.state.logoutSuccess && (
             <s.ErrorText>로그아웃 되셨습니다.</s.ErrorText>
-          ) : null}
+          )}
 
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('license')}
-            style={{ marginTop: 20 }}
+          <s.SelectBoxOutside
+            onPress={() =>
+              this.props.navigation.navigate('license', {
+                hideArrow: true,
+              })
+            }
           >
             <SelectBox>
               <s.SelectBoxInside>
-                <Text style={{ marginRight: 'auto' }}>운전면허 재등록</Text>
-                <Image source={require('/assets/icons/NavImage.png')} />
+                <Text style={{ fontSize: 16 }}>운전면허 재등록</Text>
+                <Image
+                  source={require('assets/icons/NavImage_oboon.png')}
+                  style={{ marginLeft: 'auto', marginRight: 15 }}
+                />
               </s.SelectBoxInside>
             </SelectBox>
-          </TouchableOpacity>
+          </s.SelectBoxOutside>
         </ScrollView>
       </View>
     );

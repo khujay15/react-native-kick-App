@@ -4,7 +4,7 @@ import Arrow from '/components/modules/Arrow';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
 import NextPageArrow from '/components/modules/NextPageArrow';
-
+import FooterClick from 'components/modules/FooterClick';
 import InputBox from 'components/modules/InputBox';
 import IMP from 'iamport-react-native';
 import { networks } from 'components/networks';
@@ -48,7 +48,7 @@ export default class AuthPhone extends React.Component {
   state = {
     IsError: false,
     IsPhoneInput: 'grey',
-    number: '',
+    number: 'NO',
 
     NetworkError: false,
   };
@@ -119,29 +119,18 @@ export default class AuthPhone extends React.Component {
               <ErrorText>{this.state.NetworkError}</ErrorText>
             )}
           </PhoneMainView>
-
-          <UnderView>
-            <InText>다음 버튼을 클릭시, </InText>
-            <Text onPress={() => this.props.navigation.navigate('service')}>
-              서비스 이용약관
-            </Text>
-            <InText>과</InText>
-            <Text onPress={() => this.props.navigation.navigate('privacy')}>
-              개인 정보 이용약관
-            </Text>
-            <InText>에 동의하게 됩니다.</InText>
-          </UnderView>
         </SafeAreaView>
-        <NextPageArrow
+        <FooterClick
+          text="등록하기"
+          color={
+            this.state.IsError === false && this.state.number !== 'NO'
+              ? color.oboon
+              : color.grey
+          }
           onPress={() =>
-            !this.state.IsError && this.state.IsPhoneInput == color.oboon
+            this.state.IsError === false && this.state.number !== 'NO'
               ? this.AddPhone()
               : null
-          }
-          color={
-            !this.state.IsError && this.state.IsPhoneInput == color.oboon
-              ? color.oboon
-              : 'grey'
           }
         />
       </>

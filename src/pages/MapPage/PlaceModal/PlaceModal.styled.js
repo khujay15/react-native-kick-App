@@ -3,23 +3,24 @@ import color from 'theme/color';
 import { width, height } from 'theme/size';
 
 export const ModalView = styled.View`
-  border-width: 1;
-  border-color: rgba(0, 0, 0, 0.2);
-
   position: absolute;
-  top: 120;
+  top: ${props => (props.isLent ? 190 : 120)};
   margin-left: 30;
   margin-right: 30;
   height: 62;
   width: ${width - 60};
-
+  border-radius: 5;
   background-color: white;
+  justify-content: center;
+  elevation: 4;
 `;
 
 export const InnerView = styled.View`
-  margin-top: 12;
   margin-left: 12;
   margin-right: 14;
+  height: 60;
+  flex-direction: row;
+  align-items: center;
 `;
 export const LocationText = styled.Text`
   font-size: 16;

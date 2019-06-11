@@ -3,7 +3,7 @@ import { networks } from 'components/networks';
 import { connect } from 'react-redux';
 import { width, height } from 'theme/size';
 import color from 'theme/color';
-
+import ExitMark from 'components/modules/ExitMark';
 import {
   Text,
   View,
@@ -104,7 +104,8 @@ class LentInput extends React.Component {
           <View
             style={{ flex: 1, opacity: 0.3, backgroundColor: 'rgb(78,78,78)' }}
           />
-          <View
+       
+       <View
             style={{
               position: 'absolute',
               shadowRadius: 4,
@@ -123,7 +124,8 @@ class LentInput extends React.Component {
               width: width * 0.85,
             }}
           >
-            <s.ExitMark onPress={() => this.toggleOff()} />
+            <View style={{marginBottom: 50}} />
+
             <View style={{ flex: 1, marginHorizontal: 30 }}>
               {IsSuccess ? 
               (<>
@@ -136,7 +138,7 @@ class LentInput extends React.Component {
                 }}
               />
               <Animated.Image
-                source={require('assets/popup/LoadingPopup.png')}
+                source={ this.state.stopAni ? require('assets/popup/LentSuccess.png'):require('assets/popup/LoadingPopup.png')}
                 style={{
                   width: 200,
                   height: 200,
@@ -171,7 +173,8 @@ class LentInput extends React.Component {
                 text={'확인'}
                 onPress={() => this.handleExit()}
               />) : null}
-          </View>
+              </View>
+         
         </Modal>
 
         <View style={{ flex: 1 }}>
@@ -182,16 +185,16 @@ class LentInput extends React.Component {
             <Text style={{ fontSize: 24 }}>숫자를 입력해주세요</Text>
           </View>
 
-          <s.LentView>
+          <s.InputView>
             <InputBox
               keyboardType="numeric"
               onChangeText={this.handleCode}
-              placeholder="   킥보드 번호를 입력해주세요"
+              placeholder="킥보드 번호를 입력해주세요"
               placeholderTextColor="rgb(106, 106, 106)"
               maxLength={4}
               autoFocus
             />
-          </s.LentView>
+          </s.InputView>
 
           <FooterClick
             color={this.state.BottomColor}
@@ -200,6 +203,7 @@ class LentInput extends React.Component {
               this.state.BottomColor === color.oboon ? this.LentRequest() : null
             }
           />
+          
         </View>
       </>
     );

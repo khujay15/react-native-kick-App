@@ -4,12 +4,28 @@ import color from 'theme/color';
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-export const LentView = styled.View`
+export const InputView = styled.View`
   flex: 1;
   margin-left: 24;
   margin-right: 24;
   margin-top: 60;
 `;
+
+export const PopupView = styled.View`
+  
+  align-items: center;
+  background-color: white;
+  border-radius: 5;
+  border-color: #c0c0c0;
+  border-width: 1;
+  margin-left: 24;
+  margin-right: 24;
+  height: 400;
+  width: ${width * 0.85};
+  elevation: 3;
+  margin-top: 120;
+`;
+
 export const exit = styled.TouchableOpacity`
   width: 50;
   height: 40;
@@ -48,26 +64,3 @@ export const FooterClick = props => {
   );
 };
 
-export const ExitMark = props => {
-  return (
-    <TouchableOpacity
-      style={{
-        marginLeft: 'auto',
-        width: 40,
-        height: 40,
-      }}
-      {...props}
-    >
-      <Text
-        style={{
-          marginTop: 10,
-
-          fontSize: 25,
-          fontWeight: '200',
-        }}
-      >
-        X
-      </Text>
-    </TouchableOpacity>
-  );
-};

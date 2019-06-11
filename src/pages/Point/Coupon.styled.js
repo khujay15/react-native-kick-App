@@ -71,7 +71,8 @@ export const SelectBoxInside = styled.View`
 export const SelectBoxOutside = styled.TouchableOpacity`
   margin-bottom: 20;
   margin-left: 24;
-  margin-right: 20;
+  margin-right: 24;
+  border-radius: 5;
 `;
 
 export const Line = styled.View`

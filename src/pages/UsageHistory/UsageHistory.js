@@ -19,7 +19,6 @@ import Arrow from 'components/modules/Arrow';
 import ThemeText from 'components/modules/ThemeText';
 import { connect } from 'react-redux';
 import { networks } from 'components/networks';
-import FoldableView from 'components/modules/FoldableView';
 import * as s from './UsageHistory.styled';
 
 class UsageHistory extends React.Component {

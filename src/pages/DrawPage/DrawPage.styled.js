@@ -14,8 +14,8 @@ export const NameText = styled.Text`
 `;
 export const EmailText = styled.Text`
   color: ${color.grey};
-  font-size: 15;
-  margin-bottom: 20;
+  font-weight: 300;
+  font-size: 20;
 `;
 
 export const Nim = styled.Text`

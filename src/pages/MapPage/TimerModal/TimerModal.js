@@ -4,6 +4,7 @@ import moment from 'moment';
 import color from 'theme/color';
 import { connect } from 'react-redux';
 import * as s from './TimerModal.styled';
+import { SHADOW } from 'theme/shadow';
 
 const timeFormat = (time: number) => `${time < 10 ? '0' : ''}${time}`;
 
@@ -64,12 +65,7 @@ class TimerModal extends React.Component {
     if (!this.props.isLent) return null;
     return (
       <s.TimeModalView
-        style={{
-          shadowRadius: 3,
-          shadowColor: 'rgb(0, 0, 0.7)',
-          shadowOpacity: 0.1,
-          shadowOffset: { width: 0, height: 5 },
-        }}
+        style={SHADOW.iosSmall}
       >
         <s.TimeInnerView>
           <Image

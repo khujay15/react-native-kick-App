@@ -22,7 +22,7 @@ export default class CustomerService extends React.Component {
               <s.SelectBoxInside>
                 <Text style={{ fontSize: 16 }}>고장 신고</Text>
                 <Image
-                  source={require('assets/icons/NavImage.png')}
+                  source={require('assets/icons/NavImage_oboon.png')}
                   style={{ marginLeft: 'auto', marginRight: 15 }}
                 />
               </s.SelectBoxInside>
@@ -36,7 +36,7 @@ export default class CustomerService extends React.Component {
               <s.SelectBoxInside>
                 <Text style={{ fontSize: 16 }}>자주 묻는 질문</Text>
                 <Image
-                  source={require('assets/icons/NavImage.png')}
+                  source={require('assets/icons/NavImage_oboon.png')}
                   style={{ marginLeft: 'auto', marginRight: 15 }}
                 />
               </s.SelectBoxInside>

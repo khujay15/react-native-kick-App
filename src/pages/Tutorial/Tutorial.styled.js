@@ -3,7 +3,7 @@ import { width, height } from 'theme/size';
 
 export const TutorialView = styled.SafeAreaView`
   width: ${width - 48};
-  height: ${height};
+  height: ${height - 20};
 `;
 // 양쪽으로 마진을 24넣어서 48을 빼줘야함
 export const TutorialImage = styled.Image`
@@ -17,6 +17,7 @@ export const TutorialImage = styled.Image`
 `;
 
 export const ThemeText = styled.Text`
+  margin-top: 20;
   font-size: 22;
   font-weight: bold;
 `;
@@ -35,21 +36,20 @@ export const Dotindicator = styled.View`
   height: 10;
   border-radius: 5;
   background-color: ${props => props.color};
-  margin-left: 10;
-  margin-left: 10;
+  margin-right: 10;
 `;
 
 export const DotView = styled.View`
   position: absolute;
   flex-direction: row;
-  left: 30;
-  top: ${height * 0.05};
+  left: 24;
+  top: ${height * 0.07};
 `;
 
 export const TopTouch = styled.TouchableOpacity`
   position: absolute;
-  top: ${height * 0.05};
-  margin-left: 300;
+  top: ${height * 0.07};
+  margin-left: ${width * 0.8};
   color: grey;
 `;
 

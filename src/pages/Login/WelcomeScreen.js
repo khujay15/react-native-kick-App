@@ -41,9 +41,9 @@ export class WelcomeScreen extends React.Component {
     };
   }
   componentDidMount() {
-    CookieManager.clearAll();
+    
   }
-
+  
 
 
   AutoLogin = (platform) => {
@@ -125,8 +125,9 @@ export class WelcomeScreen extends React.Component {
         .then(res => {
           console.log(res);
           if (res.data.oboon_session) {
-            
-            setHeader(`oboon_session=${res.data.oboon_session}`);
+            this.props.hasToken(`oboon_session=${res.data.oboon_session}`);
+          
+            // setHeader(`oboon_session=${res.data.oboon_session}`);
             this.setReducer(res);
             SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
 
@@ -169,7 +170,8 @@ export class WelcomeScreen extends React.Component {
     });
   }
 
-  kakaoLogin() {
+  kakaoLogin = async () => {
+
     if (this.state.autoLoginName) {
       this.props.navigation.navigate('mappage');
     } else {
@@ -197,7 +199,7 @@ export class WelcomeScreen extends React.Component {
             console.log(res);
             if (res.data.oboon_session) {
               console.log(res.data.oboon_session);
-              setHeader(`oboon_session=${res.data.oboon_session}`);
+              // setHeader(`oboon_session=${res.data.oboon_session}`);
               this.setReducer(res);
               SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
               this.props.navigation.navigate('mappage');
@@ -216,7 +218,7 @@ export class WelcomeScreen extends React.Component {
                 this.props.navigation.navigate('authemail');
               });
             
-            this.setState({err: JSON.stringify(error.response.data)}) });
+            this.setState({err: JSON.stringify(error.response.data.msg)}) });
          
         }
       });
@@ -332,8 +334,8 @@ export class WelcomeScreen extends React.Component {
               이메일 회원가입
             </InnerText>
           </TouchableOpacity>
-{/* 
-          <BottomView>
+
+          {/* <BottomView>
             <TouchableHighlight
               onPress={() => this.props.navigation.navigate('mappage')}
             >
@@ -385,6 +387,8 @@ const mapDispatchToProps = dispatch => ({
   updatePoint: (LeftPoint) => dispatch({type: 'UPDATE_POINT', point: LeftPoint}),
 
   hasPhone: () => dispatch({ type: 'PHONE' }),
+
+  hasToken: (token) => dispatch({ type: 'TOKEN', Token: token}),
 });
 
 const WelcomeScreenContainer = connect(

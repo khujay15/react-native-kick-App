@@ -34,7 +34,7 @@ export const ServiceTerms = styled.TouchableHighlight`
 export const SubText = styled.Text`
   color: #707070;
   font-size: 14;
-  margin-bottom: 10;
+  margin-bottom: 50;
 `;
 export const InText = styled.Text`
   color: #b1b1b1;

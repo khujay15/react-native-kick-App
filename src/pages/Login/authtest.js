@@ -16,6 +16,7 @@ export function getUserCode(pg) {
     default:
       return 'imp19424728';
   }
+  //my PG: imp82873063
 }
 
 export class authtest extends React.Component {
@@ -37,13 +38,13 @@ export class authtest extends React.Component {
     const data = {
       pg,
       pay_method,
-      name: '아임포트 결제데이터 분석',
+      name: '테스트용 가상결제 구현',
       merchant_uid: `mid_${new Date().getTime()}`,
-      amount: '1000',
-      buyer_name: '홍길동',
-      buyer_tel: '01012345678',
-      buyer_email: 'example@naver.com',
-      buyer_addr: '서울시 강남구 신사동 661-16',
+      amount: '100',
+      buyer_name: '장재혁',
+      buyer_tel: '01028427247',
+      buyer_email: 'khujay15@gmail.com',
+      buyer_addr: '성남시 수정구 대왕판교로 1187',
       buyer_postcode: '06018',
       app_scheme: 'example',
       // [Deprecated v1.0.3]: m_redirect_url
