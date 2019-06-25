@@ -70,6 +70,7 @@ export default class authtestResult extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { navigation } = this.props;
     const success = navigation.getParam('success');
 
@@ -106,7 +107,7 @@ export default class authtestResult extends React.Component {
           <Button
             title="돌아가기"
             color="#333"
-            onPress={() => navigation.push('login')}
+            onPress={() => navigation.navigate('mypoint')}
           />
         </View>
       </View>

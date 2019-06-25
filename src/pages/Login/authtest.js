@@ -1,5 +1,7 @@
 import React from 'react';
 import IMP from 'iamport-react-native';
+import { StackActions } from 'react-navigation';
+import { SafeAreaView } from 'react-native';
 
 export function getUserCode(pg) {
   switch (pg) {
@@ -16,7 +18,7 @@ export function getUserCode(pg) {
     default:
       return 'imp19424728';
   }
-  //my PG: imp82873063
+  // my PG: imp82873063
 }
 
 export class authtest extends React.Component {
@@ -27,7 +29,7 @@ export class authtest extends React.Component {
   callback = response => {
     console.log(response);
     const { navigation } = this.props;
-    navigation.replace('authtestResult', response);
+    navigation.navigate('authtestResult', response);
   };
 
   render() {
@@ -114,14 +116,16 @@ export class authtest extends React.Component {
     }
 
     return (
-      <IMP.Payment
-        userCode={getUserCode(pg)}
-        data={data}
-        callback={this.callback}
-        loading={{
-          message: '잠시만 기다려주세요...',
-        }}
-      />
+      <SafeAreaView style={{ flex: 1 }}>
+        <IMP.Payment
+          userCode={getUserCode(pg)}
+          data={data}
+          callback={this.callback}
+          loading={{
+            message: '잠시만 기다려주세요...',
+          }}
+        />
+      </SafeAreaView>
     );
   }
 }

@@ -6,8 +6,9 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
-import { networks,setHeader } from 'components/networks';
+import { networks, setHeader } from 'components/networks';
 import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
@@ -27,7 +28,6 @@ import {
   BottomText,
 } from './WelcomScreen.styled';
 
-
 export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -37,57 +37,54 @@ export class WelcomeScreen extends React.Component {
       tutorials: false,
       firstLogin: false,
       err: false,
-      
     };
   }
-  componentDidMount() {
-    
-  }
-  
 
+  componentDidMount() {}
 
-  AutoLogin = (platform) => {
-      if(platform ==='google') this.googlesignIn();
-      else if(platform==='kakao') this.kakaoLogin();
-      else if(platform ==='local') this.props.navigation.navigate('emaillogin');   
-}
-
+  AutoLogin = platform => {
+    if (platform === 'google') this.googlesignIn();
+    else if (platform === 'kakao') this.kakaoLogin();
+    else if (platform === 'local') this.props.navigation.navigate('emaillogin');
+  };
 
   setReducer = res => {
     console.log(res);
     const { status } = res.data.member;
-    
-    const {kickboard} = res.data.member;
-    const {name} = res.data.member;
-    const {email} = res.data.member;
-    const {point} = res.data.member;
+
+    const { kickboard } = res.data.member;
+    const { name } = res.data.member;
+    const { email } = res.data.member;
+    const { point } = res.data.member;
     this.props.updatePoint(point);
 
-    if(kickboard) {
-      const LentTime = new Date(kickboard["rent_date"]);
-      this.props.member(name,email,status);
-      
-      this.props.aleadyLent(LentTime,kickboard["kick_serial_number"]);
+    if (kickboard) {
+      const LentTime = new Date(kickboard.rent_date);
+      this.props.member(name, email, status);
+
+      this.props.aleadyLent(LentTime, kickboard.kick_serial_number);
       this.props.navigation.navigate('mappage');
+    } else if (
+      status === 0 ||
+      status === '0' ||
+      status === 4 ||
+      status === '4'
+    ) {
+      this.props.member(name, email, status);
+    } else if (
+      status === 3 ||
+      status === '3' ||
+      status === 6 ||
+      status === '6'
+    ) {
+      this.props.afterGOOGLELogin(name, email, this.state.token);
+      this.props.hasPhone();
+    } else if (status === 5 || status === '5') {
+      this.props.afterGOOGLELogin(name, email, this.state.token);
+      this.setState({ firstLogin: true });
+    } else if (status === 1 || status === '1') {
+      // /탈퇴
     }
-    else{
-      if (status === 0 || status === '0' || status === 4 || status === '4' ) {
-       
-        this.props.member(name,email,status);
-      
-      } 
-      else if (status === 3 || status === '3'|| status === 6 || status === '6') {
-        this.props.afterGOOGLELogin(name, email, this.state.token);
-        this.props.hasPhone();
-      }
-      else if (status === 5 || status === '5') {
-        this.props.afterGOOGLELogin(name, email, this.state.token);
-        this.setState({firstLogin: true});
-      }
-      else if( status === 1 || status ==='1') {
-      ///탈퇴
-    }
-  }
   };
 
   googlesignIn = async () => {
@@ -126,22 +123,17 @@ export class WelcomeScreen extends React.Component {
           console.log(res);
           if (res.data.oboon_session) {
             this.props.hasToken(`oboon_session=${res.data.oboon_session}`);
-          
+
             // setHeader(`oboon_session=${res.data.oboon_session}`);
             this.setReducer(res);
-            SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
+            SInfo.setItem('AutoToken', `${res.data.oboon_session}`, {});
 
             if (this.state.firstLogin)
-            this.props.navigation.navigate('authphone');
-          else this.props.navigation.navigate('mappage');
-
+              this.props.navigation.navigate('authphone');
+            else this.props.navigation.navigate('mappage');
           }
-
-         
         })
         .catch(err => console.log(err.response));
-
-      
     } catch (error) {
       console.log(error);
 
@@ -171,7 +163,6 @@ export class WelcomeScreen extends React.Component {
   }
 
   kakaoLogin = async () => {
-
     if (this.state.autoLoginName) {
       this.props.navigation.navigate('mappage');
     } else {
@@ -184,46 +175,49 @@ export class WelcomeScreen extends React.Component {
         console.log(result);
 
         if (result.token) {
-            const data = JSON.stringify({
+          const data = JSON.stringify({
             accessToken: result.token,
           });
-        
-    
+
           networks
-          .post('https://api.oboonmobility.com/v0/members/login.kakao', data, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-          .then(res => {
-            console.log(res);
-            if (res.data.oboon_session) {
-              console.log(res.data.oboon_session);
-              // setHeader(`oboon_session=${res.data.oboon_session}`);
-              this.setReducer(res);
-              SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
-              this.props.navigation.navigate('mappage');
-            }
-          })
-          .catch(error => {
-            console.log(error.response);
+            .post(
+              'https://api.oboonmobility.com/v0/members/login.kakao',
+              data,
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              },
+            )
+            .then(res => {
+              console.log(res);
+              if (res.data.oboon_session) {
+                console.log(res.data.oboon_session);
+                // setHeader(`oboon_session=${res.data.oboon_session}`);
+                this.setReducer(res);
+                SInfo.setItem('AutoToken', `${res.data.oboon_session}`, {});
+                this.props.navigation.navigate('mappage');
+              }
+            })
+            .catch(error => {
+              console.log(error.response);
               RNKakaoLogins.getProfile((err, user) => {
                 if (err) {
                   console.log(err.toString());
                   return;
                 }
                 console.log(user);
-    
+
                 this.props.afterKAKAOLogin(user.nickname, result.token);
                 this.props.navigation.navigate('authemail');
               });
-            
-            this.setState({err: JSON.stringify(error.response.data.msg)}) });
-         
+
+              this.setState({ err: JSON.stringify(error.response.data.msg) });
+            });
         }
       });
     }
-  }
+  };
 
   kakaoLogout() {
     console.log('   kakaoLogout   ');
@@ -236,24 +230,20 @@ export class WelcomeScreen extends React.Component {
     });
   }
 
-  
-
-  
-
   render() {
     return (
       <>
-        <SafeAreaView style={{ flex: 1 , backgroundColor: 'white' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
           <MainLogo />
 
-  {this.state.err? <Text>{this.state.err}</Text>: null}
+          {this.state.err ? <Text>{this.state.err}</Text> : null}
 
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.AutoLogin('google')}
           >
             <LoginTouch
-                style={{
+              style={{
                 shadowRadius: 3,
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,
@@ -279,7 +269,6 @@ export class WelcomeScreen extends React.Component {
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,
                 shadowOffset: { width: 0, height: 5 },
-                
               }}
             >
               <LoginView>
@@ -301,7 +290,6 @@ export class WelcomeScreen extends React.Component {
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,
                 shadowOffset: { width: 0, height: 5 },
-         
               }}
             >
               <LoginView>
@@ -323,7 +311,6 @@ export class WelcomeScreen extends React.Component {
                 shadowColor: 'rgb(0, 0, 0.7)',
                 shadowOpacity: 0.1,
                 shadowOffset: { width: 0, height: 5 },
-       
               }}
             >
               <LoginView>
@@ -335,18 +322,31 @@ export class WelcomeScreen extends React.Component {
             </InnerText>
           </TouchableOpacity>
 
-          {/* <BottomView>
+          <BottomView>
             <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('mappage')}
+              onPress={() => this.props.navigation.navigate('authtest')}
             >
-              <BottomText style={{ marginLeft: 300 }}> test</BottomText>
+              <BottomText> 결제 테스트</BottomText>
             </TouchableHighlight>
-          </BottomView> */}
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  'maps://app?saddr=37.251462,127.071071&daddr=37.243212,127.079481&dirflg=w',
+                )
+              }
+            >
+              <Text style={{ fontSize: 20 }}>네비게이션 테스트</Text>
+            </TouchableOpacity>
+          </BottomView>
         </SafeAreaView>
       </>
     );
   }
 }
+// http://maps.apple.com/?daddr=37.331778,-122.031375
+// maps://app?saddr=Cupertino&S100.123+101.222
+// 37.243212, 127.079481 경희대
+// 37.251462, 127.071071 영통역
 
 const mapStateToProps = state => ({
   Name: state.LoginReducer.Name,
@@ -358,7 +358,7 @@ const mapStateToProps = state => ({
   Status: state.LoginReducer.Status,
 
   point: state.LentReducer.point,
-  kickboard_serial : state.LentReducer.kickboard_serial,
+  kickboard_serial: state.LentReducer.kickboard_serial,
   preSecond: state.LentReducer.preSecond,
 });
 
@@ -371,24 +371,21 @@ const mapDispatchToProps = dispatch => ({
       type: 'GOOGLE_LOGIN',
       Name: nickname,
       Email: email,
-      Token: token,  
+      Token: token,
     }),
   aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
 
-  aleadyLent: (preSecond,kickboard_serial ) =>
+  aleadyLent: (preSecond, kickboard_serial) =>
     dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),
 
-  member: (name, email, status) => 
-  dispatch({ type: 'MEMBERINFO',
-  Name: name,
-  Email: email, 
-  Status: status,
-  }),
-  updatePoint: (LeftPoint) => dispatch({type: 'UPDATE_POINT', point: LeftPoint}),
+  member: (name, email, status) =>
+    dispatch({ type: 'MEMBERINFO', Name: name, Email: email, Status: status }),
+  updatePoint: LeftPoint =>
+    dispatch({ type: 'UPDATE_POINT', point: LeftPoint }),
 
   hasPhone: () => dispatch({ type: 'PHONE' }),
 
-  hasToken: (token) => dispatch({ type: 'TOKEN', Token: token}),
+  hasToken: token => dispatch({ type: 'TOKEN', Token: token }),
 });
 
 const WelcomeScreenContainer = connect(

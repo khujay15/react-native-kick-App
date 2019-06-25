@@ -88,14 +88,15 @@ export const InnerText = styled.Text`
 `;
 
 export const BottomView = styled.View`
-  margin-top: auto;
   flex-direction: row;
-  align-self: center;
+  justify-content: space-between;
+
+  margin-top: auto;
   margin-bottom: 30;
 `;
 
 export const BottomText = styled.Text`
-  font-size: 14px;
+  font-size: 20;
   color: grey;
 `;
 
