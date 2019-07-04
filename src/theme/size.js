@@ -1,3 +1,4 @@
 import { Dimensions } from 'react-native';
 
-export const { TotalHeight, TotalWidth } = Dimensions.get('window');
+export const { width, height } = Dimensions.get('window');
+export const MARGIN= 24;
