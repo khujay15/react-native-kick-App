@@ -3,10 +3,9 @@ import {
   createSwitchNavigator,
   createStackNavigator,
   createDrawerNavigator,
-  createMaterialTopTabNavigator,
   MaterialTopTabBar,
   NavigationActions,
-  createBottomTabNavigator
+  createMaterialTopTabNavigator
 } from 'react-navigation';
 import React from 'react';
 import { SafeAreaView, Image, View, Text, Button } from 'react-native';
@@ -75,7 +74,7 @@ const WelcomeStackNavigator = createStackNavigator(
 
 function SafeAreaMaterialTopTabBar(props) {
   return (
-    <SafeAreaView style={{ backgroundColor: 'white'}}>
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
       <MaterialTopTabBar
         {...props}
         indicatorStyle={{ backgroundColor: color.oboon }}
@@ -88,29 +87,42 @@ function SafeAreaMaterialTopTabBar(props) {
           justifyContent: 'center',
         }}
       />
-      <Button onPress={() => this.props.navigation.navigate("DrawerContainer")} />
-      <Button onPress={() => this.props.navigation.navigate("MapPage")} />
-      <Button onPress={() => this.props.navigation.navigate("cservice")} />
+   
     </SafeAreaView>
   );
 }
 
-export const TopTabNavigatior = createBottomTabNavigator(
+
+
+
+export const TopTabNavigatior = createMaterialTopTabNavigator(
   {
+    
+    MapPage: {
+      screen: MapPageContainer,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            style={{
+              marginHorizontal: 20,
+              width: 63,
+              height: 23,
+              resizeMode: 'contain',
+            }}
+            source={
+              focused
+                ? require('/assets/icons/ic_logo.png')
+                : require('/assets/icons/ic_logo.png')
+            }
+          />
+        ),
+      },
+    },
 
     DrawerContainer: {
       screen: DrawerContainer,
       navigationOptions: {
-        header: () => {
-          <View>
-            <Text>
-              Test
-            </Text>
-          </View>
-
-        },
         tabBarIcon: ({ tintColor, focused }) => (
-          
           <View>
             <View
               style={{
@@ -132,42 +144,10 @@ export const TopTabNavigatior = createBottomTabNavigator(
               style={{
                 borderBottomWidth: 2,
                 width: 16,
-               borderBottomColor: focused ? color.oboon : color.grey,
+                borderBottomColor: focused ? color.oboon : color.grey,
               }}
             />
           </View>
-        ),
-      },
-    },
-
-    MapPage: {
-      screen: MapPageContainer,
-      navigationOptions: {
-        header: ({navigation}) => {
-          return (
-          <TouchableOpacity style={{backgroundColor: 'white', width:300, height: 100}} onPress={() => navigation.navigate('cservice')}>
-            <Text>
-              Test
-            </Text>
-          </TouchableOpacity>
-        )
-        },
-
-        tabBarIcon: ({ tintColor, focused }) => (
-          <Image
-          style={{
-            marginHorizontal:20,
-            width:63,
-            height:23,
-            resizeMode: 'contain'
-          }}
-            source={
-              focused
-                ? require('/assets/icons/ic_logo.png')
-                : require('/assets/icons/ic_logo.png')
-            }
-            
-          />
         ),
       },
     },
@@ -176,7 +156,6 @@ export const TopTabNavigatior = createBottomTabNavigator(
       screen: CustomerService,
       navigationOptions: {
         tabBarIcon: ({ tintColor, focused }) => (
-
           <View
             style={{
               width: 22,
@@ -190,44 +169,32 @@ export const TopTabNavigatior = createBottomTabNavigator(
           >
             <Text style={{ color: focused ? color.oboon : color.grey }}>i</Text>
           </View>
-
-          
         ),
       },
     },
-   
   },
   {
     initialRouteName: 'MapPage',
-    
-    // tabBarComponent: SafeAreaMaterialTopTabBar,
+    animationEnabled: false,
+/* 
+react-native-tab are using react-native-reanimated, which has issue about animated. 
+In this version(0.59), animated will make screen change really slow , even sometimes don't react to tapping.
+https://github.com/react-navigation/tabs/issues/102
+
+*/
+     tabBarComponent: SafeAreaMaterialTopTabBar,
     swipeEnabled: false,
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarOnPress: ({ navigation, defaultHandler }) => {
-        // console.log(navigation);
-        // console.log('onPress:', navigation.state.routeName);
-        // console.log(defaultHandler);
-         navigation.navigate(navigation.state.routeName, {dummy: String(new Date())});
-
-      //    navigation.navigate({
-      //     routeName: 'DrawerContainer',
-      //     params: {
-      //         dummy: String(new Date()),
-      //     },
-      //     key: String(new Date())
-      // })
-
-         
-        // navigation.navigate(navigation.state.routeName);
-      //   defaultHandler()
-      },
-    }),
-    
+    order: ['DrawerContainer', 'MapPage', 'cservice'],
     tabBarOptions: {
       showIcon: true,
       showLabel: false,
       style: {
         backgroundColor: 'white',
+          shadowRadius: 3,
+          shadowColor: 'rgb(0, 0, 0.7)',
+          shadowOpacity: 0.1,
+          shadowOffset: { width: 0, height: 5 },
+          justifyContent: 'center',
       },
     },
   },
@@ -237,15 +204,14 @@ const MapStackNavigator = createStackNavigator(
   {
     map: TopTabNavigatior,
     coupon: { screen: Point },
-    mycard : { screen: MyCard},
-    setting : { screen : Setting},
-    usage : {screen: UsageHistory},
+    mycard: { screen: MyCard },
+    setting: { screen: Setting },
+    usage: { screen: UsageHistory },
   },
   {
     headerMode: 'none',
   },
 );
-
 
 const BaseRouter = createSwitchNavigator(
   {

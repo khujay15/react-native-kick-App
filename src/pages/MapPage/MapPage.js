@@ -266,6 +266,7 @@ class MapPage extends React.Component {
               this.setState({selectedMarkerId: '-1'})}}
           />
           <ReturnModal />
+
           {this.props.isLent ? <SmartKeyModal /> : <LentModal navigation={this.props.navigation}/>}
         
         </View>
