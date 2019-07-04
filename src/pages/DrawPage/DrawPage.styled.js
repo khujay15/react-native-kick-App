@@ -24,8 +24,10 @@ export const Nim = styled.Text`
   margin-left: 20;
 `;
 
-export const DrawView = styled.SafeAreaView`
-  left: 24;
+export const DrawView = styled.View`
+  margin-top: 40;
+  margin-left: 30;
+  margin-right: 30;
 `;
 
 export const DrawArrowShape = styled.Image`
@@ -42,12 +44,10 @@ export const DrawArrowTouch = styled.TouchableOpacity`
 
 export const NavItemView = styled.View`
   flex-direction: row;
-  margin-right: 24;
   margin-bottom: 14;
 `;
 
 export const NavImage = styled.Image`
-  margin-right: 24;
   margin-left: auto;
 `;
 export const NavItemText = styled.Text`
@@ -57,7 +57,6 @@ export const NavItemText = styled.Text`
 export const Line = styled.View`
   border-bottom-width: 1;
   border-bottom-color: grey;
-  margin-right: 48;
   margin-bottom: 40;
   margin-top: 40;
 `;

@@ -1,10 +1,7 @@
 import React from 'react';
 import { TextInput, SafeAreaView, Text, View } from 'react-native';
-import Arrow from '/components/modules/Arrow';
-import ThemeText from '/components/modules/ThemeText';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import color from '/theme/color';
-import NextPageArrow from '/components/modules/NextPageArrow';
-import FooterClick from 'components/modules/FooterClick';
 import InputBox from 'components/modules/InputBox';
 import IMP from 'iamport-react-native';
 import { networks } from 'components/networks';
@@ -68,7 +65,7 @@ export default class AuthPhone extends React.Component {
     }
   };
 
-  AddPhone = () => {
+  handleFooter = () => {
     const data = JSON.stringify({
       phone_num: this.state.number,
     });
@@ -95,16 +92,22 @@ export default class AuthPhone extends React.Component {
       });
   };
 
+  InputCheck = () => {
+    return this.state.IsError === false && this.state.number !== 'NO';
+  };
+
   render() {
     return (
       <>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Arrow onPress={() => this.props.navigation.goBack()} />
-          <ThemeText>핸드폰번호 등록</ThemeText>
-
+        <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.goBack()}
+          themeText="핸드폰번호 등록"
+          greyText="본인인증을 위해 본인의 핸드폰 번호를 입력해주세요"
+          footerOnPress={() => (this.InputCheck() ? this.handleFooter() : null)}
+          footerColor={this.InputCheck() ? color.oboon : 'grey'}
+          footerText="등록하기"
+        >
           <PhoneMainView>
-            <SubText>본인인증을 위해 본인의 핸드폰 번호를 입력해주세요</SubText>
-
             <InputBox
               keyboardType="numeric"
               onChangeText={this.handlePhone}
@@ -119,20 +122,7 @@ export default class AuthPhone extends React.Component {
               <ErrorText>{this.state.NetworkError}</ErrorText>
             )}
           </PhoneMainView>
-        </SafeAreaView>
-        <FooterClick
-          text="등록하기"
-          color={
-            this.state.IsError === false && this.state.number !== 'NO'
-              ? color.oboon
-              : color.grey
-          }
-          onPress={() =>
-            this.state.IsError === false && this.state.number !== 'NO'
-              ? this.AddPhone()
-              : null
-          }
-        />
+        </DefaultArrowPage>
       </>
     );
   }

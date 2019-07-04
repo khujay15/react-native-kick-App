@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import Arrow from '/components/modules/Arrow';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
@@ -29,11 +30,11 @@ class Setting extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Arrow onPress={() => this.props.navigation.goBack()} />
-
-        <ThemeText>설정</ThemeText>
-        <ScrollView style={{ marginTop: 100 }}>
+      <DefaultArrowPage
+        arrowOnPress={() => this.props.navigation.goBack()}
+        themeText="설정"
+      >
+        <ScrollView>
           <s.SelectBoxOutside onPress={() => this.LogOut()}>
             <SelectBox>
               <s.SelectBoxInside>
@@ -68,7 +69,7 @@ class Setting extends React.Component {
             </SelectBox>
           </s.SelectBoxOutside>
         </ScrollView>
-      </View>
+      </DefaultArrowPage>
     );
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput, SafeAreaView, Text } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import { connect } from 'react-redux';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import { PhoneMainView, Line, PhoneText } from './AuthPhoneInput.styled';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
@@ -14,9 +15,11 @@ class AuthPhoneInput extends React.Component {
     IsPhoneInput: 'grey',
   };
 
-  componentDidMount() {
-    console.log(this.state);
-  }
+  componentDidMount() {}
+
+  InputCheck = () => {
+    return !this.state.IsError && this.state.IsPhoneInput === color.oboon;
+  };
 
   render() {
     const { navigation } = this.props;
@@ -24,10 +27,17 @@ class AuthPhoneInput extends React.Component {
 
     return (
       <>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Arrow onPress={() => this.props.navigation.goBack()} />
-          <ThemeText>전화번호 인증하기</ThemeText>
-
+        <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.goBack()}
+          themeText="전화번호 인증하기"
+          footerOnPress={() =>
+            this.props.Tutorial === 'watch'
+              ? this.props.navigation.navigate('map')
+              : this.props.navigation.navigate('tutorial')
+          }
+          footerColor={this.InputCheck() ? color.oboon : 'grey'}
+          footerText="가입하기"
+        >
           <PhoneMainView>
             <PhoneText Phone={number} />
 
@@ -39,25 +49,12 @@ class AuthPhoneInput extends React.Component {
 
             <Line borderBottomColor={this.state.IsPhoneInput} />
           </PhoneMainView>
-        </SafeAreaView>
 
-        <BottomText
-          onPress={() => console.log('BottomText clicked')}
-          Text="인증번호 재전송"
-        />
-
-        <NextPageArrow
-          onPress={() =>
-            this.props.Tutorial === 'watch'
-              ? this.props.navigation.navigate('map')
-              : this.props.navigation.navigate('tutorial')
-          }
-          color={
-            !this.state.IsError && this.state.IsPhoneInput === color.oboon
-              ? color.oboon
-              : 'grey'
-          }
-        />
+          <BottomText
+            onPress={() => console.log('BottomText clicked')}
+            Text="인증번호 재전송"
+          />
+        </DefaultArrowPage>
       </>
     );
   }

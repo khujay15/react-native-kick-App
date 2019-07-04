@@ -7,9 +7,8 @@ import {
   Image,
   Text,
 } from 'react-native';
-import { DrawerItems } from 'react-navigation';
+import { DrawerItems, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import {
   NameView,
   NameText,
@@ -27,29 +26,38 @@ import {
 } from './DrawPage.styled';
 
 export class DrawPage extends React.Component {
+  state = {
+    Dummy: 1,
+  };
+
+  componentDidUpdate(prevState) {
+    console.log('draw prev: ', prevState.navigation.state);
+    console.log('draw this: ', this.props.navigation.state);
+    return true;
+  }
+
   render() {
-    const shadowStyle = {
-      shadowOffset: { width: 0, height: 5 },
-      shadowRadius: 6,
-      shadowColor: 'rgb(0, 0, 0.7)',
-      shadowOpacity: 0.12,
-    };
+    const dummy = this.props.navigation.getParam('dummy', 'NO-ID');
 
     return (
       <SafeAreaView>
         <ScrollView>
           <DrawView>
-            <DrawArrowTouch onPress={() => this.props.navigation.closeDrawer()}>
-              <Image source={require('/assets/icons/Arrow.png')} />
-            </DrawArrowTouch>
             <NameView>
               <NameText>{this.props.Name}</NameText>
-              <Nim> 님</Nim>
+              <Nim>님</Nim>
             </NameView>
+
             <EmailText>{this.props.Email}</EmailText>
 
-            <View style={{ flexDirection: 'row', marginTop: 30 }}>
-              <View style={{ alignItems: 'center', marginRight: 20 }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 30,
+                justifyContent: 'space-between',
+              }}
+            >
+              <View style={{ alignItems: 'center' }}>
                 <Circle
                   onPress={() => this.props.navigation.navigate('coupon')}
                 >
@@ -62,7 +70,7 @@ export class DrawPage extends React.Component {
                 </Text>
               </View>
 
-              <View style={{ alignItems: 'center', marginRight: 20 }}>
+              <View style={{ alignItems: 'center' }}>
                 <Circle
                   onPress={() => this.props.navigation.navigate('mycard')}
                 >
@@ -74,7 +82,7 @@ export class DrawPage extends React.Component {
                   지불정보
                 </Text>
               </View>
-              <View style={{ alignItems: 'center', marginRight: 20 }}>
+              <View style={{ alignItems: 'center' }}>
                 <Circle onPress={() => this.props.navigation.navigate('usage')}>
                   <InnerCirCle>
                     <Image source={require('/assets/icons/History.png')} />
@@ -92,7 +100,6 @@ export class DrawPage extends React.Component {
             >
               <NavItemView>
                 <NavItemText>설정</NavItemText>
-
                 <NavImage
                   source={require('/assets/icons/NavImage_oboon.png')}
                 />

@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import color from 'theme/color';
 
 export const SignUpMainView = styled.ScrollView`
-  margin-top: 60;
-  margin-left: 24;
-  margin-right: 24;
+  margin-left: 30;
+  margin-right: 30;
   margin-bottom: 11;
 `;
 export const InnerText = styled.Text`

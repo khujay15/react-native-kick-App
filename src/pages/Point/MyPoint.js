@@ -2,22 +2,31 @@ import React from 'react';
 import { Text, FlatList, SafeAreaView, View, Image,ScrollView } from 'react-native';
 
 import color from 'theme/color';
-import Arrow from 'components/modules/Arrow';
-import ThemeText from 'components/modules/ThemeText';
 import InputBox from 'components/modules/InputBox';
-import FooterClick from 'components/modules/FooterClick';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import {networks} from 'components/networks';
 import * as s from './Coupon.styled';
 
-class Point extends React.Component {
+class MyPoint extends React.Component {
   holdFeedUpdate = false;
   preRequestPage = 0;
   preRequestLength = 0;
   state = {
     page: 1,
-    history: [],
+    history: [
+      {
+          "point_usage_datetime": "2019-06-30T15:51:45.000Z",
+          "usage_type": "example Data",
+          "usage_point": -5400
+      },
+      {
+          "point_usage_datetime": "2019-06-30T14:57:31.000Z",
+          "usage_type": "example Data",
+          "usage_point": 100000
+      }
+    ],
     preHistoryLength: 0,
     ErrorText: false,
   };
@@ -25,8 +34,13 @@ class Point extends React.Component {
   componentWillMount() {
     this.FirstPage();
   }
+  componentWillReceiveProps() {
+    this.holdFeedUpdate= false;
+    this.FirstPage();
+  }
 
-  FirstPage() {
+
+  FirstPage = () => {
   
   networks.get('https://api.oboonmobility.com/v0/members/my/point-history?page=1')
     .then(res=> {
@@ -37,17 +51,23 @@ class Point extends React.Component {
             console.log("FirstPage: ",res.data.data);
         }
     })
-    .catch(err => this.setState({ErrorText: err.response.data.msg}))
-
-  }
+    .catch(err => {
+      console.log(err.response);
+      this.setState({histroy: historyExample});
+      this.setState({ErrorText: err.response.data.msg})
+  })
+}
   updateHistory = async () => {
     if(!this.holdFeedUpdate){
   
    const requestPage = Math.ceil(this.state.history.length/5+0.1);
-
-
+   const head = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
    console.log(this.state.history.length);
-   await networks.get(`https://api.oboonmobility.com/v0/members/my/point-history?page=${requestPage}`)
+   await networks.get(`https://api.oboonmobility.com/v0/members/my/point-history?page=${requestPage}`,head)
     .then(res=> {
       console.log("Update:",res);
         if(res.data.success==='true'||res.data.success===true)
@@ -78,21 +98,19 @@ class Point extends React.Component {
     })
     .catch(err => console.log(err.response))
   }
-  
-  
   }
-  componentWillReceiveProps() {
-    this.holdFeedUpdate= false;
-    this.FirstPage();
-  }
-
+  
   render() {    
     return (
       <>
-        <SafeAreaView style={{flex: 1}}>
-          <Arrow onPress={() => this.props.navigation.navigate('mappage')} />
-          <ThemeText>내 포인트</ThemeText>
-          <s.CouponView>
+        
+          <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.navigate('DrawerContainer')}
+          themeText="내 포인트"
+        >
+
+        
+          <s.MyPointView>
             <s.InnerText>현재 보유 포인트</s.InnerText>
             <s.PointTouch onPress={()=> this.props.navigation.navigate('pointpage')}>
                 <s.PointText>{this.props.point}P</s.PointText>
@@ -102,8 +120,8 @@ class Point extends React.Component {
                 </s.InView>
             </s.PointTouch>
             <s.Line />
-            </s.CouponView>
-            {this.state.ErrorText && <Text>{this.state.ErrorText}</Text>}
+            </s.MyPointView>
+            {/* {this.state.ErrorText && <Text>{this.state.ErrorText}</Text>} */}
        
         <FlatList 
        style={{marginLeft: 24,
@@ -131,7 +149,8 @@ class Point extends React.Component {
        
         
       />
-        </SafeAreaView>
+      </DefaultArrowPage>
+    
      
       </>
     );
@@ -158,6 +177,6 @@ const mapDispatchToProps = dispatch => ({
 const PointContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Point);
+)(MyPoint);
 
 export default PointContainer;

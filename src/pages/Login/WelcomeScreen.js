@@ -15,6 +15,8 @@ import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import SInfo from 'react-native-sensitive-info';
 import CookieManager from 'react-native-cookies';
 
+import axios from 'axios';
+
 // need min 9.1 ios vesion
 
 import {
@@ -121,12 +123,11 @@ export class WelcomeScreen extends React.Component {
         })
         .then(res => {
           console.log(res);
-          if (res.data.oboon_session) {
-            this.props.hasToken(`oboon_session=${res.data.oboon_session}`);
-
-            // setHeader(`oboon_session=${res.data.oboon_session}`);
+          if (res.data.accesstoken) {
+            this.props.hasToken(`bearer ${res.data.accesstoken}`);
+            setHeader(res.data.accesstoken);
             this.setReducer(res);
-            SInfo.setItem('AutoToken', `${res.data.oboon_session}`, {});
+            SInfo.setItem('AutoToken', `${res.data.accesstoken}`, {});
 
             if (this.state.firstLogin)
               this.props.navigation.navigate('authphone');
@@ -172,14 +173,14 @@ export class WelcomeScreen extends React.Component {
           console.log(err.toString());
           return;
         }
-        console.log(result);
+        console.log(result.token);
 
         if (result.token) {
           const data = JSON.stringify({
             accessToken: result.token,
           });
 
-          networks
+          axios
             .post(
               'https://api.oboonmobility.com/v0/members/login.kakao',
               data,
@@ -191,11 +192,11 @@ export class WelcomeScreen extends React.Component {
             )
             .then(res => {
               console.log(res);
-              if (res.data.oboon_session) {
-                console.log(res.data.oboon_session);
-                // setHeader(`oboon_session=${res.data.oboon_session}`);
+              if (res.data.accesstoken) {
+                console.log(res.data.accesstoken);
+                setHeader(res.data.accesstoken);
                 this.setReducer(res);
-                SInfo.setItem('AutoToken', `${res.data.oboon_session}`, {});
+                SInfo.setItem('AutoToken', `${res.data.accesstoken}`, {});
                 this.props.navigation.navigate('mappage');
               }
             })
@@ -324,6 +325,14 @@ export class WelcomeScreen extends React.Component {
 
           <BottomView>
             <TouchableHighlight
+              onPress={() => {
+                SInfo.setItem('AutoToken', 'no', {});
+                this.props.navigation.navigate('map');
+              }}
+            >
+              <BottomText> 맵 테스트</BottomText>
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={() => this.props.navigation.navigate('authtest')}
             >
               <BottomText> 결제 테스트</BottomText>
@@ -394,17 +403,3 @@ const WelcomeScreenContainer = connect(
 )(WelcomeScreen);
 
 export default WelcomeScreenContainer;
-
-// const WelcomeStackNavigator = createStackNavigator(
-//   {
-//     login: WelcomeScreen,
-//     emailLogin: EmailLogin,
-//   },
-//   {
-//     headerMode: 'none',
-//   },
-// );
-
-// export default WelcomeStackNavigator;
-// in windows, cd android and gradlew.bat clean
-// add android:windowSoftInputMode="adjustPan" for keyboard pop up

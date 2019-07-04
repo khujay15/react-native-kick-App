@@ -2,17 +2,19 @@ import React from 'react';
 import { TextInput, SafeAreaView, Text, View } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import InputBox from 'components/modules/InputBox';
-import FooterClick from 'components/modules/FooterClick';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import {connect} from 'react-redux';
 import { networks ,setHeader} from 'components/networks';
 import { PhoneMainView, ErrorText, SubText } from './AuthEmail.styled';
 import ThemeText from '/components/modules/ThemeText';
+import axios from 'axios';
 import SInfo from 'react-native-sensitive-info';
 import color from 'theme/color';
 
 class AuthEmail extends React.Component {
   state = {
     Email: '',
+    Name: '',
     
     IsEmailError: false,
     ErrorText: false,
@@ -53,7 +55,7 @@ class AuthEmail extends React.Component {
   }
   };
 
-  IsOk =() => {
+  InputCheck =() => {
     return (this.state.Email !==''  && !this.state.IsEmailError );
   }
   handleEmail = TypedText => {
@@ -68,19 +70,24 @@ class AuthEmail extends React.Component {
     }
   };
 
+
+  handleName = TypedText => {
+    this.setState({ Name: TypedText, IsName: color.oboon });
+  };
+
   
 
   KakaoLogin = () => {
   
     if (this.props.Token !== 'NO-TOKEN') {
+      console.log(this.props.Token);
       const data = JSON.stringify({
-        accessToken: this.props.Token,
-        name : this.props.Name,
         email : this.state.Email,
+        accessToken: this.props.Token,
       });
     
 
-      networks
+      axios
       .post('https://api.oboonmobility.com/v0/members/login.kakao', data, {
         headers: {
           'Content-Type': 'application/json',
@@ -88,29 +95,36 @@ class AuthEmail extends React.Component {
       })
       .then(res => {
         console.log(res);
-        if (res.data.oboon_session) {
+        if (res.data.accesstoken) {
 
-          console.log(res.data.oboon_session);
-          setHeader(`oboon_session=${res.data.oboon_session}`);
+          console.log(res.data.accesstoken);
+          setHeader(res.data.accesstoken);
           this.setReducer(res);
-          SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
-          this.props.navigation.navigate('authphone');
+          SInfo.setItem('AutoToken',`${res.data.accesstoken}`, {});
+          this.props.navigation.navigate('mappage');
         }
       })
-      .catch(err => this.setState({ErrorText: '네트워크에 문제가 있습니다. 앱을 다시 실행해주세요'}));
+      .catch(err => {
+        console.log(err.response);
+        this.setState({ErrorText: '네트워크에 문제가 있습니다. 앱을 다시 실행해주세요'})
+      });
     }
   };
 
   render() {
     return (
       <>
-        <SafeAreaView style={{ flex: 1,  backgroundColor: 'white', }}>
-          <Arrow onPress={() => this.props.navigation.goBack()} />
-          <ThemeText>이메일 등록하기</ThemeText>
+        <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.goBack()}
+          themeText="등록하기"
+          greyText="고객님의 이메일 주소와 이름를 입력해주세요"
+          footerOnPress={() => this.InputCheck() ? this.KakaoLogin(): null}
+          footerColor={this.InputCheck() ? color.oboon : 'grey'}
+          footerText="등록하기"
+        >
+         
 
           <PhoneMainView>
-            <SubText>고객님의 이메일 주소를 입력해주세요</SubText>
-
             <InputBox
               placeholder="이메일 주소를 입력해주세요"
               onChangeText={this.handleEmail}
@@ -122,14 +136,11 @@ class AuthEmail extends React.Component {
              {this.state.ErrorText ? (
               <ErrorText> {this.state.ErrorText}</ErrorText>
             ) : null}
+          
 
           </PhoneMainView>
-        </SafeAreaView>
-        <FooterClick
-          text="등록하기"
-          color={this.IsOk() ? color.oboon : color.grey}
-          onPress={() => this.IsOk() ? this.KakaoLogin(): null}
-        />
+          </DefaultArrowPage>
+
       </>
     );
   }

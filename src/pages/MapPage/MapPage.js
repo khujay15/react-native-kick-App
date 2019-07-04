@@ -4,9 +4,12 @@ import {networks} from 'components/networks';
 import {
   SafeAreaView,
   Text,
+  View,
   StyleSheet,
   PermissionsAndroid,
   Platform,
+  Button,
+  TouchableOpacity
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
@@ -20,7 +23,28 @@ import SmartKeyModal from './SmartKeyModal';
 import ReturnModal from './ReturnModal';
 import {connect} from 'react-redux';
 
+
 class MapPage extends React.Component {
+
+  static navigationOptions = ({ navigation }) => {
+   
+    header: (
+      <View style={{flexDirection: 'row', justifyContent:'space-around'}}>
+        <TouchableOpacity onPress={() => navigation.navigate('DrawerContainer')}>
+        <Text>draw</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('MapPage')}>
+        <Text>map</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('cservice')}>
+        <Text>cservice</Text>
+      </TouchableOpacity>
+      </View>
+    )
+  
+  };
+
+
   FirstPosition =[];
   state = {
     MyLocation: 0,
@@ -36,7 +60,10 @@ class MapPage extends React.Component {
   componentDidMount() {
     this.getLocation();
     this.getStation();
+ 
   }
+  
+  
   
 // {
 //   params: { // query string
@@ -161,20 +188,13 @@ class MapPage extends React.Component {
   render() {
     const { selectedMarkerId, Kickboard } = this.state;
     const { navigation } = this.props;
-
+    const dummy = navigation.getParam('dummy', '0');
     return (
-      <>
-        <SafeAreaView
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-          }}
-        >
+      <View style={{flex:1}}>
           <MapView
             showsUserLocation
             followsUserLocation
-            style={StyleSheet.absoluteFillObject}
+           style={{ left:0, top:0, right:0, bottom: 0, position: 'absolute', zIndex:0}}
             region={this.state}
           >
             
@@ -247,8 +267,8 @@ class MapPage extends React.Component {
           />
           <ReturnModal />
           {this.props.isLent ? <SmartKeyModal /> : <LentModal navigation={this.props.navigation}/>}
-        </SafeAreaView>
-      </>
+        
+        </View>
     );
   }
 }

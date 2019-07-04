@@ -18,6 +18,10 @@ export const CouponView = styled.View`
   margin-right: 24;
   margin-top: 60;
 `;
+export const MyPointView = styled.View`
+  margin-left: 30;
+  margin-right: 30;
+`;
 
 export const ChangeMenu = styled.TouchableOpacity`
   height: 60;

@@ -2,6 +2,7 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import Arrow from '/components/modules/Arrow';
 import InputBox from 'components/modules/InputBox';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import FooterClick from 'components/modules/FooterClick';
 import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
@@ -81,53 +82,49 @@ class EmailLogin extends React.Component {
       });
   };
 
+  InputCheck = () => {
+    return (
+      !this.state.IsError &&
+      this.state.Password &&
+      this.state.IsEmailInput === color.oboon
+    );
+  };
+
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Arrow onPress={() => this.props.navigation.goBack()} />
-        <ThemeText>이메일로 로그인</ThemeText>
+      <>
+        <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.goBack()}
+          themeText="이메일로 로그인"
+          footerOnPress={() => (this.InputCheck() ? this.handleFooter() : null)}
+          footerColor={this.InputCheck() ? color.oboon : 'grey'}
+          footerText="로그인하기"
+        >
+          <EmailMainView>
+            <View style={{ marginBottom: 20 }}>
+              <InputBox
+                onChangeText={this.handleEmail}
+                placeholder="   이메일 주소를 입력해주세요"
+                toggle={this.state.IsError}
+              />
+              {this.state.IsError ? (
+                <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
+              ) : null}
+            </View>
 
-        <EmailMainView>
-          <View style={{ marginBottom: 20 }}>
-            <InputBox
-              onChangeText={this.handleEmail}
-              placeholder="   이메일 주소를 입력해주세요"
-              toggle={this.state.IsError}
-            />
-            {this.state.IsError ? (
-              <ErrorText> 잘못된 이메일 형식입니다</ErrorText>
-            ) : null}
-          </View>
+            <View style={{ marginBottom: 20 }}>
+              <InputBox
+                onChangeText={this.handlePassword}
+                placeholder="   비밀번호를 입력해주세요"
+              />
+            </View>
 
-          <View style={{ marginBottom: 20 }}>
-            <InputBox
-              onChangeText={this.handlePassword}
-              placeholder="   비밀번호를 입력해주세요"
-            />
-          </View>
-
-          {this.state.NetworkError && (
-            <ErrorText>{this.state.NetworkError}</ErrorText>
-          )}
-        </EmailMainView>
-        <FooterClick
-          onPress={() =>
-            !this.state.IsError &&
-            this.state.IsPasswordInput === color.oboon &&
-            this.state.IsEmailInput === color.oboon
-              ? this.handleFooter()
-              : null
-          }
-          color={
-            !this.state.IsError &&
-            this.state.IsPasswordInput === color.oboon &&
-            this.state.IsEmailInput === color.oboon
-              ? color.oboon
-              : 'grey'
-          }
-          text="로그인하기"
-        />
-      </View>
+            {this.state.NetworkError && (
+              <ErrorText>{this.state.NetworkError}</ErrorText>
+            )}
+          </EmailMainView>
+        </DefaultArrowPage>
+      </>
     );
   }
 }

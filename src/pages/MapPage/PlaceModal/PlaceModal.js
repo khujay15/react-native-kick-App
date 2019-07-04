@@ -28,15 +28,6 @@ export default class PlaceModal extends React.Component {
         style={SHADOW.iosSmall}
         isLent={this.props.isLent}
       >
-        {/* <OboonZone
-          description="test"
-          visible={this.state.MapmodalVisible}
-          onPress={() => this.setState({ MapmodalVisible: false })}
-          location="용인시 하길동 125"
-        /> */}
-
-        {/* 
--------modal out---- */}
         <s.InnerView>
           {this.props.isLent ? (
             <>

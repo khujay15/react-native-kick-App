@@ -4,11 +4,11 @@ export const networks = axios;
 
 export function setHeader(token) {
   // networks.defaults.headers.common.Authorization = token;
-  networks.defaults.headers.common.cookie = token;
+  networks.defaults.headers.common.Authorization = `Bearer ${token}`;
   console.log(networks.defaults.headers.common);
 }
 
 export function removeHeader() {
   // delete networks.defaults.headers.common.Authorization;
-  delete networks.defaults.headers.common.cookie;
+  delete networks.defaults.headers.common.Authorization;
 }

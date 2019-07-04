@@ -3,9 +3,8 @@ import { height } from 'theme/size';
 import color from 'theme/color';
 
 export const EmailMainView = styled.ScrollView`
-  margin-top: 50;
-  margin-left: 24;
-  margin-right: 24;
+  margin-left: 30;
+  margin-right: 30;
 `;
 export const InnerText = styled.Text`
   margin-bottom: 10;
@@ -25,7 +24,7 @@ export const UnderLineBottomText = styled.Text`
   text-decoration-line: underline;
   color: 'rgb(112, 112, 112)';
   position: absolute;
-  margin-left: 24;
+  margin-left: 30;
   margin-bottom: 30;
   bottom: 100;
 `;

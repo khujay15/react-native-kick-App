@@ -2,13 +2,9 @@ import styled from 'styled-components';
 import { width } from 'theme/size';
 
 export const SelectBox = styled.TouchableOpacity`
-  margin-left: 24;
-  margin-right: 24;
   margin-top: 10;
-
   border-radius: 5;
   border-color: #ddd;
-
   height: 60;
   justify-content: center;
   margin-bottom: 1;
@@ -29,7 +25,5 @@ export const SelectBoxInside = styled.View`
 `;
 
 export const SelectBoxOutside = styled.TouchableOpacity`
-  margin-right: 24;
-  margin-left: 24;
   margin-bottom: 20;
 `;

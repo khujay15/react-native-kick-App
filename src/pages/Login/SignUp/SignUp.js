@@ -1,10 +1,9 @@
 import React from 'react';
 import { KeyboardAvoidingView, View, Platform } from 'react-native';
-import Arrow from '/components/modules/Arrow';
-import ThemeText from '/components/modules/ThemeText';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import color from '/theme/color';
 import InputBox from 'components/modules/InputBox';
-import FooterClick from 'components/modules/FooterClick';
+
 import { SignUpMainView, InnerText, Line, ErrorText } from './SignUp.styled';
 import { networks,setHeader } from 'components/networks';
 import CookieManager from 'react-native-cookies';
@@ -113,13 +112,27 @@ class SignUp extends React.Component {
   handleName = TypedText => {
     this.setState({ Name: TypedText, IsName: color.oboon });
   };
+  
+  InputCheck = () => {
+    return !this.state.IsError &&
+    this.state.IsPasswordInput === color.oboon &&
+    this.state.IsName == color.oboon &&
+    !this.state.IsPasswordError && !this.state.IsPhoneNumberError && this.state.PhoneNumber !=='no';
+  }
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <Arrow onPress={() => this.props.navigation.goBack()} />
-        <ThemeText>회원가입</ThemeText>
-        <InnerText>회원가입을 위해 아래 정보를 입력해주세요</InnerText>
+
+      <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.goBack()}
+          themeText="회원가입"
+          greyText="회원가입을 위해 아래 정보를 입력해주세요"
+          footerOnPress={() => (this.InputCheck() ? this.handleFooter() : null)}
+          footerColor={this.InputCheck() ? color.oboon : 'grey'}
+          footerText="가입하기"
+        >
+
+      
         <SignUpMainView>
           <View style={{ marginBottom: 10 }}>
             <InputBox
@@ -171,7 +184,6 @@ class SignUp extends React.Component {
               toggle={
                 this.state.IsPhoneNumberError 
               }
-              
             />
             {
               this.state.IsPhoneNumberError && (
@@ -183,30 +195,9 @@ class SignUp extends React.Component {
                 <ErrorText>{this.state.NetworkError}</ErrorText>
               )
             }
-
-            
         </SignUpMainView>
 
-        <FooterClick
-          onPress={() =>
-            !this.state.IsError &&
-            this.state.IsPasswordInput === color.oboon &&
-            this.state.IsName == color.oboon &&
-            !this.state.IsPasswordError && !this.state.IsPhoneNumberError && this.state.PhoneNumber !=='no'
-              ? this.handleFooter()
-              : null
-          }
-          color={
-            !this.state.IsError &&
-            this.state.IsPasswordInput === color.oboon &&
-            this.state.IsName == color.oboon &&
-            !this.state.IsPasswordError&& !this.state.IsPhoneNumberError && this.state.PhoneNumber !=='no'
-              ? color.oboon
-              : 'grey'
-          }
-          text="가입하기"
-        />
-      </View>
+      </DefaultArrowPage>
     );
   }
 }
