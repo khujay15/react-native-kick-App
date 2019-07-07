@@ -1,24 +1,18 @@
 import React from 'react';
 import { Text, SafeAreaView, ScrollView, View } from 'react-native';
 import color from 'theme/color';
-import Arrow from 'components/modules/Arrow';
 import SelectBox from 'components/modules/SelectBox';
-import ThemeText from 'components/modules/ThemeText';
-import FooterClick from 'components/modules/FooterClick';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import {SHADOW} from 'theme/shadow';
 import {connect} from 'react-redux';
 import * as s from './Coupon.styled';
 
 class PointPage extends React.Component {
   state = {
-    Code: '',
     IsError: false,
-    Cilcked: 1000,
+    Clicked: 0,
   };
 
-  handleCode = Text => {
-    this.setState({ Code: Text });
-  };
   handleClick= (Won) => {
       this.setState({Clicked: Won});
   }
@@ -35,16 +29,28 @@ class PointPage extends React.Component {
       }
       else return style;
   }
+  InputCheck = () => {
+    return this.state.Clicked !== 0;
+  }
+
+  handleFooter = () => {
+    this.props.navigation.navigate('authtest',{POINT: this.state.Clicked} );
+  }
  
 
   render() {
-    let shadowStyle = {};
-    let selectedShadow = {...shadowStyle,backgroundColor: color.oboon};
+    let SelectStyle = {};
+    let selectedShadow = {...SHADOW.iosSmall,backgroundColor: color.oboon};
     return (
       <>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Arrow onPress={() => this.props.navigation.navigate('mypoint')} />
-          <ThemeText>포인트 충전하기</ThemeText>
+          <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.navigate('mypoint')}
+          themeText="포인트 충전하기"
+          footerColor={this.InputCheck() ? color.oboon : 'grey'}
+          footerOnPress={() => (this.InputCheck() ? this.handleFooter() : null)}
+          footerText="충전하기"
+        >
+
           <s.CouponView>
             
             <View style={{ flexDirection: 'row', marginBottom: 20 }}>
@@ -54,7 +60,7 @@ class PointPage extends React.Component {
                 <Text style={{ color: 'white' }}>포인트 충전하기</Text>
               </s.ChangeMenu>
               <s.ChangeMenu2
-                style={shadowStyle}
+                style={SHADOW.iosSmall}
                 onPress={() => this.props.navigation.navigate('coupon')}
               >
                 <Text style={{ color: color.oboon }}>쿠폰 등록하기</Text>
@@ -62,7 +68,7 @@ class PointPage extends React.Component {
             </View>
             </s.CouponView>
 
-            <s.SelectBoxOutside onPress={() =>this.handleClick(1000)} style={this.handleStyle(shadowStyle, 1000)} >
+            <s.SelectBoxOutside onPress={() =>this.handleClick(1000)} style={this.handleStyle(SelectStyle, 1000)} >
             <SelectBox>
               <s.SelectBoxInside>
               <Text style={{fontSize:16, color: 'rgb(106,106,106)'}}> 1000P 충전</Text>
@@ -71,7 +77,7 @@ class PointPage extends React.Component {
             </SelectBox>
             </s.SelectBoxOutside>
 
-            <s.SelectBoxOutside onPress={() =>this.handleClick(3000)} style={this.handleStyle(shadowStyle, 3000)} >
+            <s.SelectBoxOutside onPress={() =>this.handleClick(3000)} style={this.handleStyle(SelectStyle, 3000)} >
             <SelectBox>
               <s.SelectBoxInside>
               <Text style={{fontSize:16, color: 'rgb(106,106,106)'}}> 3000P 충전</Text>
@@ -80,7 +86,7 @@ class PointPage extends React.Component {
             </SelectBox>
             </s.SelectBoxOutside>
 
-            <s.SelectBoxOutside onPress={() =>this.handleClick(5000)} style={this.handleStyle(shadowStyle, 5000)} >
+            <s.SelectBoxOutside onPress={() =>this.handleClick(5000)} style={this.handleStyle(SelectStyle, 5000)} >
             <SelectBox>
               <s.SelectBoxInside>
               <Text style={{fontSize:16, color: 'rgb(106,106,106)'}}> 5000P 충전</Text>
@@ -88,11 +94,7 @@ class PointPage extends React.Component {
               </s.SelectBoxInside>
             </SelectBox>
             </s.SelectBoxOutside>
-
-
-         
-        </SafeAreaView>
-        <FooterClick color={color.oboon} text="충전하기" onPress={()=> this.props.navigation.navigate('authtest')}/>
+        </DefaultArrowPage>
       </>
     );
   }

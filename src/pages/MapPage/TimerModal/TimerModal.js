@@ -62,7 +62,7 @@ class TimerModal extends React.Component {
   };
 
   render() {
-    if (!this.props.isLent) return null;
+    // if (!this.props.isLent) return null;
     return (
       <s.TimeModalView
         style={SHADOW.iosSmall}

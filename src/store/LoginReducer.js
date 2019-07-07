@@ -7,19 +7,42 @@ const INITIAL_STATE = {
   Token: 'NO-TOKEN',
   Tutorial: 'NO-WATCH',
   License: false,
-  Phone: false,
+  Phone: true,
   Payment: true,
   Status: -1,
 };
 
 export default function LoginReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case 'NORMAL_USER':
+      return {
+        ...state,
+        License: true,
+        Status: action.Status,
+        Name: action.Name,
+        Email: action.Email,
+      };
+
+    case 'NO_LICENSE_USER':
+      return {
+        ...state,
+        License: false,
+        Status: action.Status,
+        Name: action.Name,
+        Email: action.Email,
+      };
+
+    case 'LICENSE':
+      return {
+        ...state,
+        License: true,
+      };
+    // only two action for beta. below action is useless//
     case LoginAction.KAKAO_LOGIN:
       return {
         ...state,
         Name: action.Name,
         Platform: 'KAKAO',
-        Token: action.Token,
       };
     case LoginAction.GOOGLE_LOGIN:
       return {
@@ -50,11 +73,7 @@ export default function LoginReducer(state = INITIAL_STATE, action) {
         ...state,
         Token: action.Token,
       };
-    case LoginAction.LICENSE:
-      return {
-        ...state,
-        License: true,
-      };
+
     case LoginAction.PHONE:
       return {
         ...state,

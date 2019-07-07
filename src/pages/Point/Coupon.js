@@ -1,10 +1,9 @@
 import React from 'react';
 import { Text, SafeAreaView, ScrollView, View } from 'react-native';
 import color from 'theme/color';
-import Arrow from 'components/modules/Arrow';
-import ThemeText from 'components/modules/ThemeText';
 import InputBox from 'components/modules/InputBox';
-import FooterClick from 'components/modules/FooterClick';
+import {SHADOW} from 'theme/shadow';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import {connect} from 'react-redux';
 import * as s from './Coupon.styled';
 
@@ -17,26 +16,28 @@ class Coupon extends React.Component {
   handleCode = Text => {
     this.setState({ Code: Text });
   };
+    
+  InputCheck = () => {
+    return !this.state.IsError && this.state.Code !== '';
+  }
+
 
   render() {
-    let shadowStyle = {
-      shadowRadius: 4,
-      shadowColor: 'rgb(0, 0, 0.7)',
-      shadowOpacity: 0.08,
-      shadowOffset: { width: 0, height: 5 },
-    };
-    
-    let selectedShadow = {...shadowStyle,backgroundColor: color.oboon};
+ 
+    let selectedShadow = {...SHADOW.iosSmall,backgroundColor: color.oboon};
     return (
       <>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Arrow onPress={() => this.props.navigation.navigate('mypoint')} />
-          <ThemeText>쿠폰 등록하기</ThemeText>
+          <DefaultArrowPage
+          arrowOnPress={() => this.props.navigation.navigate('mypoint')}
+          themeText="쿠폰 등록하기"
+          footerColor={this.InputCheck() ? color.oboon : 'grey'}
+          footerText="등록하기"
+        >
           <s.CouponView>
            
             <View style={{ flexDirection: 'row' , marginBottom: 20}}>
               <s.ChangeMenu
-                style={shadowStyle}
+                style={SHADOW.iosSmall}
                 onPress={() => this.props.navigation.navigate('pointpage')}
               >
                 <Text style={{ color: color.oboon }}>포인트 충전하기</Text>
@@ -56,8 +57,8 @@ class Coupon extends React.Component {
             />
             </View>
           </s.CouponView>
-        </SafeAreaView>
-        <FooterClick color={color.oboon} text="등록하기" />
+        </DefaultArrowPage>
+
       </>
     );
   }

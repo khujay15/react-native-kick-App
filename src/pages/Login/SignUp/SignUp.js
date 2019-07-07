@@ -56,13 +56,12 @@ class SignUp extends React.Component {
         })
         .then(res => {
           console.log(res);
-          if (res.data.oboon_session) {
-            CookieManager.clearAll();
-            setHeader(`oboon_session=${res.data.oboon_session}`);
+          if (res.data.accesstoken) {
             this.setReducerSignUP(res);
-            SInfo.setItem('AutoToken',`${res.data.oboon_session}`, {});
+            setHeader(res.data.accesstoken);
+            SInfo.setItem('AutoToken',`${res.data.accesstoken}`, {});
+
             this.props.navigation.navigate('tutorial');
-         
           }
 
          
