@@ -26,25 +26,6 @@ import {connect} from 'react-redux';
 
 class MapPage extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-   
-    header: (
-      <View style={{flexDirection: 'row', justifyContent:'space-around'}}>
-        <TouchableOpacity onPress={() => navigation.navigate('DrawerContainer')}>
-        <Text>draw</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('MapPage')}>
-        <Text>map</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('cservice')}>
-        <Text>cservice</Text>
-      </TouchableOpacity>
-      </View>
-    )
-  
-  };
-
-
   FirstPosition =[];
   state = {
     MyLocation: 0,
@@ -243,6 +224,8 @@ class MapPage extends React.Component {
             })}
 
          
+          {/* 
+          버튼 식 UI Code.
           <DrawHead img={require('assets/markers/Drawer.png')} onPress={() => navigation.openDrawer()} />
           <MapButton
             right={30}
@@ -264,8 +247,9 @@ class MapPage extends React.Component {
               this.getLocation();
                this.getStation();
               this.setState({selectedMarkerId: '-1'})}}
-          />
+          /> */}
           <ReturnModal />
+
           {this.props.isLent ? <SmartKeyModal /> : <LentModal navigation={this.props.navigation}/>}
         
         </View>
@@ -274,7 +258,6 @@ class MapPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
- 
   isLent: state.LentReducer.isLent,
 });
 

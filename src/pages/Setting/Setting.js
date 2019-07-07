@@ -16,13 +16,14 @@ class Setting extends React.Component {
   };
 
   LogOut = () => {
+    SInfo.setItem('AutoToken', 'no', {});
+
     networks
       .delete('https://api.oboonmobility.com/v0/members/logout')
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
           removeHeader();
           this.props.memberReset();
-          SInfo.setItem('AutoToken', 'no', {});
           this.setState({ logoutSuccess: true });
         }
       });

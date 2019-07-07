@@ -35,6 +35,8 @@ export class authtest extends React.Component {
   render() {
     const { navigation } = this.props;
 
+    const POINT = navigation.getParam('POINT', '1000');
+
     const pg = 'html5_inicis';
     const pay_method = 'card';
     const data = {
@@ -43,11 +45,11 @@ export class authtest extends React.Component {
       name: '테스트용 가상결제 구현',
       merchant_uid: `mid_${new Date().getTime()}`,
       amount: '100',
-      buyer_name: '장재혁',
-      buyer_tel: '01028427247',
-      buyer_email: 'khujay15@gmail.com',
-      buyer_addr: '성남시 수정구 대왕판교로 1187',
-      buyer_postcode: '06018',
+      buyer_name: '홍길동',
+      buyer_tel: '01099999999',
+      buyer_email: 'examplwe@gmail.com',
+      buyer_addr: '서울시 동작구 대방동',
+      buyer_postcode: '06666',
       app_scheme: 'example',
       // [Deprecated v1.0.3]: m_redirect_url
     };

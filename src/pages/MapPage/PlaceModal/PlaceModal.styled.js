@@ -4,10 +4,11 @@ import { width, height } from 'theme/size';
 
 export const ModalView = styled.View`
   position: absolute;
-  top: ${props => (props.isLent ? 190 : 120)};
+  /* top: ${props => (props.isLent ? 190 : 120)}; */
+  top: ${props => (props.isLent ? 90 : 20)};
   margin-left: 30;
   margin-right: 30;
-  height: 62;
+  height: 60;
   width: ${width - 60};
   border-radius: 5;
   background-color: white;

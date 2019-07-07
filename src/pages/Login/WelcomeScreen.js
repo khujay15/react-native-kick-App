@@ -13,10 +13,11 @@ import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import SInfo from 'react-native-sensitive-info';
-import CookieManager from 'react-native-cookies';
-
-import axios from 'axios';
-
+import {
+  setReducerState,
+  mapStateToPropsFromStore,
+  mapDispatchToPropsFromStore,
+} from 'store/action';
 // need min 9.1 ios vesion
 
 import {
@@ -30,66 +31,37 @@ import {
   BottomText,
 } from './WelcomScreen.styled';
 
+/*
+response Example: 
+{
+    "success": true,
+    "status": 200,
+    "msg": "로그인이 완료됐습니다.",
+    "member": {
+        "kickboard": null,
+        "member_id": 3,
+        "email": "success@gmail.com",
+        "name": "example",
+        "status": 5,
+        "point": 0,
+        "provider": "kakao"
+    },
+    "accesstoken": "Some Token From Server"
+}
+*/
+
 export class WelcomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      token: '',
-      AutoToken: false,
-      tutorials: false,
-      firstLogin: false,
-      err: false,
-    };
-  }
+  state = {
+    err: '',
+  };
 
-  componentDidMount() {}
-
-  AutoLogin = platform => {
-    if (platform === 'google') this.googlesignIn();
+  ClickLogin = platform => {
+    if (platform === 'google') this.googleLogin();
     else if (platform === 'kakao') this.kakaoLogin();
     else if (platform === 'local') this.props.navigation.navigate('emaillogin');
   };
 
-  setReducer = res => {
-    console.log(res);
-    const { status } = res.data.member;
-
-    const { kickboard } = res.data.member;
-    const { name } = res.data.member;
-    const { email } = res.data.member;
-    const { point } = res.data.member;
-    this.props.updatePoint(point);
-
-    if (kickboard) {
-      const LentTime = new Date(kickboard.rent_date);
-      this.props.member(name, email, status);
-
-      this.props.aleadyLent(LentTime, kickboard.kick_serial_number);
-      this.props.navigation.navigate('mappage');
-    } else if (
-      status === 0 ||
-      status === '0' ||
-      status === 4 ||
-      status === '4'
-    ) {
-      this.props.member(name, email, status);
-    } else if (
-      status === 3 ||
-      status === '3' ||
-      status === 6 ||
-      status === '6'
-    ) {
-      this.props.afterGOOGLELogin(name, email, this.state.token);
-      this.props.hasPhone();
-    } else if (status === 5 || status === '5') {
-      this.props.afterGOOGLELogin(name, email, this.state.token);
-      this.setState({ firstLogin: true });
-    } else if (status === 1 || status === '1') {
-      // /탈퇴
-    }
-  };
-
-  googlesignIn = async () => {
+  googleLogin = async () => {
     GoogleSignin.configure({
       scopes: ['email', 'profile'],
       offlineAccess: true,
@@ -124,14 +96,9 @@ export class WelcomeScreen extends React.Component {
         .then(res => {
           console.log(res);
           if (res.data.accesstoken) {
-            this.props.hasToken(`bearer ${res.data.accesstoken}`);
-            setHeader(res.data.accesstoken);
-            this.setReducer(res);
             SInfo.setItem('AutoToken', `${res.data.accesstoken}`, {});
-
-            if (this.state.firstLogin)
-              this.props.navigation.navigate('authphone');
-            else this.props.navigation.navigate('mappage');
+            setHeader(res.data.accesstoken);
+            setReducerState(res, this.props, this.state);
           }
         })
         .catch(err => console.log(err.response));
@@ -151,73 +118,49 @@ export class WelcomeScreen extends React.Component {
     }
   };
 
-  // 로그인 후 내 프로필 가져오기.
-  getProfile() {
-    console.log('getKakaoProfile');
-    RNKakaoLogins.getProfile((err, result) => {
+  kakaoLogin = async () => {
+    console.log('   kakaoLogin   ');
+    RNKakaoLogins.login((err, result) => {
       if (err) {
         console.log(err.toString());
         return;
       }
-      console.log(result);
-    });
-  }
+      if (result.token) {
+        // KaKao Login Success
+        const data = JSON.stringify({
+          accessToken: result.token,
+        });
 
-  kakaoLogin = async () => {
-    if (this.state.autoLoginName) {
-      this.props.navigation.navigate('mappage');
-    } else {
-      console.log('   kakaoLogin   ');
-      RNKakaoLogins.login((err, result) => {
-        if (err) {
-          console.log(err.toString());
-          return;
-        }
-        console.log(result.token);
-
-        if (result.token) {
-          const data = JSON.stringify({
-            accessToken: result.token,
-          });
-
-          axios
-            .post(
-              'https://api.oboonmobility.com/v0/members/login.kakao',
-              data,
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              },
-            )
-            .then(res => {
-              console.log(res);
-              if (res.data.accesstoken) {
-                console.log(res.data.accesstoken);
-                setHeader(res.data.accesstoken);
-                this.setReducer(res);
-                SInfo.setItem('AutoToken', `${res.data.accesstoken}`, {});
-                this.props.navigation.navigate('mappage');
+        networks
+          .post('https://api.oboonmobility.com/v0/members/login.kakao', data, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          .then(res => {
+            console.log(res);
+            if (res.data.accesstoken) {
+              console.log(res.data.accesstoken);
+              setHeader(res.data.accesstoken);
+              setReducerState(res, this.props, this.state);
+              SInfo.setItem('AutoToken', `${res.data.accesstoken}`, {});
+            }
+          })
+          .catch(error => {
+            console.log('No User DB: ', error.response);
+            RNKakaoLogins.getProfile((err, user) => {
+              if (err) {
+                console.log(err.toString());
+                return;
               }
-            })
-            .catch(error => {
-              console.log(error.response);
-              RNKakaoLogins.getProfile((err, user) => {
-                if (err) {
-                  console.log(err.toString());
-                  return;
-                }
-                console.log(user);
-
-                this.props.afterKAKAOLogin(user.nickname, result.token);
-                this.props.navigation.navigate('authemail');
-              });
-
-              this.setState({ err: JSON.stringify(error.response.data.msg) });
+              this.props.afterKAKAOLogin(user.nickname);
+              this.props.navigation.navigate('authemail');
             });
-        }
-      });
-    }
+
+            this.setState({ err: JSON.stringify(error.response.data.msg) });
+          });
+      }
+    });
   };
 
   kakaoLogout() {
@@ -237,11 +180,9 @@ export class WelcomeScreen extends React.Component {
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
           <MainLogo />
 
-          {this.state.err ? <Text>{this.state.err}</Text> : null}
-
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
-            onPress={() => this.AutoLogin('google')}
+            onPress={() => this.ClickLogin('google')}
           >
             <LoginTouch
               style={{
@@ -262,7 +203,7 @@ export class WelcomeScreen extends React.Component {
 
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
-            onPress={() => this.AutoLogin('kakao')}
+            onPress={() => this.ClickLogin('kakao')}
           >
             <LoginTouch
               style={{
@@ -283,7 +224,7 @@ export class WelcomeScreen extends React.Component {
           {/* 이메일로그인 */}
           <TouchableOpacity
             style={{ flexDirection: 'row', marginTop: marginvalue }}
-            onPress={() => this.AutoLogin('local')}
+            onPress={() => this.ClickLogin('local')}
           >
             <LoginTouch
               style={{
@@ -344,7 +285,7 @@ export class WelcomeScreen extends React.Component {
                 )
               }
             >
-              <Text style={{ fontSize: 20 }}>네비게이션 테스트</Text>
+              <BottomText> 애플 네비게이션 테스트</BottomText>
             </TouchableOpacity>
           </BottomView>
         </SafeAreaView>
@@ -357,49 +298,9 @@ export class WelcomeScreen extends React.Component {
 // 37.243212, 127.079481 경희대
 // 37.251462, 127.071071 영통역
 
-const mapStateToProps = state => ({
-  Name: state.LoginReducer.Name,
-  Email: state.LoginReducer.Email,
-  Token: state.LoginReducer.Token,
-  Tutorial: state.LoginReducer.Tutorial,
-  License: state.LoginReducer.License,
-  Phone: state.LoginReducer.Phone,
-  Status: state.LoginReducer.Status,
-
-  point: state.LentReducer.point,
-  kickboard_serial: state.LentReducer.kickboard_serial,
-  preSecond: state.LentReducer.preSecond,
-});
-
-const mapDispatchToProps = dispatch => ({
-  afterKAKAOLogin: (nickname, token) =>
-    dispatch({ type: 'KAKAO_LOGIN', Name: nickname, Token: token }),
-
-  afterGOOGLELogin: (nickname, email, token) =>
-    dispatch({
-      type: 'GOOGLE_LOGIN',
-      Name: nickname,
-      Email: email,
-      Token: token,
-    }),
-  aftertutorial: () => dispatch({ type: 'TUTORIALS' }),
-
-  aleadyLent: (preSecond, kickboard_serial) =>
-    dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),
-
-  member: (name, email, status) =>
-    dispatch({ type: 'MEMBERINFO', Name: name, Email: email, Status: status }),
-  updatePoint: LeftPoint =>
-    dispatch({ type: 'UPDATE_POINT', point: LeftPoint }),
-
-  hasPhone: () => dispatch({ type: 'PHONE' }),
-
-  hasToken: token => dispatch({ type: 'TOKEN', Token: token }),
-});
-
 const WelcomeScreenContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  mapStateToPropsFromStore,
+  mapDispatchToPropsFromStore,
 )(WelcomeScreen);
 
 export default WelcomeScreenContainer;

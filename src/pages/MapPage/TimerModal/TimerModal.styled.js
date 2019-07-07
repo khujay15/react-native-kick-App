@@ -4,13 +4,13 @@ import { width, height } from 'theme/size';
 
 export const TimeModalView = styled.View`
   position: absolute;
-
-  top: 120;
+  top: 20;
+  /* top: 120; */
   margin-left: 30;
   margin-right: 30;
   margin-bottom: 20;
   width: ${width - 60};
-  height: 62;
+  height: 60;
   border-radius: 5;
   elevation: 4;
   background-color: white;

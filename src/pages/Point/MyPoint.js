@@ -53,7 +53,7 @@ class MyPoint extends React.Component {
     })
     .catch(err => {
       console.log(err.response);
-      this.setState({histroy: historyExample});
+
       this.setState({ErrorText: err.response.data.msg})
   })
 }
@@ -103,13 +103,10 @@ class MyPoint extends React.Component {
   render() {    
     return (
       <>
-        
           <DefaultArrowPage
           arrowOnPress={() => this.props.navigation.navigate('DrawerContainer')}
           themeText="내 포인트"
         >
-
-        
           <s.MyPointView>
             <s.InnerText>현재 보유 포인트</s.InnerText>
             <s.PointTouch onPress={()=> this.props.navigation.navigate('pointpage')}>

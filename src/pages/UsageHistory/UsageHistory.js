@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import { networks } from 'components/networks';
 import * as s from './UsageHistory.styled';
 
-class UsageHistory extends React.Component {
+export default class UsageHistory extends React.Component {
   holdFeedUpdate = false;
 
   preDate = 'NO-DATE';
@@ -32,7 +32,8 @@ class UsageHistory extends React.Component {
 
   state = {
     page: 1,
-    history: [{"rent_date":"2019-06-02T17:32:30.000Z","rent_kick_station_name":"외국어대학관","return_date":"2019-06-02T17:32:35.000Z","return_kick_station_name":"외국어대학관","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:43:54.000Z","rent_kick_station_name":"외국어대학관","return_date":"2019-06-01T15:43:57.000Z","return_kick_station_name":"외국어대학관","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:42:27.000Z","rent_kick_station_name":"외국어대학관","return_date":"2019-06-01T15:42:29.000Z","return_kick_station_name":"외국어대학관","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:41:24.000Z","rent_kick_station_name":"외국어대학관","return_date":"2019-06-01T15:41:26.000Z","return_kick_station_name":"외국어대학관","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:37:59.000Z","rent_kick_station_name":"외국어대학관","return_date":"2019-06-01T15:38:03.000Z","return_kick_station_name":"외국어대학관","usage_point":-500,"status":1}],
+    //example History
+    history: [{"rent_date":"2019-06-02T17:32:30.000Z","rent_kick_station_name":"EXAMPLE","return_date":"2019-06-02T17:32:35.000Z","return_kick_station_name":"EXAMPLE","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:43:54.000Z","rent_kick_station_name":"EXAMPLE","return_date":"2019-06-01T15:43:57.000Z","return_kick_station_name":"EXAMPLE","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:42:27.000Z","rent_kick_station_name":"EXAMPLE","return_date":"2019-06-01T15:42:29.000Z","return_kick_station_name":"EXAMPLE","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:41:24.000Z","rent_kick_station_name":"EXAMPLE","return_date":"2019-06-01T15:41:26.000Z","return_kick_station_name":"EXAMPLE","usage_point":-500,"status":1},{"rent_date":"2019-06-01T15:37:59.000Z","rent_kick_station_name":"EXAMPLE","return_date":"2019-06-01T15:38:03.000Z","return_kick_station_name":"EXAMPLE","usage_point":-500,"status":1}],
     changedHistory: [],
     DateArray: [],
   };
@@ -54,7 +55,6 @@ class UsageHistory extends React.Component {
         tmpArr[date] = tmpArr.concat(this.state.history[i]);
       }
     }
-    console.log(tmpArr);
     this.setState({ changedHistory: tmpArr, DateArray: datearr });
     console.log('DateArray:', this.state.DateArray);
     console.log('changedHistory:', this.state.changedHistory);
@@ -158,7 +158,7 @@ class UsageHistory extends React.Component {
                   flexDirection: 'row',
                   alignContent: 'center',
                   alignItems: 'center',
-                  marginHorizontal: 24,
+                  marginHorizontal: 30,
                   marginBottom: 20,
                 }}
               >
@@ -167,7 +167,7 @@ class UsageHistory extends React.Component {
               </View>
             </>
           )}
-          <s.OuterView style={SHADOW.iosShallow}>
+          <s.OuterView style={SHADOW.iosSmall}>
             <s.InnerView>
               <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
                 <View style={{ flexDirection: 'row' }}>
@@ -305,27 +305,3 @@ class UsageHistory extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  Name: state.LoginReducer.Name,
-  Email: state.LoginReducer.Email,
-  Token: state.LoginReducer.Token,
-  Tutorial: state.LoginReducer.Tutorial,
-  License: state.LoginReducer.License,
-  Phone: state.LoginReducer.Phone,
-  Status: state.LoginReducer.Status,
-  point: state.LentReducer.point,
-  kickboard_serial: state.LentReducer.kickboard_serial,
-  preSecond: state.LentReducer.preSecond,
-});
-
-const mapDispatchToProps = dispatch => ({
-  updatePoint: LeftPoint =>
-    dispatch({ type: 'UPDATE_POINT', point: LeftPoint }),
-});
-
-const PointContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(UsageHistory);
-
-export default PointContainer;
