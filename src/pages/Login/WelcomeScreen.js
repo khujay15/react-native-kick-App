@@ -267,7 +267,7 @@ export class WelcomeScreen extends React.Component {
               이메일 회원가입
             </InnerText>
           </TouchableOpacity>
-
+          {/* 
           <BottomView>
             <TouchableHighlight
               onPress={() => {
@@ -291,7 +291,7 @@ export class WelcomeScreen extends React.Component {
             >
               <BottomText> 애플 네비게이션 테스트</BottomText>
             </TouchableOpacity>
-          </BottomView>
+          </BottomView> */}
         </SafeAreaView>
       </>
     );

@@ -22,10 +22,7 @@ class LentModal extends React.Component {
   handleClick = () => {
     const Paid = this.props.point > -1;
 
-    if (
-      !this.props.License ||
-      (this.props.Status === 6 || this.props.Status === 3)
-    ) {
+    if (!this.props.License) {
       this.setState({ showLicensePopup: true });
       return;
     }
@@ -33,7 +30,7 @@ class LentModal extends React.Component {
       this.setState({ showCardPopup: true });
       return;
     }
-    if (this.props.Tutorial !== 'watch' && !this.state.watchTutorial) {
+    if (this.props.Tutorial === 'watch' && !this.state.watchTutorial) {
       this.setState({ showTutorialPopup: true, watchTutorial: true });
       return;
     }

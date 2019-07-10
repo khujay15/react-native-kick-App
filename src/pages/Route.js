@@ -37,7 +37,8 @@ import {
 
   import Splash from 'components/splash';
   import { color } from 'theme';
-
+  import {authtest } from 'pages/Point/IAMPORT/authtest' ;
+  import { authtestResult } from 'pages/Point/IAMPORT/authtestResult';
   
   const WelcomeStackNavigator = createStackNavigator(
     {
@@ -211,6 +212,8 @@ import {
       map: MapStackNavigator,
       tutorial: Tutorial,
       license: License,
+      authtest: authtest,
+      authtestResult: authtestResult
 
     },
     {

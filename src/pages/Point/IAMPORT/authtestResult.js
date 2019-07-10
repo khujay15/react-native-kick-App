@@ -54,7 +54,7 @@ const result = StyleSheet.create({
   },
 });
 
-export default class authtestResult extends React.Component {
+export class authtestResult extends React.Component {
   static nativationOptions = {
     title: 'authtestResult',
   };
