@@ -11,9 +11,7 @@
 3. `oboon$ npm install`
 4. `oboon$ cd ios` & `oboon/ios$ pod install`
 
-## 설정된 내용
-
-### 자세한 설명은 docs폴더를 
+## 설정된 내용(자세한 설명은 docs폴더를 참조)
 
 ### 자주 사용해야 하는 패키지 설치
 
