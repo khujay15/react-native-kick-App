@@ -4,7 +4,6 @@ import { width, height } from 'theme/size';
 
 export const InnerText = styled.Text`
   color: rgb(106, 106, 106);
-  margin-top: 30;
   margin-bottom: 10;
   font-weight: 200;
   font-size: 16;
@@ -16,7 +15,6 @@ export const PointText = styled.Text`
 export const CouponView = styled.View`
   margin-left: 24;
   margin-right: 24;
-  margin-top: 60;
 `;
 export const MyPointView = styled.View`
   margin-left: 30;

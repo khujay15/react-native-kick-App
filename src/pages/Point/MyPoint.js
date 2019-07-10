@@ -7,7 +7,7 @@ import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import {networks} from 'components/networks';
-import * as s from './Coupon.styled';
+import * as s from './Point.styled';
 
 class MyPoint extends React.Component {
   holdFeedUpdate = false;
@@ -18,12 +18,12 @@ class MyPoint extends React.Component {
     history: [
       {
           "point_usage_datetime": "2019-06-30T15:51:45.000Z",
-          "usage_type": "example Data",
+          "usage_type": "Example Data one",
           "usage_point": -5400
       },
       {
           "point_usage_datetime": "2019-06-30T14:57:31.000Z",
-          "usage_type": "example Data",
+          "usage_type": "Example Data two",
           "usage_point": 100000
       }
     ],
@@ -104,7 +104,7 @@ class MyPoint extends React.Component {
     return (
       <>
           <DefaultArrowPage
-          arrowOnPress={() => this.props.navigation.navigate('DrawerContainer')}
+          arrowOnPress={() => this.props.navigation.navigate('DrawerNavigator')}
           themeText="내 포인트"
         >
           <s.MyPointView>

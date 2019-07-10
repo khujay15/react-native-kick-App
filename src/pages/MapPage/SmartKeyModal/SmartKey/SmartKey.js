@@ -12,7 +12,7 @@ import Arrow from 'components/modules/Arrow';
 import FooterClick from 'components/modules/FooterClick';
 import { networks } from 'components/networks';
 import { connect } from 'react-redux';
-
+import {SHADOW} from 'theme/shadow';
 import color from 'theme/color';
 import * as s from './SmartKey.styled';
 
@@ -20,7 +20,7 @@ class SmartKey extends React.Component {
   state = {
     Error : false,
   }
-  toggleOff = () => {
+  modalOff = () => {
     this.props.onPress();
   };
 
@@ -38,26 +38,33 @@ class SmartKey extends React.Component {
       )
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
-          this.toggleOff();
-          console.log(res);
+          console.log("SMART KEY RES: ",res);
+          this.modalOff();
           this.props.endLent(res.data.data.pointBalance, res.data.data);
         }
       })
       .catch(err => console.log(err.response));
   };
+
+  RETURN_KICKBOARD_FOR_TEST = () => {
+    this.modalOff();
+    this.props.endLent(99500, 
+      {
+      "pointBalance": 99500,		
+      "pointToPayFor": 500,			
+      "rent_datetime": "2019-03-30T11:47:16.000Z",
+      "return_datetime": "2019-03-30T11:47:19.929Z",
+      "rent_station_name": "EXAMPLE 1",
+      "return_station_name": "EXAMPLE 2"}
+      );
+  };
+
   betaPress = () => {
     console.log("beta Press");
     this.setState({Error: "아직 반납를 제외한 모든 기능은 사용할 수 없습니다. 양해부탁드립니다"});
   }
 
   render() {
-    const shadowStyle = {
-      shadowRadius: 5,
-      shadowColor: 'rgb(0, 0, 0.7)',
-      shadowOpacity: 0.1,
-      shadowOffset: { width: 0, height: 5 },
-    };
-
     return (
       <Modal
         animationType="slide"
@@ -65,7 +72,7 @@ class SmartKey extends React.Component {
         visible={this.props.visible}
         onRequestClose={() => {}}
       >
-        <Arrow onPress={this.toggleOff} />
+        <Arrow onPress={this.modalOff} />
         <s.SmartKeyView>
         {
             this.state.Error && (<Text style={{color: color.oboon}}>{this.state.Error}</Text>)
@@ -73,7 +80,7 @@ class SmartKey extends React.Component {
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity  onPress={this.betaPress}>
               <View style={{ alignItems: 'center' }}>
-              <s.Circle style={shadowStyle}>
+              <s.Circle style={SHADOW.iosSmall}>
                 <s.InnerCirCle>
                   <Image source={require('/assets/icons/smartkey/Lock.png')} />
                 </s.InnerCirCle>
@@ -83,8 +90,8 @@ class SmartKey extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.betaPress}>
-              <View style={{ alignItems: 'center' }} >
-              <s.Circle style={shadowStyle}>
+              <View style={{ alignItems: 'center' }}>
+              <s.Circle style={SHADOW.iosSmall}>
                 <s.InnerCirCle>
                   <Image
                     source={require('/assets/icons/smartkey/UnLock.png')}
@@ -100,7 +107,7 @@ class SmartKey extends React.Component {
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity onPress={this.betaPress}>
               <View style={{ alignItems: 'center' }} >
-              <s.Circle style={shadowStyle}>
+              <s.Circle style={SHADOW.iosSmall}>
                 <s.InnerCirCle>
                   <Image
                     source={require('/assets/icons/smartkey/HeadLight.png')}
@@ -114,7 +121,7 @@ class SmartKey extends React.Component {
 
             <TouchableOpacity onPress={this.betaPress}>
               <View style={{ alignItems: 'center' }}>
-              <s.Circle style={shadowStyle}>
+              <s.Circle style={SHADOW.iosSmall}>
                 <s.InnerCirCle>
                   <Image
                     source={require('/assets/icons/smartkey/Report.png')}
@@ -131,7 +138,7 @@ class SmartKey extends React.Component {
         <FooterClick
           color={color.oboon}
           text="반납하기"
-          onPress={() => this.returnKickboard()}
+          onPress={() => this.RETURN_KICKBOARD_FOR_TEST()}
         />
       </Modal>
     );

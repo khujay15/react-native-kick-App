@@ -5,7 +5,7 @@ import SelectBox from 'components/modules/SelectBox';
 import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import {SHADOW} from 'theme/shadow';
 import {connect} from 'react-redux';
-import * as s from './Coupon.styled';
+import * as s from './Point.styled';
 
 class PointPage extends React.Component {
   state = {
@@ -51,8 +51,14 @@ class PointPage extends React.Component {
           footerText="충전하기"
         >
 
+          <View style={{ marginBottom: 40, marginHorizontal: 30 }}>
+            <s.InnerText>현재 보유 포인트</s.InnerText>
+            <s.PointText>
+              {this.props.point}P
+            </s.PointText>
+          </View>
+
           <s.CouponView>
-            
             <View style={{ flexDirection: 'row', marginBottom: 20 }}>
               <s.ChangeMenu
                 style={selectedShadow}

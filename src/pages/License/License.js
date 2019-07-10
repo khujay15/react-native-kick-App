@@ -107,7 +107,7 @@ class License extends React.Component {
         {hideArrow ? null : (
           <Arrow onPress={() => this.props.navigation.goBack()} />
         )}
-        <s.SkipText onPress={() => this.props.navigation.navigate('mappage')}>
+        <s.SkipText onPress={() => this.props.navigation.navigate('map')}>
           <Text style={{ color: 'rgb(106,106,106)' }}>건너뛰기</Text>
         </s.SkipText>
         <ThemeText>운전면허증을 등록해주세요</ThemeText>
@@ -118,7 +118,7 @@ class License extends React.Component {
           </s.InnerText>
           <s.ImageView>
             <s.License
-            style={{  resizeMode: 'contain'}}
+              style={{ resizeMode: 'contain' }}
               source={
                 img ? { uri: img } : require('assets/icons/LicenseUpload.png')
               }
@@ -168,12 +168,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   hasLicense: () => dispatch({ type: 'LICENSE' }),
-  member: (name, email, status) => 
-  dispatch({ type: 'MEMBERINFO',
-  Name: name,
-  Email: email, 
-  Status: status,
-  }),
+  member: (name, email, status) =>
+    dispatch({ type: 'MEMBERINFO', Name: name, Email: email, Status: status }),
 });
 
 const LicensetContainer = connect(

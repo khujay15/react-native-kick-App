@@ -3,9 +3,18 @@ import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { width, height } from 'theme/size';
 import moment from 'moment';
-import color from 'theme/color';
-
 import * as s from './ReturnModal.styled';
+
+/*
+"Example data": {
+        "pointBalance": 99500,		// 현재 남은 포인트
+        "pointToPayFor": 500,			// 결제한 포인트
+        "rent_datetime": "2019-05-30T11:47:16.000Z",
+        "return_datetime": "2019-05-30T11:47:19.929Z",
+        "rent_station_name": "EXAMPLE 1",
+        "return_station_name": "EXAMPLE 2"
+    }
+*/
 
 class ReturnModal extends React.Component {
   state = {

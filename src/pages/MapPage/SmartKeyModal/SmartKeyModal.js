@@ -3,7 +3,7 @@ import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
 
 import { width, height } from 'theme/size';
 import color from 'theme/color';
-import SmartKey from 'pages/SmartKey';
+import SmartKey from './SmartKey';
 import * as s from './SmartKeyModal.styeld';
 
 export default class SmartKeyModal extends React.Component {

@@ -53,9 +53,18 @@ response Example:
 export class WelcomeScreen extends React.Component {
   state = {
     err: '',
+    TEST_MODE: true,
   };
 
   ClickLogin = platform => {
+    if (
+      this.state.TEST_MODE === true &&
+      (platform === 'google' || platform === 'kakao')
+    ) {
+      this.props.TEST_MODE();
+      this.props.navigation.navigate('map');
+      return;
+    }
     if (platform === 'google') this.googleLogin();
     else if (platform === 'kakao') this.kakaoLogin();
     else if (platform === 'local') this.props.navigation.navigate('emaillogin');
@@ -65,13 +74,8 @@ export class WelcomeScreen extends React.Component {
     GoogleSignin.configure({
       scopes: ['email', 'profile'],
       offlineAccess: true,
-      // iosClientId:
-      //   '140466692410-stfisve8l4u6oonmf1po8i9i7lcuiv0m.apps.googleusercontent.com',
       webClientId:
         '879857882214-ph07o8ak1f69sjfasjo11aolr1mu7m5v.apps.googleusercontent.com',
-      // Platform.OS === 'ios'
-      //   ? '879857882214-i05pa300nuq2eari5bl7b4refr5tmeao.apps.googleusercontent.com'
-      //   : '879857882214-ph07o8ak1f69sjfasjo11aolr1mu7m5v.apps.googleusercontent.com',
     });
     try {
       await GoogleSignin.hasPlayServices();

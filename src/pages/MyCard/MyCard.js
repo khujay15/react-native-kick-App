@@ -1,10 +1,9 @@
 import React from 'react';
 import { Text, View, ScrollView, ImageBackground } from 'react-native';
-import Arrow from '/components/modules/Arrow';
-import ThemeText from '/components/modules/ThemeText';
 import color from '/theme/color';
 import { connect } from 'react-redux';
-import FooterClick from 'components/modules/FooterClick';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
+
 import * as s from './MyCard.styled';
 
 class MyCard extends React.Component {
@@ -14,22 +13,20 @@ class MyCard extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Arrow onPress={() => this.props.navigation.goBack()} />
-        <ThemeText>지불정보</ThemeText>
-
-        <View
-          style={{
-            marginHorizontal: 24,
-            flex: 1,
-          }}
-        >
+      <DefaultArrowPage
+        arrowOnPress={() => this.props.navigation.goBack()}
+        themeText="지불 정보"
+        footerText="등록하기"
+        footerColor={color.oboon}
+        footerOnPress={() => this.props.navigation.navigate('newcard')}
+      >
+        <View style={{ marginHorizontal: 30 }}>
           <ImageBackground
             source={require('assets/icons/MyCard.png')}
             style={{
               resizeMode: 'contain',
-              marginTop: 60,
               width: '100%',
+              height: 180,
             }}
             imageStyle={{ borderRadius: 5 }}
           >
@@ -102,12 +99,7 @@ class MyCard extends React.Component {
             </s.StyledBox>
           </ScrollView>
         </View>
-        <FooterClick
-          color={color.oboon}
-          onPress={() => this.props.navigation.navigate('pay')}
-          text="등록하기"
-        />
-      </View>
+      </DefaultArrowPage>
     );
   }
 }

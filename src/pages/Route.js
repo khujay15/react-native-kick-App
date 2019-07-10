@@ -10,19 +10,19 @@ import {
   import React from 'react';
   import { SafeAreaView, Image, View, Text, Button } from 'react-native';
   import AuthEmail from 'pages/Login/AuthEmail';
-  import WelcomeScreenContainer from 'pages/Login';
+  import WelcomeScreen from 'pages/Login';
   import EmailLogin from 'pages/Login/EmailLogin';
   import AuthPhone from 'pages/Login/AuthPhone';
   import AuthPhoneInput from 'pages/Login/AuthPhone/AuthPhoneInput';
   import PrivacyTerms from 'pages/Login/AuthPhone/Terms/PrivacyTerms';
   import ServiceTerms from 'pages/Login/AuthPhone/Terms/ServiceTerms';
   import SignUp from 'pages/Login/SignUp';
-  import Point from 'pages/Point';
+  import PointNavigator from 'pages/Point';
   import Setting from 'pages/Setting';
-  import DrawerContainer from 'pages/DrawPage';
-  import MapPage from 'pages/MapPage/';
-  import MapPageContainer from 'pages/MapPage/MapPage';
-  import Payment from 'pages/Payment';
+  import DrawerNavigator from 'pages/DrawPage';
+  import MapPage from 'pages/MapPage/MapPage';
+  import LentInput from 'pages/MapPage/LentModal/LentInput';
+
   import UsageHistory from 'pages/UsageHistory';
   
   import CustomerService from 'pages/CustomerService/CustomerService';
@@ -31,19 +31,17 @@ import {
   
   import License from 'pages/License';
   import Tutorial from 'pages/Tutorial';
-  import { authtest } from '/pages/Login/authtest';
-  import authtestResult from 'pages/Login/authtestResult';
-  import FindPassword from 'pages/FindPassword';
-  import SmartKey from 'pages/SmartKey';
+
   import MyCard from 'pages/MyCard';
-  import LentInput from 'pages/MapPage/LentModal/LentInput';
+  import NewCard from 'pages/MyCard/NewCard';
+
   import Splash from 'components/splash';
   import { color } from 'theme';
-  import { TouchableOpacity } from 'react-native-gesture-handler';
+
   
   const WelcomeStackNavigator = createStackNavigator(
     {
-      login: WelcomeScreenContainer,
+      login: WelcomeScreen,
       emaillogin: EmailLogin,
       authemail: AuthEmail,
       authphone: AuthPhone,
@@ -51,28 +49,12 @@ import {
       signup: SignUp,
       service: ServiceTerms,
       privacy: PrivacyTerms,
+
     },
     {
       headerMode: 'none',
     },
   );
-  // 앱버튼 용 네비게이터
-  // export const MapDrawerNavigator = createDrawerNavigator(
-  //   {
-  //     mappage: { screen: MapPage },
-  //     coupon: { screen: Point },
-  //     pay: { screen: Payment },
-  //     lentinput : {screen : LentInput},
-  //     mycard : { screen: MyCard},
-  //     setting : { screen : Setting},
-  //     usage : {screen: UsageHistory},
-  //     cservice : {screen: CustomerService},
-  
-  //   },
-  //   {
-  //     contentComponent: DrawerContainer,
-  //   },
-  // );
   
   function SafeAreaMaterialTopTabBar(props) {
     return (
@@ -101,7 +83,7 @@ import {
     {
       
       MapPage: {
-        screen: MapPageContainer,
+        screen: MapPage,
         navigationOptions: {
           tabBarIcon: ({ tintColor, focused }) => (
             <Image
@@ -121,8 +103,8 @@ import {
         },
       },
   
-      DrawerContainer: {
-        screen: DrawerContainer,
+      DrawerNavigator: {
+        screen: DrawerNavigator,
         navigationOptions: {
           tabBarIcon: ({ tintColor, focused }) => (
             <View>
@@ -184,9 +166,9 @@ import {
   https://github.com/react-navigation/tabs/issues/102
   
   */
-       tabBarComponent: SafeAreaMaterialTopTabBar,
+      tabBarComponent: SafeAreaMaterialTopTabBar,
       swipeEnabled: false,
-      order: ['DrawerContainer', 'MapPage', 'cservice'],
+      order: ['DrawerNavigator', 'MapPage', 'cservice'],
       tabBarOptions: {
         showIcon: true,
         showLabel: false,
@@ -205,13 +187,17 @@ import {
   const MapStackNavigator = createStackNavigator(
     {
       map: TopTabNavigatior,
-      coupon: { screen: Point },
+      coupon: { screen: PointNavigator },
       mycard: { screen: MyCard },
+      newcard: {screen: NewCard },
       setting: { screen: Setting },
       usage: { screen: UsageHistory },
-      cservice: { screen: CustomerService },
-      outoforder: { screen: OutOfOrder },
-      FAQ: { screen: FAQservice },
+      lentinput : {screen : LentInput},
+
+       cservice: { screen: CustomerService },
+       outoforder: { screen: OutOfOrder },
+       FAQ: { screen: FAQservice },
+      
     },
     {
       headerMode: 'none',
@@ -221,20 +207,11 @@ import {
   const BaseRouter = createSwitchNavigator(
     {
       splash: Splash,
-      // mappage: MapPage,
-      map: MapStackNavigator,
       login: WelcomeStackNavigator,
+      map: MapStackNavigator,
       tutorial: Tutorial,
-      payment: Payment,
-      FindPassword,
       license: License,
-      SmartKey,
-      authtest,
-      authtestResult,
-      authphone: AuthPhone,
-      authemail: AuthEmail,
-      signup: SignUp,
-      coupon: { screen: Point },
+
     },
     {
       initialRouteName: 'splash',
@@ -242,4 +219,23 @@ import {
   );
   
   export default createAppContainer(BaseRouter);
+  
+
+  // 앱버튼 용 네비게이터
+  // export const MapDrawerNavigator = createDrawerNavigator(
+  //   {
+  //     mappage: { screen: MapPage },
+  //     coupon: { screen: Point },
+  //     pay: { screen: Payment },
+  //     lentinput : {screen : LentInput},
+  //     mycard : { screen: MyCard},
+  //     setting : { screen : Setting},
+  //     usage : {screen: UsageHistory},
+  //     cservice : {screen: CustomerService},
+  
+  //   },
+  //   {
+  //     contentComponent: DrawerNavigator,
+  //   },
+  // );
   

@@ -14,7 +14,7 @@ export default class FAQservice extends React.Component {
     return (
       <>
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-          <Arrow onPress={() => this.props.navigation.navigate('cservice')} />
+          <Arrow onPress={() => this.props.navigation.goBack()} />
           <ThemeText style={{ marginBottom: 40 }}>자주 묻는 질문</ThemeText>
 
           <ScrollView style={{ marginHorizontal: 24 }}>

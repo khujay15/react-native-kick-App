@@ -4,13 +4,7 @@ import { connect } from 'react-redux';
 import { width, height } from 'theme/size';
 import color from 'theme/color';
 import ExitMark from 'components/modules/ExitMark';
-import {
-  Text,
-  View,
-  Modal,
-  Image,
-  Animated, Easing
-} from 'react-native';
+import { Text, View, Modal, Image, Animated, Easing } from 'react-native';
 import Arrow from 'components/modules/Arrow';
 import FooterClick from 'components/modules/FooterClick';
 import InputBox from 'components/modules/InputBox';
@@ -28,60 +22,75 @@ class LentInput extends React.Component {
     stopAni: false,
     IsSuccess: true,
     ErrorMsg: '',
-
   };
 
-
   hideLoading = () => {
-    Animated.timing(
-      this.state.spin
-    ).stop();
-    this.setState({stopAni: true});
+    Animated.timing(this.state.spin).stop();
+    this.setState({ stopAni: true });
   };
 
   spinning = () => {
-    
     Animated.loop(
       Animated.timing(this.state.spin, {
         toValue: 1,
         duration: 1600,
         easing: Easing.bezier(0.58, 0.07, 0.46, 0.96),
         useNativeDriver: true,
-      })
+      }),
     ).start();
   };
-//animation func
+
+  // animation func
   toggleOff = () => {
     this.setState({ modalVisible: false });
   };
+
   handleCode = num => {
     this.setState({ Code: Number(num), BottomColor: color.oboon });
   };
+
   handleExit = () => {
     this.toggleOff();
-    this.props.navigation.navigate('mappage');
-  }
+    this.props.navigation.navigate('map');
+  };
+
   LentRequest = () => {
     this.setState({ modalVisible: true });
     this.spinning();
     networks
-      .put(`https://api.oboonmobility.com/v0/kickboards/${this.state.Code}/rent`, {
-        headers: {
-          'Content-Type': 'application/json',
+      .put(
+        `https://api.oboonmobility.com/v0/kickboards/${this.state.Code}/rent`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
       .then(res => {
-        console.log(res);
-        const startTime = new Date(res.data.data['rent_time']);
+        // console.log(res);
+        const startTime = new Date(res.data.data.rent_time);
         if (res.data.success === true || res.data.success === 'true') {
           this.props.lentstart(startTime, this.state.Code);
-          this.setState({IsSuccess: true})
+          this.setState({ IsSuccess: true });
           this.hideLoading();
         }
       })
-      .catch(err => { 
+      .catch(err => {
         this.hideLoading();
-        this.setState({IsSuccess: false, ErrorMsg: err.response.data.msg}) });
+        this.setState({ IsSuccess: false, ErrorMsg: err.response.data.msg });
+      });
+  };
+
+  LENT_REQUEST_FOR_TEST_ = () => {
+    this.setState({ modalVisible: true });
+    this.spinning();
+
+    setTimeout(() => {
+      const startTime = new Date();
+      this.props.lentstart(startTime, this.state.Code);
+      this.setState({ IsSuccess: true });
+      this.hideLoading();
+    }, 1500);
   };
 
   render() {
@@ -91,8 +100,8 @@ class LentInput extends React.Component {
       outputRange: ['0deg', '360deg'],
     });
 
-    const {IsSuccess} = this.state;
-    const {modalVisible} = this.state;
+    const { IsSuccess } = this.state;
+    const { modalVisible } = this.state;
     return (
       <>
         <Modal
@@ -104,8 +113,8 @@ class LentInput extends React.Component {
           <View
             style={{ flex: 1, opacity: 0.3, backgroundColor: 'rgb(78,78,78)' }}
           />
-       
-       <View
+
+          <View
             style={{
               position: 'absolute',
               shadowRadius: 4,
@@ -124,57 +133,65 @@ class LentInput extends React.Component {
               width: width * 0.85,
             }}
           >
-            <View style={{marginBottom: 50}} />
+            <View style={{ marginBottom: 50 }} />
 
             <View style={{ flex: 1, marginHorizontal: 30 }}>
-              {IsSuccess ? 
-              (<>
-                <Image
-                source={require('assets/popup/KickPopup.png')}
-                style={{
-                  alignSelf: 'center',
-                  marginTop: 70,
-                  position: 'absolute',
-                }}
-              />
-              <Animated.Image
-                source={ this.state.stopAni ? require('assets/popup/LentSuccess.png'):require('assets/popup/LoadingPopup.png')}
-                style={{
-                  width: 200,
-                  height: 200,
-                  resizeMode: 'contain',
-                  transform: [{ rotate: spin }],
-                }}
-              />
-              <View style={{ marginTop: 30, alignItems: 'center' }}>
-                <Text style={{ fontSize: 20, fontWeight: '200' }}>
-                  {this.state.stopAni? "대여가 완료되었습니다.":"킥보드를 대여중입니다."}
-                </Text>
-              </View>
-                </>) : (<>
-              <Image
-                source={require('assets/popup/LoadingFailed.png')}
-                style={{
-                  alignSelf: 'center',
-                  
-                 
-                }}
-              />
-              
-              <View style={{ marginTop: 20, alignItems: 'center' }}>
-                <Text style={{ fontSize: 20, fontWeight: '200' }}>
-                  {this.state.ErrorMsg}
-                </Text>
+              {IsSuccess ? (
+                <>
+                  <Image
+                    source={require('assets/popup/KickPopup.png')}
+                    style={{
+                      alignSelf: 'center',
+                      marginTop: 70,
+                      position: 'absolute',
+                    }}
+                  />
+                  <Animated.Image
+                    source={
+                      this.state.stopAni
+                        ? require('assets/popup/LentSuccess.png')
+                        : require('assets/popup/LoadingPopup.png')
+                    }
+                    style={{
+                      width: 200,
+                      height: 200,
+                      resizeMode: 'contain',
+                      transform: [{ rotate: spin }],
+                    }}
+                  />
+                  <View style={{ marginTop: 30, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 20, fontWeight: '200' }}>
+                      {this.state.stopAni
+                        ? '대여가 완료되었습니다.'
+                        : '킥보드를 대여중입니다.'}
+                    </Text>
+                  </View>
+                </>
+              ) : (
+                <>
+                  <Image
+                    source={require('assets/popup/LoadingFailed.png')}
+                    style={{
+                      alignSelf: 'center',
+                    }}
+                  />
+
+                  <View style={{ marginTop: 20, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 20, fontWeight: '200' }}>
+                      {this.state.ErrorMsg}
+                    </Text>
+                  </View>
+                </>
+              )}
             </View>
-    </>)}
-            </View>
-              { this.state.stopAni ? (<s.FooterClick
+            {this.state.stopAni ? (
+              <s.FooterClick
                 color={color.oboon}
-                text={'확인'}
+                text="확인"
                 onPress={() => this.handleExit()}
-              />) : null}
-              </View>
-         
+              />
+            ) : null}
+          </View>
         </Modal>
 
         <View style={{ flex: 1 }}>
@@ -200,10 +217,9 @@ class LentInput extends React.Component {
             color={this.state.BottomColor}
             text="대여하기"
             onPress={() =>
-              this.state.BottomColor === color.oboon ? this.LentRequest() : null
+              this.state.BottomColor === color.oboon ? this.LENT_REQUEST_FOR_TEST_() : null
             }
           />
-          
         </View>
       </>
     );
