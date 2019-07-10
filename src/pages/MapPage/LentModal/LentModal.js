@@ -11,7 +11,7 @@ class LentModal extends React.Component {
   state = {
     LentModalVisible: false,
 
-    showPayPopup: false,
+    showCardPopup: false,
     showLicensePopup: false,
     showUnPaidPopup: false,
     showTutorialPopup: false,
@@ -22,18 +22,15 @@ class LentModal extends React.Component {
   handleClick = () => {
     const Paid = this.props.point > -1;
 
-    if (
-      !this.props.License ||
-      (this.props.Status === 6 || this.props.Status === 3)
-    ) {
+    if (!this.props.License) {
       this.setState({ showLicensePopup: true });
       return;
     }
     if (!this.props.Payment) {
-      this.setState({ showPayPopup: true });
+      this.setState({ showCardPopup: true });
       return;
     }
-    if (this.props.Tutorial !== 'watch' && !this.state.watchTutorial) {
+    if (this.props.Tutorial === 'watch' && !this.state.watchTutorial) {
       this.setState({ showTutorialPopup: true, watchTutorial: true });
       return;
     }
@@ -49,8 +46,8 @@ class LentModal extends React.Component {
     // onPress={() => this.setState({ LentModalVisible: true })}
   };
 
-  closePayPopup = () => {
-    this.setState({ showPayPopup: false });
+  closeCardPopup = () => {
+    this.setState({ showCardPopup: false });
   };
 
   closeLicensePopup = () => {
@@ -74,13 +71,12 @@ class LentModal extends React.Component {
         /> */}
 
         <PopUp
-          visible={this.state.showPayPopup}
-          onExit={this.closePayPopup}
-          FooterOnPress={() =>
-            this.props.navigation.navigate('payment', {
-              hideArrow: true,
-            })
-          }
+          visible={this.state.showCardPopup}
+          onExit={this.closeCardPopup}
+          FooterOnPress={() => {
+            this.closeCardPopup();
+            this.props.navigation.navigate('newcard');
+          }}
           FooterText="등록하기"
           img={require('assets/popup/PayPopup.png')}
           FirstLineText="오분을 이용하기 위해서는"
@@ -90,11 +86,12 @@ class LentModal extends React.Component {
         <PopUp
           visible={this.state.showLicensePopup}
           onExit={this.closeLicensePopup}
-          FooterOnPress={() =>
+          FooterOnPress={() => {
+            this.closeLicensePopup();
             this.props.navigation.navigate('license', {
               hideArrow: true,
-            })
-          }
+            });
+          }}
           FooterText="등록하기"
           img={require('assets/popup/LicensePopup.png')}
           FirstLineText="오분을 이용하기 위해서는"

@@ -232,7 +232,7 @@ class OutOfOrder extends React.Component {
     return (
       <>
         <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-          <Arrow onPress={() => this.props.navigation.navigate('cservice')} />
+          <Arrow onPress={() => this.props.navigation.goBack()} />
           <ThemeText style={{ marginBottom: 60 }}>고장신고</ThemeText>
           <View style={{ marginHorizontal: 24 }}>
             <s.IndicatorText>킥보드 번호</s.IndicatorText>

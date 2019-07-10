@@ -30,6 +30,14 @@ export const mapDispatchToPropsFromStore = dispatch => ({
 
   aleadyLent: (preSecond, kickboard_serial) =>
     dispatch({ type: 'ALEADY_LENT', preSecond, kickboard_serial }),
+
+  TEST_MODE: () =>
+    dispatch({
+      type: 'NORMAL_USER',
+      Name: 'TEST모드입니다',
+      Email: 'TESTMODE@TEST.COM',
+      Status: 3,
+    }),
 });
 
 /*
