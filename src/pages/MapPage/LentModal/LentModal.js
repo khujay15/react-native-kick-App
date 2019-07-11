@@ -30,7 +30,7 @@ class LentModal extends React.Component {
       this.setState({ showCardPopup: true });
       return;
     }
-    if (this.props.Tutorial === 'watch' && !this.state.watchTutorial) {
+    if (this.props.Tutorial !== 'watch' && !this.state.watchTutorial) {
       this.setState({ showTutorialPopup: true, watchTutorial: true });
       return;
     }

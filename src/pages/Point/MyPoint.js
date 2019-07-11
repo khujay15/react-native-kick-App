@@ -19,7 +19,7 @@ class MyPoint extends React.Component {
       {
           "point_usage_datetime": "2019-06-30T15:51:45.000Z",
           "usage_type": "Example Data one",
-          "usage_point": -5400
+          "usage_point": -500
       },
       {
           "point_usage_datetime": "2019-06-30T14:57:31.000Z",
@@ -104,7 +104,7 @@ class MyPoint extends React.Component {
     return (
       <>
           <DefaultArrowPage
-          arrowOnPress={() => this.props.navigation.navigate('DrawerNavigator')}
+          arrowOnPress={() => this.props.navigation.navigate('Hamburger')}
           themeText="내 포인트"
         >
           <s.MyPointView>

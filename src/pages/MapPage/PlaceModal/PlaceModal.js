@@ -1,6 +1,14 @@
 import React from 'react';
-import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
-import {SHADOW} from 'theme/shadow';
+import {
+  Text,
+  View,
+  Modal,
+  TouchableOpacity,
+  Image,
+  Linking,
+  Platform,
+} from 'react-native';
+import { SHADOW } from 'theme/shadow';
 
 import * as s from './PlaceModal.styled';
 
@@ -18,16 +26,24 @@ export default class PlaceModal extends React.Component {
     this.setState({ KickmodalVisible: visible });
   }
 
-  componentDidMount() {}
+  APPLE_NAVI = () => {
+    const { saddr } = this.props;
+    const { daddr } = this.props;
+
+    if (Platform.OS === 'ios') {
+      Linking.openURL(
+        `maps://app?saddr=${saddr.latitude},${saddr.longitude}&daddr=${
+          daddr.latitude
+        },${daddr.longitude}&dirflg=w`,
+      );
+    }
+  };
 
   render() {
     if (this.props.placeId !== this.props.selectedMarkerId) return null;
 
     return (
-      <s.ModalView
-        style={SHADOW.iosSmall}
-        isLent={this.props.isLent}
-      >
+      <s.ModalView style={SHADOW.iosSmall} isLent={this.props.isLent}>
         <s.InnerView>
           {this.props.isLent ? (
             <>
@@ -35,7 +51,8 @@ export default class PlaceModal extends React.Component {
                 source={require('assets/markers/ParkMark.png')}
                 style={{ width: 30, height: 30, marginRight: 10 }}
               />
-              <TouchableOpacity >
+
+              <TouchableOpacity onPress={this.APPLE_NAVI}>
                 <s.LocationText>{this.props.description}</s.LocationText>
                 <s.LocationTextDetail>
                   {this.props.location}
