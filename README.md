@@ -1,6 +1,6 @@
 # Oboon Client
 
-![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/Main_GIF.gif)
+![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/Main_PROCESS.gif)
 
 정문에서 오분이면 충분하죠!
 
