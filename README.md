@@ -26,7 +26,7 @@ package.json
   "react-navigation": "^3.7.1",
   "react-redux": "^7.0.1",
   "redux": "^4.0.1",
-  "styled-components": "^4.2.0"
+  "styled-components": "^4.2.0",
   "iamport-react-native": "^1.0.6",
   "react-native-google-signin": "^1.2.2",
   "react-native-image-picker": "^0.28.1",
