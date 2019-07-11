@@ -5,6 +5,7 @@ import SelectBox from 'components/modules/SelectBox';
 import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import {SHADOW} from 'theme/shadow';
 import {connect} from 'react-redux';
+import {Iamport } from './IAMPORT/Iamport';
 import * as s from './Point.styled';
 
 class PointPage extends React.Component {
@@ -34,7 +35,7 @@ class PointPage extends React.Component {
   }
 
   handleFooter = () => {
-    this.props.navigation.navigate('authtest',{POINT: this.state.Clicked} );
+    this.props.navigation.navigate('Iamport',{POINT: this.state.Clicked} );
   }
  
 

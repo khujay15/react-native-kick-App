@@ -49,8 +49,8 @@ class MapPage extends React.Component {
   state = {
     MyLocation: 0,
     selectedMarkerId: '',
-    latitude: 37.245221,
-    longitude: 127.078393,
+    latitude: 37.242221,
+    longitude: 127.083593,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
     Station: [],
@@ -203,28 +203,35 @@ class MapPage extends React.Component {
                 selectedMarkerId={selectedMarkerId}
                 onPress={() => {
                   this.setState({
-                    latitude: Number(point[0]),
-                    longitude: Number(point[1]),
                     selectedMarkerId: i,
                   });
                 }}
               />
+
+              
             );
           })}
         </MapView>
-        {this.props.isLent && (
-          <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
-        )}
 
         {this.state.Station.map((data, i) => {
+          const point = data.geometry.replace(/[A-Z/(/)]/g, '').split(' ');
           return (
             <PlaceModal
               key={i}
               placeId={i}
+              daddr={{
+                latitude: Number(point[0]),
+                longitude: Number(point[1]),
+              }}
+              saddr={{
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+              }}
               amount={Number(data.stopped_kickboard_count)}
               selectedMarkerId={selectedMarkerId}
               description={data.name}
               location={data.address}
+
               isLent={this.props.isLent}
             />
           );
@@ -236,6 +243,10 @@ class MapPage extends React.Component {
           <SmartKeyModal />
         ) : (
           <LentModal navigation={this.props.navigation} />
+        )}
+
+         {this.props.isLent && (
+          <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
         )}
 
         {/* 

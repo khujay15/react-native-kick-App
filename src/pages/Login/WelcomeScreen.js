@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import RNKakaoLogins from 'react-native-kakao-logins';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import SInfo from 'react-native-sensitive-info';
+import { SHADOW } from 'theme/shadow';
 import {
   setReducerState,
   mapStateToPropsFromStore,
@@ -188,14 +189,7 @@ export class WelcomeScreen extends React.Component {
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.ClickLogin('google')}
           >
-            <LoginTouch
-              style={{
-                shadowRadius: 3,
-                shadowColor: 'rgb(0, 0, 0.7)',
-                shadowOpacity: 0.1,
-                shadowOffset: { width: 0, height: 5 },
-              }}
-            >
+            <LoginTouch style={SHADOW.iosSmall}>
               <LoginView>
                 <InnerImage src={require('/assets/icons/GoogleLogo.png')} />
               </LoginView>
@@ -209,14 +203,7 @@ export class WelcomeScreen extends React.Component {
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.ClickLogin('kakao')}
           >
-            <LoginTouch
-              style={{
-                shadowRadius: 3,
-                shadowColor: 'rgb(0, 0, 0.7)',
-                shadowOpacity: 0.1,
-                shadowOffset: { width: 0, height: 5 },
-              }}
-            >
+            <LoginTouch style={SHADOW.iosSmall}>
               <LoginView>
                 <InnerImage src={require('/assets/icons/KakaoLogo.png')} />
               </LoginView>
@@ -230,14 +217,7 @@ export class WelcomeScreen extends React.Component {
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.ClickLogin('local')}
           >
-            <LoginTouch
-              style={{
-                shadowRadius: 3,
-                shadowColor: 'rgb(0, 0, 0.7)',
-                shadowOpacity: 0.1,
-                shadowOffset: { width: 0, height: 5 },
-              }}
-            >
+            <LoginTouch style={SHADOW.iosSmall}>
               <LoginView>
                 <InnerImage src={require('/assets/icons/envelope.png')} />
               </LoginView>
@@ -251,14 +231,7 @@ export class WelcomeScreen extends React.Component {
             style={{ flexDirection: 'row', marginTop: marginvalue }}
             onPress={() => this.props.navigation.navigate('signup')}
           >
-            <LoginTouch
-              style={{
-                shadowRadius: 3,
-                shadowColor: 'rgb(0, 0, 0.7)',
-                shadowOpacity: 0.1,
-                shadowOffset: { width: 0, height: 5 },
-              }}
-            >
+            <LoginTouch style={SHADOW.iosSmall}>
               <LoginView>
                 <InnerImage src={require('/assets/icons/user.png')} />
               </LoginView>

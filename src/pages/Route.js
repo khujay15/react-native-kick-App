@@ -8,7 +8,9 @@ import {
     createMaterialTopTabNavigator
   } from 'react-navigation';
   import React from 'react';
-  import { SafeAreaView, Image, View, Text, Button } from 'react-native';
+  import { SafeAreaView, Image, View, Text } from 'react-native';
+  import SafeAreaMaterialTopTabBar from 'components/modules/SafeAreaMaterialTopTabBar';
+
   import AuthEmail from 'pages/Login/AuthEmail';
   import WelcomeScreen from 'pages/Login';
   import EmailLogin from 'pages/Login/EmailLogin';
@@ -37,10 +39,9 @@ import {
 
   import Splash from 'components/splash';
   import { color } from 'theme';
-  import {authtest } from 'pages/Point/IAMPORT/authtest' ;
-  import { authtestResult } from 'pages/Point/IAMPORT/authtestResult';
+
   
-  const WelcomeStackNavigator = createStackNavigator(
+  const LoginStackNavigator = createStackNavigator(
     {
       login: WelcomeScreen,
       emaillogin: EmailLogin,
@@ -56,29 +57,6 @@ import {
       headerMode: 'none',
     },
   );
-  
-  function SafeAreaMaterialTopTabBar(props) {
-    return (
-      <SafeAreaView style={{ backgroundColor: 'white' }}>
-        <MaterialTopTabBar
-          {...props}
-          indicatorStyle={{ backgroundColor: color.oboon }}
-          style={{
-            backgroundColor: 'white',
-            shadowRadius: 3,
-            shadowColor: 'rgb(0, 0, 0.7)',
-            shadowOpacity: 0.1,
-            shadowOffset: { width: 0, height: 5 },
-            justifyContent: 'center',
-          }}
-        />
-     
-      </SafeAreaView>
-    );
-  }
-  
-  
-  
   
   export const TopTabNavigatior = createMaterialTopTabNavigator(
     {
@@ -104,7 +82,7 @@ import {
         },
       },
   
-      DrawerNavigator: {
+      Hamburger: {
         screen: DrawerNavigator,
         navigationOptions: {
           tabBarIcon: ({ tintColor, focused }) => (
@@ -161,6 +139,7 @@ import {
     {
       initialRouteName: 'MapPage',
       animationEnabled: false,
+      swipeEnabled: false,
   /* 
   react-native-tab are using react-native-reanimated, which has issue about animated. 
   In this version(0.59), animated will make screen change really slow , even sometimes don't react to tapping.
@@ -168,8 +147,7 @@ import {
   
   */
       tabBarComponent: SafeAreaMaterialTopTabBar,
-      swipeEnabled: false,
-      order: ['DrawerNavigator', 'MapPage', 'cservice'],
+      order: ['Hamburger', 'MapPage', 'cservice'],
       tabBarOptions: {
         showIcon: true,
         showLabel: false,
@@ -208,13 +186,10 @@ import {
   const BaseRouter = createSwitchNavigator(
     {
       splash: Splash,
-      login: WelcomeStackNavigator,
+      login: LoginStackNavigator,
       map: MapStackNavigator,
       tutorial: Tutorial,
       license: License,
-      authtest: authtest,
-      authtestResult: authtestResult
-
     },
     {
       initialRouteName: 'splash',
