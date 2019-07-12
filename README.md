@@ -3,6 +3,7 @@
 ![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/MAIN_PROCESS.gif)
 
 정문에서 오분이면 충분하죠!
+프로젝트 설명은 [docs폴더](https://github.com/khujay15/react-native-kick-App/tree/master/docs)를 참조해주세요
 
 ## 프로젝트 세팅
 
@@ -10,8 +11,6 @@
 2. `<your-directory>$ cd oboon`
 3. `oboon$ npm install`
 4. `oboon$ cd ios` & `oboon/ios$ pod install`
-
-## 설정된 내용(자세한 설명은 docs폴더를 참조)
 
 ### 자주 사용해야 하는 패키지 설치
 
