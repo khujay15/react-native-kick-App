@@ -2,8 +2,8 @@
 
 ![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/MAIN_PROCESS.gif)
 
-정문에서 오분이면 충분하죠!
-프로젝트 설명은 [docs폴더](https://github.com/khujay15/react-native-kick-App/tree/master/docs)를 참조해주세요
+정문에서 오분이면 충분하죠!  
+###프로젝트 설명은 [docs폴더](https://github.com/khujay15/react-native-kick-App/tree/master/docs)를 참조해주세요
 
 ## 프로젝트 세팅
 
