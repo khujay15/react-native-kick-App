@@ -21,7 +21,7 @@ import {
   import SignUp from 'pages/Login/SignUp';
   import PointNavigator from 'pages/Point';
   import Setting from 'pages/Setting';
-  import DrawerNavigator from 'pages/DrawPage';
+  import DrawPage from 'pages/DrawPage';
   import MapPage from 'pages/MapPage/MapPage';
   import LentInput from 'pages/MapPage/LentModal/LentInput';
 
@@ -83,7 +83,7 @@ import {
       },
   
       Hamburger: {
-        screen: DrawerNavigator,
+        screen: DrawPage,
         navigationOptions: {
           tabBarIcon: ({ tintColor, focused }) => (
             <View>
@@ -166,7 +166,7 @@ import {
   const MapStackNavigator = createStackNavigator(
     {
       map: TopTabNavigatior,
-      coupon: { screen: PointNavigator },
+      point: { screen: PointNavigator },
       mycard: { screen: MyCard },
       newcard: {screen: NewCard },
       setting: { screen: Setting },
@@ -213,7 +213,7 @@ import {
   
   //   },
   //   {
-  //     contentComponent: DrawerNavigator,
+  //     contentComponent: DrawPage,
   //   },
   // );
   

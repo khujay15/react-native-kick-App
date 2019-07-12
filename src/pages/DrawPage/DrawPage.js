@@ -58,9 +58,7 @@ export class DrawPage extends React.Component {
               }}
             >
               <View style={{ alignItems: 'center' }}>
-                <Circle
-                  onPress={() => this.props.navigation.navigate('coupon')}
-                >
+                <Circle onPress={() => this.props.navigation.navigate('point')}>
                   <InnerCirCle>
                     <Image source={require('/assets/icons/Point.png')} />
                   </InnerCirCle>

@@ -109,7 +109,7 @@ class LentModal extends React.Component {
           onExit={this.closeUnPaidPopup}
           FooterOnPress={() => {
             this.closeUnPaidPopup();
-            this.props.navigation.navigate('coupon');
+            this.props.navigation.navigate('point');
           }}
           FooterText="포인트 충전하기"
           img={require('assets/popup/UnpaidPopup.png')}
