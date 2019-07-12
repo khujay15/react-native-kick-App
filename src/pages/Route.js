@@ -166,7 +166,7 @@ import {
   const MapStackNavigator = createStackNavigator(
     {
       map: TopTabNavigatior,
-      coupon: { screen: PointNavigator },
+      point: { screen: PointNavigator },
       mycard: { screen: MyCard },
       newcard: {screen: NewCard },
       setting: { screen: Setting },
