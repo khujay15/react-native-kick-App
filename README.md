@@ -2,8 +2,8 @@
 
 ![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/MAIN_PROCESS.gif)
 
-정문에서 오분이면 충분하죠!  
-###프로젝트 설명은 [docs폴더](https://github.com/khujay15/react-native-kick-App/tree/master/docs)를 참조해주세요
+전동킥보드 대여 플랫폼을 위한 어플리케이션 입니다. 지정된 정류장에서 킥보드를 대여/반납해서 사용자들이 편하게 이동하는데 도움을 드리고 싶습니다.
+### [docs폴더](https://github.com/khujay15/react-native-kick-App/tree/master/docs)를 참조해주세요
 
 ## 프로젝트 세팅
 
