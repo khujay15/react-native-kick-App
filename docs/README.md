@@ -36,11 +36,10 @@
 ## 릴리즈 문제
 
 - android 릴리즈용 apk 파일 생성 시, Duplicate resource 문제. node_modules/react-native 에서 react.gradle 수정  
-> [react-native 이슈](https://github.com/facebook/react-native/issues/22234#issuecomment-437812451) 참조.  
-> iamport의 html_certification.html 을 위해서 raw폴더 또한 함수에 추가해야함.
+> [react-native 이슈](https://github.com/facebook/react-native/issues/22234#issuecomment-437812451) 참조. iamport의 html_certification.html 을 위해서 raw폴더 또한 함수에 추가해야함.
 
 - android 릴리즈 파일 실행시 MapPage에서 Crash 나는 경우 AndroidManifest.xml에 org.apache.http.legacy 추가  
-[react-native-maps 이슈](https://github.com/react-native-community/react-native-maps/issues/2773#issuecomment-478752790) 참조.
+> [react-native-maps 이슈](https://github.com/react-native-community/react-native-maps/issues/2773#issuecomment-478752790) 참조.
 
 - ios xcode에서 archive 시 ios build failed 'Undefined symbols for architecture x86_64' 에러 발생 -> Build Settings 에서 Enable Bitcode를 no로  
 
