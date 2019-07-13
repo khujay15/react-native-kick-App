@@ -43,7 +43,9 @@
 elevation으로 간단하게 조절하는 게 다인데, 그림자의 방향을 설정 하고 싶으면 뷰를 겹쳐서 그림자 방향의 반대방향으로 마진을 넣자.   
 나는 하다 못해 [react-native-shadow](https://github.com/879479119/react-native-shadow)를 다운로드 했는데, 그림자를 dp단위로 그리는 방법이었다. 비추천한다
 
-- UsageHistory, PointHistory
+- UsageHistory
+<img src="https://github.com/khujay15/react-native-kick-App/blob/master/docs/etc/UsageHistory.png" width="30%" height="30%"/>
+
 > 5개씩 Pagenation된 서버에 FlatList를 통해서 스크롤을 내릴 때마다 요청하도록 설정했다. 
 
 - SafeAreaMaterialTopTabBar
