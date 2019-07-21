@@ -1,5 +1,7 @@
 # Oboon Client
 
+![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/MAIN_PROCESS.gif)
+
 정문에서 오분이면 충분하죠!
 
 ## 프로젝트 세팅
@@ -9,7 +11,7 @@
 3. `oboon$ npm install`
 4. `oboon$ cd ios` & `oboon/ios$ pod install`
 
-## 설정된 내용
+## 설정된 내용(자세한 설명은 docs폴더를 참조)
 
 ### 자주 사용해야 하는 패키지 설치
 
@@ -17,14 +19,21 @@ package.json
 
 ```json
 {
+  ...
   "axios": "^0.18.0",
-  "lodash": "^4.17.11",
   "moment": "^2.24.0",
-  "react-native-maps": "^0.23.0", // react-native link 진행 완료, 추후에 API 키만 변경
+  "react-native-maps": "^0.23.0", // API 키 변경
   "react-navigation": "^3.7.1",
   "react-redux": "^7.0.1",
   "redux": "^4.0.1",
-  "styled-components": "^4.2.0"
+  "styled-components": "^4.2.0",
+  "iamport-react-native": "^1.0.6",
+  "react-native-google-signin": "^1.2.2",
+  "react-native-image-picker": "^0.28.1",
+  "react-native-kakao-logins": "^1.3.6",
+  "react-native-geolocation-service": "^2.0.0",
+  "react-native-gesture-handler": "^1.1.0",
+  ...
 }
 ```
 
@@ -47,7 +56,6 @@ import TextInput from 'components/modules/TextInput';
 ### eslint 및 prettier 적용
 
 airbnb를 기준으로 몇 가지 커스텀 작업을 하였음.
-Lint 규칙은 예외적인 상황이 아니라면 반드시 준수.
 
 설정법 및 Extension 세팅은 [Velopert Blog](https://velog.io/@velopert/eslint-and-prettier-in-react) 참고
 
