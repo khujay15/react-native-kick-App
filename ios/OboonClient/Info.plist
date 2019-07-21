@@ -37,17 +37,17 @@
 			<string>KAKAO_APP_KEY</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao280c9d756b61547873fc6b185eab2623</string>
+				<string>YOUR_KAKAO_DEVELOPER_KEY</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.879857882214-i05pa300nuq2eari5bl7b4refr5tmeao</string>
+			<string>YOUR_GOOGLE_KEY</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.879857882214-i05pa300nuq2eari5bl7b4refr5tmeao</string>
+				<string>YOUR_GOOGLE_KEY_REVERSE</string>
 			</array>
 		</dict>
 		<dict>
@@ -74,7 +74,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>KAKAO_APP_KEY</key>
-	<string>280c9d756b61547873fc6b185eab2623</string>
+	<string>YOUT_KAKAO_APP_KEY</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
