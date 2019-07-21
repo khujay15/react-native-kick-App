@@ -43,7 +43,6 @@ class License extends React.Component {
         )
           this.IsGranted = true;
       });
-      console.log(this.IsGranted);
       return this.IsGranted;
     }
   };

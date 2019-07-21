@@ -48,7 +48,6 @@ class MyPoint extends React.Component {
         if(res.data.success==='true'||res.data.success===true)
         {
             this.setState({history: res.data.data})
-            console.log("FirstPage: ",res.data.data);
         }
     })
     .catch(err => {
@@ -66,7 +65,7 @@ class MyPoint extends React.Component {
       'Content-Type': 'application/json',
     },
   };
-   console.log(this.state.history.length);
+   
    await networks.get(`https://api.oboonmobility.com/v0/members/my/point-history?page=${requestPage}`,head)
     .then(res=> {
       console.log("Update:",res);

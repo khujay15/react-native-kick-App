@@ -21,7 +21,7 @@ const InputBox = props => {
 
     return <s.StyledInputBox {...props} style={shadowIOS} />;
   }
-  console.log('android');
+ 
   const boxWidth = width - 2 * MARGIN;
   let shadowANDROID = SHADOW.android;
   shadowANDROID = { ...shadowANDROID, width: boxWidth, height: 60 };

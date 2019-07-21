@@ -35,7 +35,6 @@ export default class FoldableView extends Component {
       x: e.nativeEvent.layout.x,
       y: e.nativeEvent.layout.y
     })
-    console.log(this.state.height);
   }
 
   render() {
