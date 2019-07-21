@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   Platform: 'NO-PLATFORM',
   Token: 'NO-TOKEN',
   Tutorial: 'NO-WATCH',
-  License: true,
+  License: false,
   Phone: true,
   Payment: true,
   Status: -1,

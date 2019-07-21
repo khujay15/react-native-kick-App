@@ -72,7 +72,6 @@ class OutOfOrder extends React.Component {
       };
       ImagePicker.showImagePicker(options, res => {
         if (res.didCancel || res.error) return;
-        console.log(res);
         this.setState({ img: res.uri, hasImg: true, type: res.type });
       });
     }
