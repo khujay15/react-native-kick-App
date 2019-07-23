@@ -2,45 +2,41 @@ import {
     createAppContainer,
     createSwitchNavigator,
     createStackNavigator,
-    createDrawerNavigator,
-    MaterialTopTabBar,
-    NavigationActions,
     createMaterialTopTabNavigator
   } from 'react-navigation';
-  import React from 'react';
-  import { SafeAreaView, Image, View, Text } from 'react-native';
+  import Splash from 'components/splash';
   import SafeAreaMaterialTopTabBar from 'components/modules/SafeAreaMaterialTopTabBar';
-
-  import AuthEmail from 'pages/Login/AuthEmail';
+  import { HamburgerIcon, MainIcon, InfoIcon } from 'components/modules/SafeAreaMaterialTopTabBar/TopBarIcon/TopBarIcon';
+  
+  //Login
   import WelcomeScreen from 'pages/Login';
+  import AuthEmail from 'pages/Login/AuthEmail';
   import EmailLogin from 'pages/Login/EmailLogin';
   import AuthPhone from 'pages/Login/AuthPhone';
   import AuthPhoneInput from 'pages/Login/AuthPhone/AuthPhoneInput';
-  import PrivacyTerms from 'pages/Login/AuthPhone/Terms/PrivacyTerms';
-  import ServiceTerms from 'pages/Login/AuthPhone/Terms/ServiceTerms';
   import SignUp from 'pages/Login/SignUp';
-  import PointNavigator from 'pages/Point';
-  import Setting from 'pages/Setting';
-  import DrawPage from 'pages/DrawPage';
+  import Tutorial from 'pages/Login/Tutorial';
+
+  //Hamburger
+  import DrawPage from 'pages/Hamburger';
+  import PointNavigator from 'pages/Hamburger/Point';
+  import Setting from 'pages/Hamburger/Setting';
+  import UsageHistory from 'pages/Hamburger/UsageHistory';
+  import MyCard from 'pages/Hamburger/MyCard';
+  import NewCard from 'pages/Hamburger/MyCard/NewCard';
+  
+  //MapPage
   import MapPage from 'pages/MapPage/MapPage';
   import LentInput from 'pages/MapPage/LentModal/LentInput';
 
-  import UsageHistory from 'pages/UsageHistory';
-  
+  //CustomService
   import CustomerService from 'pages/CustomerService/CustomerService';
   import OutOfOrder from 'pages/CustomerService/OutOfOrder';
   import FAQservice from 'pages/CustomerService/FAQservice';
   
+  //License
   import License from 'pages/License';
-  import Tutorial from 'pages/Tutorial';
 
-  import MyCard from 'pages/MyCard';
-  import NewCard from 'pages/MyCard/NewCard';
-
-  import Splash from 'components/splash';
-  import { color } from 'theme';
-
-  
   const LoginStackNavigator = createStackNavigator(
     {
       login: WelcomeScreen,
@@ -49,9 +45,7 @@ import {
       authphone: AuthPhone,
       authphoneinput: AuthPhoneInput,
       signup: SignUp,
-      service: ServiceTerms,
-      privacy: PrivacyTerms,
-
+      tutorial: Tutorial,
     },
     {
       headerMode: 'none',
@@ -60,79 +54,22 @@ import {
   
   export const TopTabNavigatior = createMaterialTopTabNavigator(
     {
-      
-      MapPage: {
-        screen: MapPage,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor, focused }) => (
-            <Image
-              style={{
-                marginHorizontal: 20,
-                width: 63,
-                height: 23,
-                resizeMode: 'contain',
-              }}
-              source={
-                focused
-                  ? require('/assets/icons/ic_logo.png')
-                  : require('/assets/icons/ic_logo.png')
-              }
-            />
-          ),
-        },
-      },
-  
       Hamburger: {
         screen: DrawPage,
         navigationOptions: {
-          tabBarIcon: ({ tintColor, focused }) => (
-            <View>
-              <View
-                style={{
-                  borderBottomWidth: 2,
-                  width: 12,
-                  marginBottom: 5,
-                  borderBottomColor: focused ? color.oboon : color.grey,
-                }}
-              />
-              <View
-                style={{
-                  borderBottomWidth: 2,
-                  width: 16,
-                  marginBottom: 5,
-                  borderBottomColor: focused ? color.oboon : color.grey,
-                }}
-              />
-              <View
-                style={{
-                  borderBottomWidth: 2,
-                  width: 16,
-                  borderBottomColor: focused ? color.oboon : color.grey,
-                }}
-              />
-            </View>
-          ),
+          tabBarIcon: HamburgerIcon,
         },
       },
-  
+      MapPage: {
+        screen: MapPage,
+        navigationOptions: {
+          tabBarIcon: MainIcon,
+        },
+      },
       cservice: {
         screen: CustomerService,
         navigationOptions: {
-          tabBarIcon: ({ tintColor, focused }) => (
-            <View
-              style={{
-                width: 22,
-                height: 22,
-                borderRadius: 11,
-                borderWidth: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderColor: focused ? color.oboon : color.grey,
-              }}
-            >
-              <Text style={{ color: focused ? color.oboon : color.grey }}>i</Text>
-            </View>
-          ),
+          tabBarIcon: InfoIcon,
         },
       },
     },
@@ -141,13 +78,11 @@ import {
       animationEnabled: false,
       swipeEnabled: false,
   /* 
-  react-native-tab are using react-native-reanimated, which has issue about animated. 
-  In this version(0.59), animated will make screen change really slow , even sometimes don't react to tapping.
+  react-native-tab are using react-native-reanimated, which has issue about animations. 
+  In this version(0.59), animation will make screen change really slow , even sometimes don't react to tapping.
   https://github.com/react-navigation/tabs/issues/102
-  
   */
       tabBarComponent: SafeAreaMaterialTopTabBar,
-      order: ['Hamburger', 'MapPage', 'cservice'],
       tabBarOptions: {
         showIcon: true,
         showLabel: false,
@@ -166,16 +101,17 @@ import {
   const MapStackNavigator = createStackNavigator(
     {
       map: TopTabNavigatior,
+      lentinput : {screen : LentInput},
+
       point: { screen: PointNavigator },
       mycard: { screen: MyCard },
       newcard: {screen: NewCard },
       setting: { screen: Setting },
       usage: { screen: UsageHistory },
-      lentinput : {screen : LentInput},
 
-       cservice: { screen: CustomerService },
-       outoforder: { screen: OutOfOrder },
-       FAQ: { screen: FAQservice },
+      cservice: { screen: CustomerService },
+      outoforder: { screen: OutOfOrder },
+      FAQ: { screen: FAQservice },
       
     },
     {
@@ -188,7 +124,7 @@ import {
       splash: Splash,
       login: LoginStackNavigator,
       map: MapStackNavigator,
-      tutorial: Tutorial,
+
       license: License,
     },
     {
@@ -217,3 +153,4 @@ import {
   //   },
   // );
   
+  // TODO: 1. axios base url 2. Notificatuin  3. android shadow elevation 4. Firebase Auth

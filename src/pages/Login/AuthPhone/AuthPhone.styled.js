@@ -18,16 +18,9 @@ export const Line = styled.View`
 `;
 
 export const ErrorText = styled.Text`
-
-margin-left: auto
-color: ${color.oboon};
-font-size: 13;
-
-`;
-
-export const ServiceTerms = styled.TouchableHighlight`
-  left: 30;
-  bottom: 30;
+  margin-left: auto;
+  color: ${color.oboon};
+  font-size: 13;
 `;
 
 export const SubText = styled.Text`

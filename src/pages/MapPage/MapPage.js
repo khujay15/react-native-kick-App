@@ -58,8 +58,9 @@ class MapPage extends React.Component {
   };
 
   componentDidMount() {
-    //For Service:
+
     /*
+    For Service:
      this.getLocation();
      this.getStation();
      */
@@ -170,9 +171,7 @@ class MapPage extends React.Component {
   };
 
   render() {
-    const { selectedMarkerId, Kickboard } = this.state;
-    const { navigation } = this.props;
-
+    const { selectedMarkerId, Station } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <MapView
@@ -188,7 +187,7 @@ class MapPage extends React.Component {
           }}
           region={this.state}
         >
-          {this.state.Station.map((data, i) => {
+          {Station.map((data, i) => {
             const point = data.geometry.replace(/[A-Z/(/)]/g, '').split(' ');
 
             return (
@@ -207,13 +206,11 @@ class MapPage extends React.Component {
                   });
                 }}
               />
-
-              
             );
           })}
         </MapView>
 
-        {this.state.Station.map((data, i) => {
+        {Station.map((data, i) => {
           const point = data.geometry.replace(/[A-Z/(/)]/g, '').split(' ');
           return (
             <PlaceModal
@@ -231,36 +228,24 @@ class MapPage extends React.Component {
               selectedMarkerId={selectedMarkerId}
               description={data.name}
               location={data.address}
-
               isLent={this.props.isLent}
             />
           );
         })}
 
-        <ReturnModal />
-
-        {this.props.isLent ? (
+        {this.props.isLent ? 
+        (
+          <>
+          <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
           <SmartKeyModal />
-        ) : (
+          </>
+        ) : 
+        (
           <LentModal navigation={this.props.navigation} />
         )}
 
-         {this.props.isLent && (
-          <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
-        )}
+        <ReturnModal />
 
-        {/* 
-          버튼 식 UI Code. UI 변경으로 미사용
-          <DrawHead img={require('assets/markers/Drawer.png')} onPress={() => navigation.openDrawer()} />
-          <MapButton
-            right={30}
-            top={25}
-            img={require('assets/icons/InfoButton.png')}
-            onPress={() => this.props.navigation.navigate('cservice')}
-          />
-          
-          />
-          */}
           <MapButton
             right={30}
             bottom={72}
@@ -277,6 +262,18 @@ class MapPage extends React.Component {
                this.getStation();
               this.setState({selectedMarkerId: '-1'})}}
           /> 
+
+        {/* 
+          버튼 식 UI Code. UI 변경으로 미사용
+          <DrawHead img={require('assets/markers/Drawer.png')} onPress={() => navigation.openDrawer()} />
+          <MapButton
+            right={30}
+            top={25}
+            img={require('assets/icons/InfoButton.png')}
+            onPress={() => this.props.navigation.navigate('cservice')}
+          />
+          />
+          */}
       </View>
     );
   }

@@ -29,7 +29,7 @@ class Tutorial extends React.Component {
 
   handleBottom = () => {
     this.state.bottomColor === color.oboon
-      ? this.props.navigation.navigate('mappage')
+      ? this.props.navigation.navigate('map')
       : null;
   };
 
@@ -41,7 +41,7 @@ class Tutorial extends React.Component {
     return (
       <>
         <View>
-          <s.TopTouch onPress={() => this.props.navigation.navigate('mappage')}>
+          <s.TopTouch onPress={() => this.props.navigation.navigate('map')}>
             <View style={{ height: 100, width: 100 }}>
               <Text>건너뛰기</Text>
             </View>

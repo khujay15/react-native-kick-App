@@ -24,24 +24,6 @@ export default class AuthPhone extends React.Component {
     navigation.navigate('login');
   };
 
-  authenticate = () => {
-    const data = {
-      merchant_uid: `mid_${new Date().getTime()}`,
-      min_age: '',
-    };
-
-    return (
-      <IMP.Certification
-        userCode="imp49977043" // 가맹점 식별코드
-        data={data} // 본인인증 데이터
-        callback={this.callback} // 본인인증 종료 후 콜백
-        loading={{
-          message: '잠시만 기다려주세요...', // 로딩화면 메시지
-        }}
-      />
-    );
-  };
-
   state = {
     IsError: false,
     IsPhoneInput: 'grey',
