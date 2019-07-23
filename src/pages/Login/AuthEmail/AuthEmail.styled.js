@@ -23,11 +23,6 @@ export const ErrorText = styled.Text`
   font-size: 13;
 `;
 
-export const ServiceTerms = styled.TouchableHighlight`
-  left: 30;
-  bottom: 30;
-`;
-
 export const SubText = styled.Text`
   color: #707070;
   font-size: 14;

@@ -63,7 +63,7 @@ export class WelcomeScreen extends React.Component {
       (platform === 'google' || platform === 'kakao')
     ) {
       this.props.TEST_MODE();
-      this.props.navigation.navigate('map');
+      this.props.navigation.navigate('tutorial');
       return;
     }
     if (platform === 'google') this.googleLogin();
@@ -240,31 +240,6 @@ export class WelcomeScreen extends React.Component {
               이메일 회원가입
             </InnerText>
           </TouchableOpacity>
-          {/* 
-          <BottomView>
-            <TouchableHighlight
-              onPress={() => {
-                SInfo.setItem('AutoToken', 'no', {});
-                this.props.navigation.navigate('map');
-              }}
-            >
-              <BottomText> 맵 테스트</BottomText>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('authtest')}
-            >
-              <BottomText> 결제 테스트</BottomText>
-            </TouchableHighlight>
-            <TouchableOpacity
-              onPress={() =>
-                Linking.openURL(
-                  'maps://app?saddr=37.251462,127.071071&daddr=37.243212,127.079481&dirflg=w',
-                )
-              }
-            >
-              <BottomText> 애플 네비게이션 테스트</BottomText>
-            </TouchableOpacity>
-          </BottomView> */}
         </SafeAreaView>
       </>
     );

@@ -12,8 +12,6 @@ import { connect } from 'react-redux';
 import {
   NameView,
   NameText,
-  DrawArrowTouch,
-  DrawArrowShape,
   DrawView,
   Nim,
   NavItemView,
@@ -77,7 +75,7 @@ export class DrawPage extends React.Component {
                   </InnerCirCle>
                 </Circle>
                 <Text style={{ marginTop: 10, fontWeight: '200' }}>
-                  지불정보
+                  내 카드
                 </Text>
               </View>
               <View style={{ alignItems: 'center' }}>

@@ -1,9 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import DefaultArrowPage from 'components/modules/DefaultArrowPage';
-import Arrow from '/components/modules/Arrow';
-import ThemeText from '/components/modules/ThemeText';
-import color from '/theme/color';
+
 import { connect } from 'react-redux';
 import { removeHeader, networks } from 'components/networks';
 import SInfo from 'react-native-sensitive-info';
