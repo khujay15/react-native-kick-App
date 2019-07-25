@@ -1,7 +1,7 @@
 # Oboon Client  
 #### 정문에서 단과대까지 오분이면 충분합니다! 
 
-![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/MAIN_PROCESS.gif)
+![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/MAIN_PROCESS.gif) ![Alt Text](https://github.com/khujay15/react-native-kick-App/blob/master/docs/Android-gif.gif)
 
 캠퍼스 내 전동킥보드 대여 플랫폼을 위한 어플리케이션 입니다.  
 지정된 정류장에서 킥보드를 대여/반납해서 사용자들이 편하게 이동하는데 도움을 드리고 싶습니다.

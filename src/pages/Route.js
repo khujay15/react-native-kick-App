@@ -24,6 +24,7 @@ import {
   import UsageHistory from 'pages/Hamburger/UsageHistory';
   import MyCard from 'pages/Hamburger/MyCard';
   import NewCard from 'pages/Hamburger/MyCard/NewCard';
+  import License from 'pages/Hamburger/License';
   
   //MapPage
   import MapPage from 'pages/MapPage/MapPage';
@@ -33,9 +34,6 @@ import {
   import CustomerService from 'pages/CustomerService/CustomerService';
   import OutOfOrder from 'pages/CustomerService/OutOfOrder';
   import FAQservice from 'pages/CustomerService/FAQservice';
-  
-  //License
-  import License from 'pages/License';
 
   const LoginStackNavigator = createStackNavigator(
     {
@@ -66,7 +64,7 @@ import {
           tabBarIcon: MainIcon,
         },
       },
-      cservice: {
+      Cservice: {
         screen: CustomerService,
         navigationOptions: {
           tabBarIcon: InfoIcon,
@@ -80,6 +78,7 @@ import {
   /* 
   react-native-tab are using react-native-reanimated, which has issue about animations. 
   In this version(0.59), animation will make screen change really slow , even sometimes don't react to tapping.
+  check below url: 
   https://github.com/react-navigation/tabs/issues/102
   */
       tabBarComponent: SafeAreaMaterialTopTabBar,
@@ -108,11 +107,11 @@ import {
       newcard: {screen: NewCard },
       setting: { screen: Setting },
       usage: { screen: UsageHistory },
+      license: {screen: License},
 
       cservice: { screen: CustomerService },
       outoforder: { screen: OutOfOrder },
       FAQ: { screen: FAQservice },
-      
     },
     {
       headerMode: 'none',
@@ -124,8 +123,6 @@ import {
       splash: Splash,
       login: LoginStackNavigator,
       map: MapStackNavigator,
-
-      license: License,
     },
     {
       initialRouteName: 'splash',
@@ -135,22 +132,6 @@ import {
   export default createAppContainer(BaseRouter);
   
 
-  // 앱버튼 용 네비게이터
-  // export const MapDrawerNavigator = createDrawerNavigator(
-  //   {
-  //     mappage: { screen: MapPage },
-  //     coupon: { screen: Point },
-  //     pay: { screen: Payment },
-  //     lentinput : {screen : LentInput},
-  //     mycard : { screen: MyCard},
-  //     setting : { screen : Setting},
-  //     usage : {screen: UsageHistory},
-  //     cservice : {screen: CustomerService},
+
   
-  //   },
-  //   {
-  //     contentComponent: DrawPage,
-  //   },
-  // );
-  
-  // TODO: 1. axios base url 2. Notificatuin  3. android shadow elevation 4. Firebase Auth
+  // TODO:   1. android shadow elevation 2. Firebase Auth  Notificatuin

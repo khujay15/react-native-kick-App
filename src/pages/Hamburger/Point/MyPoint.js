@@ -42,7 +42,7 @@ class MyPoint extends React.Component {
 
   FirstPage = () => {
   
-  networks.get('https://api.oboonmobility.com/v0/members/my/point-history?page=1')
+  networks.get('/members/my/point-history?page=1')
     .then(res=> {
       console.log("FirstPage:",res);
         if(res.data.success==='true'||res.data.success===true)
@@ -66,7 +66,7 @@ class MyPoint extends React.Component {
     },
   };
    
-   await networks.get(`https://api.oboonmobility.com/v0/members/my/point-history?page=${requestPage}`,head)
+   await networks.get(`/members/my/point-history?page=${requestPage}`,head)
     .then(res=> {
       console.log("Update:",res);
         if(res.data.success==='true'||res.data.success===true)

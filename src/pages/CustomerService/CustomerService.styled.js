@@ -13,7 +13,7 @@ export const SelectBox = styled.TouchableOpacity`
 export const SelectBoxInside = styled.View`
   height: 58;
 
-  width: ${width - 48};
+  width: ${width - 60};
   justify-content: center;
   flex-direction: row;
   align-items: center;

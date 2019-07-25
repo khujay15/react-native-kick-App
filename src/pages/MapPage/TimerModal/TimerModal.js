@@ -3,8 +3,8 @@ import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
 import moment from 'moment';
 import color from 'theme/color';
 import { connect } from 'react-redux';
-import * as s from './TimerModal.styled';
 import { SHADOW } from 'theme/shadow';
+import * as s from './TimerModal.styled';
 
 const timeFormat = (time: number) => `${time < 10 ? '0' : ''}${time}`;
 
@@ -28,7 +28,6 @@ class TimerModal extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('unmountingggg');
     clearInterval(this.interval);
   }
 
@@ -54,20 +53,14 @@ class TimerModal extends React.Component {
     const { updateSeconds } = this.props;
     clearInterval(this.interval);
     updateSeconds({ second: this.seconds });
-    // this.setState(state =>
-    //   produce(state, draft => {
-    //     updateSeconds({ seconds: draft.seconds });
-    //   }),
-    // );
   };
 
   render() {
     // if (!this.props.isLent) return null;
     return (
-      <s.TimeModalView
-        style={SHADOW.iosSmall}
-      >
+      <s.TimeModalView style={SHADOW.iosSmall}>
         <s.TimeInnerView>
+          
           <Image
             source={require('assets/icons/PlaceModal.png')}
             style={{ width: 40, height: 40, marginRight: 10 }}
@@ -80,12 +73,10 @@ class TimerModal extends React.Component {
           </View>
           <s.TimeView>
             <Text style={{ color: color.oboon }}>
-              {convertSecToTime(this.state.seconds)}
-분
+              {convertSecToTime(this.state.seconds)}분
             </Text>
           </s.TimeView>
 
-          {/* <s.Line /> */}
         </s.TimeInnerView>
       </s.TimeModalView>
     );

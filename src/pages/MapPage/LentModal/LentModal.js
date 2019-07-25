@@ -1,8 +1,7 @@
 import React from 'react';
-import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import PopUp from 'components/modules/PopUp';
-import axios from 'axios';
 import * as s from './LentModal.styled';
 
 import TutorialPopup from './TutorialPopup';

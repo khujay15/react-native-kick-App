@@ -103,7 +103,7 @@ class SignUp extends React.Component {
       provider: this.state.provider,
     });
     networks
-      .post('https://api.oboonmobility.com/v0/members/join', data, {
+      .post('/members/join', data, {
         headers: {
           'Content-Type': 'application/json',
         },

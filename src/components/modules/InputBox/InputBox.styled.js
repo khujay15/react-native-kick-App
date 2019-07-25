@@ -18,6 +18,8 @@ export const StyledInputBox = styled.TextInput`
   align-items: center;
   font-size: 16;
   padding-left: 20;
+  elevation: 2;
+  color: ${color.oboon};
 `;
 
 export const StyledViewBox = styled.View`

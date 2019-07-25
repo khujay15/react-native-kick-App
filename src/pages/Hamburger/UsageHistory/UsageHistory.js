@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import color from 'theme/color';
-import { width, height } from 'theme/size';
+import { width, height, MARGIN } from 'theme/size';
 import { SHADOW } from 'theme/shadow';
 import { BoxShadow } from 'react-native-shadow';
 
@@ -62,7 +62,7 @@ export default class UsageHistory extends React.Component {
 
   FirstPage = () => {
     networks
-      .get('https://api.oboonmobility.com/v0/members/my/usage-history?page=1')
+      .get('/members/my/usage-history?page=1')
       .then(res => {
         if (res.data.success === 'true' || res.data.success === true) {
           this.setState({ history: res.data.data });
@@ -79,7 +79,7 @@ export default class UsageHistory extends React.Component {
       console.log(this.state.history.length);
       await networks
         .get(
-          `https://api.oboonmobility.com/v0/members/my/usage-history?page=${requestPage}`,
+          `/members/my/usage-history?page=${requestPage}`,
         )
         .then(res => {
           // console.log("Update:",res);
@@ -148,7 +148,7 @@ export default class UsageHistory extends React.Component {
       this.preDate = YYYYMMDD;
     }
 
-    if (Platform.OS === 'ios') {
+   
       return (
         <>
           {newdate && (
@@ -212,74 +212,7 @@ export default class UsageHistory extends React.Component {
           </s.OuterView>
         </>
       );
-    }
-    // /android-shadow
-    const boxWidth = width - 2 * 24;
-    let shadowANDROID = SHADOW.androidShallow;
-    shadowANDROID = { ...shadowANDROID, width: boxWidth, height: 210 };
-    return (
-      <View style={{ marginHorizontal: 24, marginBottom: 20 }}>
-        {newdate && (
-          <>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignContent: 'center',
-                alignItems: 'center',
-                marginBottom: 20,
-              }}
-            >
-              <Text style={{ fontSize: 20, marginRight: 14 }}>{YYYYMMDD}</Text>
-              <s.GrayLine />
-            </View>
-          </>
-        )}
-
-        <BoxShadow setting={shadowANDROID}>
-          <s.InnerView>
-            <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
-              <View style={{ flexDirection: 'row' }}>
-                <Image
-                  source={require('assets/icons/SrcToDst.png')}
-                  style={{ marginRight: 10, marginTop: 3 }}
-                />
-                <View style={{ marginBottom: 20 }}>
-                  <s.LineView>
-                    <Text style={{ marginRight: 15, fontSize: 16 }}>
-                      {`${rent_hour} : ${rent_minute}`}
-                    </Text>
-                    <Text style={{ fontSize: 16, fontWeight: '300' }}>
-                      {rent_kick_station_name}
-                    </Text>
-                  </s.LineView>
-                  <View style={{ marginLeft: 3, height: 20 }} />
-                  <s.LineView>
-                    <Text style={{ marginRight: 15, fontSize: 16 }}>
-                      {`${return_hour} : ${return_minute}`}
-                    </Text>
-                    <Text style={{ fontSize: 16, fontWeight: '300' }}>
-                      {return_kick_station_name}
-                    </Text>
-                  </s.LineView>
-                </View>
-              </View>
-              <s.InfoView>
-                <Text style={{ fontSize: 16 }}>총 사용시간</Text>
-                <s.RightText>{`${usedMin}분`}</s.RightText>
-              </s.InfoView>
-
-              <s.InfoView>
-                <Text style={{ fontSize: 16 }}>총 결제포인트</Text>
-                <s.TotalCost>
-                  {usage_point}
-                  {'P'}
-                </s.TotalCost>
-              </s.InfoView>
-            </View>
-          </s.InnerView>
-        </BoxShadow>
-      </View>
-    );
+    
   };
 
   render() {

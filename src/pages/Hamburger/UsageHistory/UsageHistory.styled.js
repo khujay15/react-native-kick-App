@@ -16,6 +16,9 @@ export const OuterView = styled.View`
   margin-bottom: 20;
   margin-left: 24;
   margin-right: 24;
+  border-radius: 5;
+  elevation: 3;
+  background-color: white;
 `;
 
 export const InnerView = styled.View`

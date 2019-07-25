@@ -25,26 +25,27 @@ import ReturnModal from './ReturnModal';
 
 class MapPage extends React.Component {
   FirstPosition = [];
+
   ExampleStation = [
     {
-        "kick_station_id": 1,
-        "stopped_kickboard_count": 1,
-        "address": "random Example address",
-        "detail_address": null,
-        "name": "Example One",
-        "geometry": "POINT(37.245221 127.078393)",
-        "sdistance": 0.10000000000000142
+      kick_station_id: 1,
+      stopped_kickboard_count: 1,
+      address: 'random Example address',
+      detail_address: null,
+      name: 'Example One',
+      geometry: 'POINT(37.245221 127.078393)',
+      sdistance: 0.10000000000000142,
     },
     {
-        "kick_station_id": 2,
-        "stopped_kickboard_count": 2,
-        "address": "random Example address",
-        "detail_address": null,
-        "name": "Example Two",
-        "geometry": "POINT(37.239881 127.083502)",
-        "sdistance": 0.10546382072066716
-    }
-];
+      kick_station_id: 2,
+      stopped_kickboard_count: 2,
+      address: 'random Example address',
+      detail_address: null,
+      name: 'Example Two',
+      geometry: 'POINT(37.239881 127.083502)',
+      sdistance: 0.10546382072066716,
+    },
+  ];
 
   state = {
     MyLocation: 0,
@@ -58,22 +59,20 @@ class MapPage extends React.Component {
   };
 
   componentDidMount() {
-
     /*
     For Service:
      this.getLocation();
      this.getStation();
      */
-    this.setState({Station: this.ExampleStation});
-    
+    this.setState({ Station: this.ExampleStation });
   }
 
   getStation() {
     networks
       .get(
-        `https://api.oboonmobility.com/v0/search/kick-stations/geonear?lat=${
-          this.state.latitude
-        }&long=${this.state.longitude}&dist=1`,
+        `/search/kick-stations/geonear?lat=${this.state.latitude}&long=${
+          this.state.longitude
+        }&dist=1`,
       )
       .then(response => {
         if (
@@ -233,35 +232,34 @@ class MapPage extends React.Component {
           );
         })}
 
-        {this.props.isLent ? 
-        (
+        {this.props.isLent ? (
           <>
-          <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
-          <SmartKeyModal />
+            <TimerModal KickboradName="슝슝이" KickboardBattery="60%" />
+            <SmartKeyModal />
           </>
-        ) : 
-        (
+        ) : (
           <LentModal navigation={this.props.navigation} />
         )}
 
         <ReturnModal />
 
-          <MapButton
-            right={30}
-            bottom={72}
-            img={require('assets/icons/buttons/MyLocationButton.png')}
-            onPress={() =>this.CurrentButton()}
-            />
-            
-          <MapButton
-            right={30}
-            bottom={150}
-            img={require('assets/icons/RefreshButton.png')}
-            onPress={() => {
-              this.getLocation();
-               this.getStation();
-              this.setState({selectedMarkerId: '-1'})}}
-          /> 
+        <MapButton
+          right={30}
+          bottom={72}
+          img={require('assets/icons/buttons/MyLocationButton.png')}
+          onPress={() => this.CurrentButton()}
+        />
+
+        <MapButton
+          right={30}
+          bottom={150}
+          img={require('assets/icons/RefreshButton.png')}
+          onPress={() => {
+            this.getLocation();
+            this.getStation();
+            this.setState({ selectedMarkerId: '-1' });
+          }}
+        />
 
         {/* 
           버튼 식 UI Code. UI 변경으로 미사용

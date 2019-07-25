@@ -50,7 +50,7 @@ class Splash extends React.Component {
   verifyingToken = async value => {
     console.log('token : ', value);
     await networks
-      .get(`https://api.oboonmobility.com/v0/auth/tokeninfo`, {
+      .get(`/auth/tokeninfo`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${value}`,
@@ -74,7 +74,7 @@ class Splash extends React.Component {
     setHeader(token);
 
     networks
-      .get(`https://api.oboonmobility.com/v0/members/myInfo`)
+      .get(`/members/myInfo`)
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
           setReducerState(res, this.props, this.state);

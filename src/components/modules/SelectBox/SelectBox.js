@@ -1,7 +1,7 @@
 import React from 'react';
 import color from 'theme/color';
 import { width, height, MARGIN } from 'theme/size';
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 import { SHADOW } from 'theme/shadow';
 import * as s from './SelectBox.styled';
@@ -32,15 +32,38 @@ const SelectBox = props => {
       borderBottomWidth: 1,
     };
     return (
-      <BoxShadow setting={shadowANDROID}>
+      // <BoxShadow setting={shadowANDROID}>
+      //   <s.StyledViewBox {...props} style={toggle} />
+      // </BoxShadow>
+
+      <View
+        style={{
+          marginLeft: 2,
+          marginRight: 2,
+          marginTop: 2,
+          marginBottom: 2,
+          backgroundColor: 'white',
+        }}
+      >
         <s.StyledViewBox {...props} style={toggle} />
-      </BoxShadow>
+      </View>
     );
   }
   return (
-    <BoxShadow setting={shadowANDROID}>
+    // <BoxShadow setting={shadowANDROID}>
+    //   <s.StyledViewBox {...props} />
+    // </BoxShadow>
+    <View
+      style={{
+        marginLeft: 2,
+        marginRight: 2,
+        marginTop: 2,
+        marginBottom: 2,
+        backgroundColor: 'white',
+      }}
+    >
       <s.StyledViewBox {...props} />
-    </BoxShadow>
+    </View>
   );
 };
 export default SelectBox;

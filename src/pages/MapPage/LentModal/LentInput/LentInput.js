@@ -58,14 +58,11 @@ class LentInput extends React.Component {
     this.setState({ modalVisible: true });
     this.spinning();
     networks
-      .put(
-        `https://api.oboonmobility.com/v0/kickboards/${this.state.Code}/rent`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      .put(`/kickboards/${this.state.Code}/rent`, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+      })
       .then(res => {
         // console.log(res);
         const startTime = new Date(res.data.data.rent_time);
@@ -217,7 +214,9 @@ class LentInput extends React.Component {
             color={this.state.BottomColor}
             text="대여하기"
             onPress={() =>
-              this.state.BottomColor === color.oboon ? this.LENT_REQUEST_FOR_TEST_() : null
+              this.state.BottomColor === color.oboon
+                ? this.LENT_REQUEST_FOR_TEST_()
+                : null
             }
           />
         </View>
