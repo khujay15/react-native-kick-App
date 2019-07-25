@@ -15,7 +15,8 @@ export const SelectBox = styled.TouchableOpacity`
   height: 100;
   justify-content: center;
   align-items: center;
-  elevation: 1;
+  background-color: white;
+  elevation: 2;
 `;
 
 export const SelectBoxInside = styled.TouchableOpacity`
@@ -45,12 +46,13 @@ export const SmallSelectBox = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   background-color: white;
+  elevation: 2;
 `;
 
 export const IndicatorText = styled.Text`
   font-size: 16;
   color: ${color.grey};
-  margin-top: 20;
+
   margin-bottom: 10;
 `;
 

@@ -52,7 +52,7 @@ class PointPage extends React.Component {
           footerText="충전하기"
         >
 
-          <View style={{ marginBottom: 40, marginHorizontal: 30 }}>
+          <View style={{ marginBottom: 30, marginHorizontal: 30 }}>
             <s.InnerText>현재 보유 포인트</s.InnerText>
             <s.PointText>
               {this.props.point}P

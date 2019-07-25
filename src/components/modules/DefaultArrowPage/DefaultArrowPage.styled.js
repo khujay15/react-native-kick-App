@@ -4,7 +4,7 @@ import { width, height } from 'theme/size';
 
 export const ThemeText = styled.Text`
   margin-left: 30;
-  margin-top: 40;
+  margin-top: ${props => 30 + props.marginTop};
   font-size: 22;
   margin-bottom: ${props => (props.greyText ? 10 : 60)};
 `;

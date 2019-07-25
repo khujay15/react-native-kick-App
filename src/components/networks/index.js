@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-export const networks = axios;
+export const networks = axios.create({
+  baseURL: 'https://api.oboonmobility.com/v0',
+});
 
 export function setHeader(token) {
-  // networks.defaults.headers.common.Authorization = token;
   networks.defaults.headers.common.Authorization = `Bearer ${token}`;
   console.log('Network HEADER: ', networks.defaults.headers.common);
 }

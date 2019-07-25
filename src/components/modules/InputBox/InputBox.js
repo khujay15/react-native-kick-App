@@ -1,7 +1,7 @@
 import React from 'react';
 import color from 'theme/color';
 import { width, height, MARGIN } from 'theme/size';
-import { Platform } from 'react-native';
+import { Platform, View, TextInput } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 import { SHADOW } from 'theme/shadow';
 import * as s from './InputBox.styled';
@@ -21,9 +21,9 @@ const InputBox = props => {
 
     return <s.StyledInputBox {...props} style={shadowIOS} />;
   }
- 
+
   const boxWidth = width - 2 * MARGIN;
-  let shadowANDROID = SHADOW.android;
+  let shadowANDROID = SHADOW.androidShallow;
   shadowANDROID = { ...shadowANDROID, width: boxWidth, height: 60 };
 
   if (props.toggle) {
@@ -35,15 +35,37 @@ const InputBox = props => {
     };
 
     return (
-      <BoxShadow setting={shadowANDROID}>
+      // <BoxShadow setting={shadowANDROID}>
+      //   <s.StyledInputBox {...props} style={toggle} />
+      // </BoxShadow>
+      <View
+        style={{
+          marginLeft: 2,
+          marginRight: 2,
+          marginTop: 2,
+          marginBottom: 2,
+          backgroundColor: 'white',
+        }}
+      >
         <s.StyledInputBox {...props} style={toggle} />
-      </BoxShadow>
+      </View>
     );
   }
   return (
-    <BoxShadow setting={shadowANDROID} style={{ marginBottom: 20 }}>
+    // <BoxShadow setting={shadowANDROID}>
+    //   <s.StyledInputBox {...props} />
+    // </BoxShadow>
+    <View
+      style={{
+        marginLeft: 2,
+        marginRight: 2,
+        marginTop: 2,
+        marginBottom: 2,
+        backgroundColor: 'white',
+      }}
+    >
       <s.StyledInputBox {...props} />
-    </BoxShadow>
+    </View>
   );
 };
 

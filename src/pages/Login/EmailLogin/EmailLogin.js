@@ -61,7 +61,7 @@ class EmailLogin extends React.Component {
       password: this.state.Password,
     });
     networks
-      .post('https://api.oboonmobility.com/v0/members/login.local', data, {
+      .post('/members/login.local', data, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -73,7 +73,7 @@ class EmailLogin extends React.Component {
           setHeader(`oboon_session=${res.data.oboon_session}`);
           this.setReducerSignUP(res);
           SInfo.setItem('AutoToken', `${res.data.oboon_session}`, {});
-          this.props.navigation.navigate('mappage');
+          this.props.navigation.navigate('map');
         }
       })
       .catch(err => {
@@ -104,7 +104,7 @@ class EmailLogin extends React.Component {
             <View style={{ marginBottom: 20 }}>
               <InputBox
                 onChangeText={this.handleEmail}
-                placeholder="   이메일 주소를 입력해주세요"
+                placeholder="이메일 주소를 입력해주세요"
                 toggle={this.state.IsError}
               />
               {this.state.IsError ? (
@@ -115,7 +115,7 @@ class EmailLogin extends React.Component {
             <View style={{ marginBottom: 20 }}>
               <InputBox
                 onChangeText={this.handlePassword}
-                placeholder="   비밀번호를 입력해주세요"
+                placeholder="비밀번호를 입력해주세요"
               />
             </View>
 

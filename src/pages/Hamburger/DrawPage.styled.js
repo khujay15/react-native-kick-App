@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import color from '/theme/color';
+import { MARGIN } from 'theme/size';
 import React from 'react';
 
 export const NameView = styled.View`
@@ -26,8 +27,8 @@ export const Nim = styled.Text`
 
 export const DrawView = styled.View`
   margin-top: 40;
-  margin-left: 30;
-  margin-right: 30;
+  margin-left: ${MARGIN};
+  margin-right: ${MARGIN};
 `;
 
 export const DrawArrowShape = styled.Image`

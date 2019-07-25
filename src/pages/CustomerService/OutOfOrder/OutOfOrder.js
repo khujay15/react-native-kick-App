@@ -15,15 +15,17 @@ import InputBox from 'components/modules/InputBox';
 import FooterClick from 'components/modules/FooterClick';
 import { networks } from 'components/networks';
 import ImagePicker from 'react-native-image-picker';
-import * as s from './OutOfOrder.styled';
+import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import { BoxShadow } from 'react-native-shadow';
 import { SHADOW } from 'theme/shadow';
 import { connect } from 'react-redux';
+import * as s from './OutOfOrder.styled';
 
 class OutOfOrder extends React.Component {
   componentDidMount() {
     this.checkPermission();
   }
+
   state = {
     serial_number: '',
     location: '킥보드 주차 장소를 선택해주세요',
@@ -34,7 +36,9 @@ class OutOfOrder extends React.Component {
     type: '',
     Error: false,
   };
+
   IsGranted = false;
+
   checkPermission = () => {
     if (Platform.OS === 'ios') this.IsGranted = true;
     if (Platform.Version < 23) this.IsGranted = true;
@@ -45,7 +49,7 @@ class OutOfOrder extends React.Component {
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       ]).then(response => {
-        console.log('response: ', response);
+        console.log('REPORT response: ', response);
         if (
           response['android.permission.CAMERA'] ===
             PermissionsAndroid.RESULTS.GRANTED &&
@@ -79,9 +83,7 @@ class OutOfOrder extends React.Component {
 
   sendReport = () => {
     const ImageForm = new FormData();
-
     const breakPart = this.ListToStr();
-    console.log(breakPart);
 
     ImageForm.append('serial_number', this.state.serial_number);
     ImageForm.append('breakdown_part', breakPart);
@@ -97,33 +99,27 @@ class OutOfOrder extends React.Component {
     });
 
     networks
-      .post('https://api.oboonmobility.com/v0/reports/breakdown', ImageForm, {
+      .post('/reports/breakdown', ImageForm, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       .then(res => {
-          this.setState({Error: false});
-          this.props.navigation.navigate('cservice');   
-          
+        this.setState({ Error: false });
+        this.props.navigation.navigate('cservice');
       })
       .catch(err => {
-        if(err.response.status === 400 || err.response.status ==='400')
-        this.props.navigation.navigate('cservice');
-        else
-        this.setState({Error: err.response.data.msg})
-      
-      }
-      );
+        if (err.response.status === 400 || err.response.status === '400')
+          this.props.navigation.navigate('cservice');
+        else this.setState({ Error: err.response.data.msg });
+      });
   };
 
-  handleSerialNumber = TypedText => {
-    this.setState({ serial_number: Number(TypedText) });
-  };
+ 
 
   ClickHandler = async id => {
     let isIn = false;
-   
+
     for (i in this.state.clickList) {
       if (this.state.clickList[i] === id) {
         await this.setState({
@@ -139,35 +135,39 @@ class OutOfOrder extends React.Component {
   };
 
   ListToStr = () => {
-    let str="";
+    let str = '';
 
     for (i in this.state.clickList) {
-      switch(this.state.clickList[i]){
+      switch (this.state.clickList[i]) {
         case 1:
-          str=str+' 가속레버';
+          str += ' 가속레버';
           break;
-          case 2:
-          str=str+' 핸들';
+        case 2:
+          str += ' 핸들';
           break;
-          case 3:
-          str=str+' 전원';
+        case 3:
+          str += ' 전원';
           break;
-          case 4:
-          str=str+' 발판';
-          break; 
-          case 5:
-          str=str+' 앞바퀴';
+        case 4:
+          str += ' 발판';
           break;
-          case 6:
-          str=str+' 뒷바퀴';
+        case 5:
+          str += ' 앞바퀴';
           break;
-          case 7:
-          str=str+' 기타';
+        case 6:
+          str += ' 뒷바퀴';
+          break;
+        case 7:
+          str += ' 기타';
           break;
       }
     }
     return str;
-  }
+  };
+
+  handleSerialNumber = TypedText => {
+    this.setState({ serial_number: Number(TypedText) });
+  };
 
   handleViewStyle = (style, id) => {
     for (i in this.state.clickList) {
@@ -229,11 +229,17 @@ class OutOfOrder extends React.Component {
     };
 
     return (
-      <>
-        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-          <Arrow onPress={() => this.props.navigation.goBack()} />
-          <ThemeText style={{ marginBottom: 60 }}>고장신고</ThemeText>
-          <View style={{ marginHorizontal: 24 }}>
+      <DefaultArrowPage
+      arrowOnPress={() => this.props.navigation.goBack()}
+      themeText="고장신고"
+      footerOnPress={() => this.sendReport()}
+      footerText="등록하기"
+      footerColor={this.state.serial_number ? color.oboon: color.grey}
+      >
+      
+        <ScrollView style={{flex: 1}}>
+
+          <View style={{ marginHorizontal: 30 }}>
             <s.IndicatorText>킥보드 번호</s.IndicatorText>
             <InputBox
               keyboardType="numeric"
@@ -241,16 +247,12 @@ class OutOfOrder extends React.Component {
               placeholder="킥보드 번호 4자리를 입력해주세요"
               placeholderTextColor="rgb(106, 106, 106)"
             />
-{Platform.OS==='ios'? 
-            (<View>
-              <s.IndicatorText>
-                고장난 부분 선택
-              </s.IndicatorText>
+            <View style={{marginVertical: 20}}>
+              <s.IndicatorText>고장난 부분 선택</s.IndicatorText>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                
                 }}
               >
                 <s.SmallSelectBox
@@ -305,134 +307,46 @@ class OutOfOrder extends React.Component {
                   <Text style={this.handleTextStyle(TextStyle, 6)}>뒷바퀴</Text>
                 </s.SmallSelectBox>
               </View>
-            </View>): 
-            // android Shadow
-            
-            (<View>
-              <s.IndicatorText>
-                고장난 부분 선택
-              </s.IndicatorText>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                
-                }}
-              >
-
-      <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
-              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 1)}
-               onPress={() => this.ClickHandler(1)}>
-                <Text style={this.handleTextStyle(TextStyle, 1)}>
-                    가속레버
-                  </Text>
-              </s.SelectBoxInside>
-            </BoxShadow>
-
-            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
-              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 2)}
-               onPress={() => this.ClickHandler(2)}>
-                <Text style={this.handleTextStyle(TextStyle, 2)}>
-                    핸들
-                  </Text>
-              </s.SelectBoxInside>
-            </BoxShadow>
-
-            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
-              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 3)}
-               onPress={() => this.ClickHandler(3)}>
-                <Text style={this.handleTextStyle(TextStyle, 3)}>
-                    전원
-                  </Text>
-              </s.SelectBoxInside>
-            </BoxShadow>
-
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}
-              >
-                <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
-              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 4)}
-               onPress={() => this.ClickHandler(4)}>
-                <Text style={this.handleTextStyle(TextStyle, 4)}>
-                    발판
-                  </Text>
-              </s.SelectBoxInside>
-            </BoxShadow>
-
-            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
-              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 5)}
-               onPress={() => this.ClickHandler(5)}>
-                <Text style={this.handleTextStyle(TextStyle, 5)}>
-                    앞바퀴
-                  </Text>
-              </s.SelectBoxInside>
-            </BoxShadow>
-
-            <BoxShadow setting={{...SHADOW.androidSmall, width:100, height:60, marginTop:30}}>
-              <s.SelectBoxInside  style={this.handleViewStyle(shadowStyle, 6)}
-               onPress={() => this.ClickHandler(6)}>
-                <Text style={this.handleTextStyle(TextStyle, 6)}>
-                    뒷바퀴
-                  </Text>
-              </s.SelectBoxInside>
-            </BoxShadow>
             </View>
-            </View>) }
             <s.IndicatorText>사진 첨부</s.IndicatorText>
             <s.SelectBox
               style={SHADOW.iosSmall}
               onPress={() => this.handleImagePicker()}
             >
-              <View style={{backgroundColor: 'white', width:100, height:100 ,justifyContent: 'center', alignItems: 'center'}}>
-              {this.state.hasImg ? (
-                <Image source={{ uri: this.state.img }} style={{width: 100, height: 100}} />
-              ) : (
-                <Text style={{ fontSize: 40, color: color.grey }}>+</Text>
-              )}
+              <View
+                style={{
+            
+                  width: 100,
+                  height: 100,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {this.state.hasImg ? (
+                  <Image
+                    source={{ uri: this.state.img }}
+                    style={{ width: 100, height: 100 }}
+                  />
+                ) : (
+                  <Text style={{ fontSize: 40, color: color.grey }}>+</Text>
+                )}
               </View>
             </s.SelectBox>
+            <View style={{ marginBottom: 20 }} />
 
-            
-{/*             
-            <s.IndicatorText>상세 설명</s.IndicatorText>
-            <s.DescriptionInput
-              style={shadowStyle}
-              placeholder="   상세한 설명을 적어주세요"
-              placeholderTextColor="rgb(106, 106, 106)"
-            /> */}
-            {
-              this.state.Error &&( <s.ErrorText>{this.state.Error}</s.ErrorText>)
-            }
+            {this.state.Error && <s.ErrorText>{this.state.Error}</s.ErrorText>}
           </View>
         </ScrollView>
-        <FooterClick
-          color={color.oboon}
-          text={'신고하기'}
-          onPress={() => this.sendReport()}
-        />
-      </>
+   
+      </DefaultArrowPage>
     );
   }
 }
 
-
-
 const mapStateToProps = state => ({
-
   Email: state.LoginReducer.Email,
-
 });
 
-const OutOfOrderContainer = connect(
-  mapStateToProps,
-
-)(OutOfOrder);
+const OutOfOrderContainer = connect(mapStateToProps)(OutOfOrder);
 
 export default OutOfOrderContainer;
-

@@ -54,7 +54,7 @@ export default class AuthPhone extends React.Component {
     console.log(data);
 
     networks
-      .patch('https://api.oboonmobility.com/v0/members/my/phone', data, {
+      .patch('/members/my/phone', data, {
         headers: {
           'Content-Type': 'application/json',
         },

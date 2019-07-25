@@ -10,4 +10,5 @@ export const StyledViewBox = styled.View`
   height: 58;
   align-items: center;
   font-size: 16;
+  elevation: 2;
 `;

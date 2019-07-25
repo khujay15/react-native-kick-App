@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SHADOW } from 'theme/shadow';
 import { BoxShadow } from 'react-native-shadow';
-import { width } from 'theme/size';
+import { width, MARGIN } from 'theme/size';
 import { color } from 'theme';
 import * as s from './FoldableView.styled';
 
@@ -44,7 +44,6 @@ export default class FoldableView extends Component {
     const ViewHeight = 60; // null if you want to fit in window
 
     if (Platform.OS === 'ios') {
-      const ShadowStyle = SHADOW.iosSmall;
       return (
         <>
           <s.StyledBox
@@ -90,7 +89,7 @@ export default class FoldableView extends Component {
 
     const shadowAndroid = {
       ...SHADOW.android,
-      width: width - 48,
+      width: width - 2*MARGIN -1,
       height: this.state.expanded ?  null: 60,
     };
     return (

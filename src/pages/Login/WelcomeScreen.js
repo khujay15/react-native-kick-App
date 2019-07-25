@@ -2,9 +2,6 @@ import React from 'react';
 import {
   Platform,
   SafeAreaView,
-  TouchableHighlight,
-  View,
-  Text,
   TouchableOpacity,
   Linking,
 } from 'react-native';
@@ -28,8 +25,6 @@ import {
   marginvalue,
   InnerImage,
   InnerText,
-  BottomView,
-  BottomText,
 } from './WelcomScreen.styled';
 
 /*
@@ -93,7 +88,7 @@ export class WelcomeScreen extends React.Component {
       });
 
       networks
-        .post('https://api.oboonmobility.com/v0/members/login.google', data, {
+        .post('/members/login.google', data, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -137,7 +132,7 @@ export class WelcomeScreen extends React.Component {
         });
 
         networks
-          .post('https://api.oboonmobility.com/v0/members/login.kakao', data, {
+          .post('/members/login.kakao', data, {
             headers: {
               'Content-Type': 'application/json',
             },

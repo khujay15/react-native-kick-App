@@ -1,44 +1,31 @@
 import React from 'react';
-import moment from 'moment';
-import {
-  Text,
-  View,
-  Modal,
-  TouchableOpacity,
-  Image,
-  TextInput,
-} from 'react-native';
+import { Text, View, Modal, TouchableOpacity, Image } from 'react-native';
 import Arrow from 'components/modules/Arrow';
 import FooterClick from 'components/modules/FooterClick';
 import { networks } from 'components/networks';
 import { connect } from 'react-redux';
-import {SHADOW} from 'theme/shadow';
+import { SHADOW } from 'theme/shadow';
 import color from 'theme/color';
 import * as s from './SmartKey.styled';
 
 class SmartKey extends React.Component {
   state = {
-    Error : false,
-  }
+    Error: false,
+  };
+
   modalOff = () => {
     this.props.onPress();
   };
 
   returnKickboard = () => {
     networks
-      .put(
-        `https://api.oboonmobility.com/v0/kickboards/${
-          this.props.kickboard_serial
-        }/return`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      .put(`/kickboards/${this.props.kickboard_serial}/return`, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+      })
       .then(res => {
         if (res.data.success === true || res.data.success === 'true') {
-          console.log("SMART KEY RES: ",res);
           this.modalOff();
           this.props.endLent(res.data.data.pointBalance, res.data.data);
         }
@@ -48,21 +35,22 @@ class SmartKey extends React.Component {
 
   RETURN_KICKBOARD_FOR_TEST = () => {
     this.modalOff();
-    this.props.endLent(99500, 
-      {
-      "pointBalance": 99500,		
-      "pointToPayFor": 500,			
-      "rent_datetime": "2019-03-30T11:47:16.000Z",
-      "return_datetime": "2019-03-30T11:47:19.929Z",
-      "rent_station_name": "EXAMPLE 1",
-      "return_station_name": "EXAMPLE 2"}
-      );
+    this.props.endLent(99500, {
+      pointBalance: 99500,
+      pointToPayFor: 500,
+      rent_datetime: '2019-03-30T11:47:16.000Z',
+      return_datetime: '2019-03-30T11:47:19.929Z',
+      rent_station_name: 'EXAMPLE 1',
+      return_station_name: 'EXAMPLE 2',
+    });
   };
 
   betaPress = () => {
-    console.log("beta Press");
-    this.setState({Error: "아직 반납를 제외한 모든 기능은 사용할 수 없습니다. 양해부탁드립니다"});
-  }
+    this.setState({
+      Error:
+        '아직 반납를 제외한 모든 기능은 사용할 수 없습니다. 양해부탁드립니다',
+    });
+  };
 
   render() {
     return (
@@ -74,31 +62,33 @@ class SmartKey extends React.Component {
       >
         <Arrow onPress={this.modalOff} />
         <s.SmartKeyView>
-        {
-            this.state.Error && (<Text style={{color: color.oboon}}>{this.state.Error}</Text>)
-        }
+          {this.state.Error && (
+            <Text style={{ color: color.oboon }}>{this.state.Error}</Text>
+          )}
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity  onPress={this.betaPress}>
+            <TouchableOpacity onPress={this.betaPress}>
               <View style={{ alignItems: 'center' }}>
-              <s.Circle style={SHADOW.iosSmall}>
-                <s.InnerCirCle>
-                  <Image source={require('/assets/icons/smartkey/Lock.png')} />
-                </s.InnerCirCle>
-              </s.Circle>
-              <Text style={{ fontSize: 16 }}>잠금</Text>
+                <s.Circle style={SHADOW.iosSmall}>
+                  <s.InnerCirCle>
+                    <Image
+                      source={require('/assets/icons/smartkey/Lock.png')}
+                    />
+                  </s.InnerCirCle>
+                </s.Circle>
+                <Text style={{ fontSize: 16 }}>잠금</Text>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.betaPress}>
               <View style={{ alignItems: 'center' }}>
-              <s.Circle style={SHADOW.iosSmall}>
-                <s.InnerCirCle>
-                  <Image
-                    source={require('/assets/icons/smartkey/UnLock.png')}
-                  />
-                </s.InnerCirCle>
-              </s.Circle>
-              <Text style={{ fontSize: 16 }}>잠금해제</Text>
+                <s.Circle style={SHADOW.iosSmall}>
+                  <s.InnerCirCle>
+                    <Image
+                      source={require('/assets/icons/smartkey/UnLock.png')}
+                    />
+                  </s.InnerCirCle>
+                </s.Circle>
+                <Text style={{ fontSize: 16 }}>잠금해제</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -106,34 +96,32 @@ class SmartKey extends React.Component {
 
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity onPress={this.betaPress}>
-              <View style={{ alignItems: 'center' }} >
-              <s.Circle style={SHADOW.iosSmall}>
-                <s.InnerCirCle>
-                  <Image
-                    source={require('/assets/icons/smartkey/HeadLight.png')}
-                  />
-                </s.InnerCirCle>
-              </s.Circle>
+              <View style={{ alignItems: 'center' }}>
+                <s.Circle style={SHADOW.iosSmall}>
+                  <s.InnerCirCle>
+                    <Image
+                      source={require('/assets/icons/smartkey/HeadLight.png')}
+                    />
+                  </s.InnerCirCle>
+                </s.Circle>
 
-              <Text style={{ fontSize: 16 }}>헤드라이트</Text>
+                <Text style={{ fontSize: 16 }}>헤드라이트</Text>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.betaPress}>
               <View style={{ alignItems: 'center' }}>
-              <s.Circle style={SHADOW.iosSmall}>
-                <s.InnerCirCle>
-                  <Image
-                    source={require('/assets/icons/smartkey/Report.png')}
-                  />
-                </s.InnerCirCle>
-              </s.Circle>
-              <Text style={{ fontSize: 16 }}>도난신고</Text>
+                <s.Circle style={SHADOW.iosSmall}>
+                  <s.InnerCirCle>
+                    <Image
+                      source={require('/assets/icons/smartkey/Report.png')}
+                    />
+                  </s.InnerCirCle>
+                </s.Circle>
+                <Text style={{ fontSize: 16 }}>도난신고</Text>
               </View>
             </TouchableOpacity>
           </View>
-       
-           
         </s.SmartKeyView>
         <FooterClick
           color={color.oboon}

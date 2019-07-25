@@ -1,18 +1,21 @@
 import React from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import { Platform, View, Text } from 'react-native';
+import { height } from 'theme/size';
 import color from 'theme/color';
 import FooterClick from 'components/modules/FooterClick';
 import * as s from './DefaultArrowPage.styled';
 
 export default class DefaultArrowPage extends React.Component {
   render() {
+    const MARGINTOP = Platform.OS === 'ios' ? 10 : 0;
+    // const MARGINBOT = Platform.OS === 'ios' ?
     return (
       <>
-        <View style={{ flex: 1, marginTop: 10 }}>
+        <View style={{ flex: 1, marginTop: MARGINTOP }}>
           <s.arrowTouch onPress={this.props.arrowOnPress}>
             <s.arrowImage source={require('/assets/icons/Arrow.png')} />
           </s.arrowTouch>
-          <s.ThemeText greyText={this.props.greyText}>
+          <s.ThemeText greyText={this.props.greyText} marginTop={MARGINTOP}>
             {this.props.themeText}
           </s.ThemeText>
 
@@ -20,7 +23,7 @@ export default class DefaultArrowPage extends React.Component {
             <View
               style={{
                 marginHorizontal: 30,
-                marginBottom: 60,
+                marginBottom: height * 0.06,
               }}
             >
               <Text style={{ color: color.grey, fontWeight: '200' }}>
