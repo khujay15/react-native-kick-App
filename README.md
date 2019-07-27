@@ -10,6 +10,7 @@
 2. `<your-directory>$ cd oboon`
 3. `oboon$ npm install`
 4. `oboon$ cd ios` & `oboon/ios$ pod install`
+5. `firebase & kakao API key`
 
 ## 설정된 내용(자세한 설명은 docs폴더를 참조)
 

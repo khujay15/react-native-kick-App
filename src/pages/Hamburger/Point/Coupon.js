@@ -31,7 +31,7 @@ class Coupon extends React.Component {
           footerColor={this.InputCheck() ? color.oboon : 'grey'}
           footerText="등록하기"
         >
-          <View style={{ marginBottom: 40, marginHorizontal: 30 }}>
+          <View style={{ marginBottom: 30, marginHorizontal: 30 }}>
             <s.InnerText>현재 보유 포인트</s.InnerText>
             <s.PointText>
               {this.props.point}P
@@ -50,14 +50,14 @@ class Coupon extends React.Component {
                 <Text style={{ color: 'white' }}>쿠폰 등록하기</Text>
               </s.ChangeMenu2>
             </View>
-            <View style={{ marginLeft: 1, marginRight: 1 }}>
+
               <InputBox
                 onChangeText={this.handleCode}
                 placeholder="쿠폰을 입력해 주세요"
                 placeholderTextColor="rgb(106, 106, 106)"
                 toggle={this.state.IsError}
               />
-            </View>
+
           </s.CouponView>
         </DefaultArrowPage>
       </>
