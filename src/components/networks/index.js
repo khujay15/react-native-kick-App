@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const networks = axios.create({
-  baseURL: 'https://api.oboonmobility.com/v0',
+  baseURL: 'https://YOUR_SERVER_DOMAIN',
 });
 
 export function setHeader(token) {

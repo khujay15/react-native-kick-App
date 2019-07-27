@@ -5,6 +5,7 @@ import { width, height } from 'theme/size';
 export const StyledBox = styled.TouchableOpacity`
   border-radius: 5;
   border-color: #ddd;
+  border-width: 0.3;
   border-top-width: 0;
   border-bottom-width: 0;
   flex-direction: row;

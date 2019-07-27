@@ -13,6 +13,7 @@
 2. `<your-directory>$ cd oboon`
 3. `oboon$ npm install`
 4. `oboon$ cd ios` & `oboon/ios$ pod install`
+5. `firebase & kakao API key`
 
 ### 자주 사용해야 하는 패키지 설치
 

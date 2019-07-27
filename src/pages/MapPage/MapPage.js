@@ -2,14 +2,9 @@ import React from 'react';
 
 import { networks } from 'components/networks';
 import {
-  SafeAreaView,
-  Text,
   View,
-  StyleSheet,
   PermissionsAndroid,
   Platform,
-  Button,
-  TouchableOpacity,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';

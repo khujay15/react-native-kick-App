@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import color from 'theme/color';
 
-export const SelectBox = styled.TouchableOpacity`
+export const ShadowBox = styled.TouchableOpacity`
   margin-left: 1;
   margin-right: 1;
 
@@ -17,21 +17,6 @@ export const SelectBox = styled.TouchableOpacity`
   align-items: center;
   background-color: white;
   elevation: 2;
-`;
-
-export const SelectBoxInside = styled.TouchableOpacity`
-  background-color: white;
-  height: 58;
-  width: 100;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 5;
-
-  padding-right: 1;
-  padding-left: 1;
-  padding-top: 1;
-  padding-bottom: 1;
 `;
 
 export const SmallSelectBox = styled.TouchableOpacity`

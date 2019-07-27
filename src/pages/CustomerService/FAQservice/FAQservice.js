@@ -1,12 +1,7 @@
 import React from 'react';
-import { Text, SafeAreaView, ScrollView, View } from 'react-native';
-import color from 'theme/color';
-import { SHADOW } from 'theme/shadow';
-import SelectBox from 'components/modules/SelectBox';
+import { Text, ScrollView, View } from 'react-native';
 import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 import FoldableView from 'components/modules/FoldableView';
-import Arrow from 'components/modules/Arrow';
-import ThemeText from 'components/modules/ThemeText';
 import { width, height } from 'theme/';
 
 export default class FAQservice extends React.Component {

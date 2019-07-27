@@ -9,12 +9,13 @@ export const arrowShape = styled.Image`
 
 export const StyledInputBox = styled.TextInput`
   border-width: 0.3;
-  border-radius: 5;
-  border-color: #ddd;
   border-top-width: 0;
   border-bottom-width: 0;
+  border-radius: 5;
+  border-color: #ddd;
+
   background-color: white;
-  height: 58;
+  height: 60;
   align-items: center;
   font-size: 16;
   padding-left: 20;
@@ -29,7 +30,7 @@ export const StyledViewBox = styled.View`
   border-top-width: 0;
   border-bottom-width: 0;
   background-color: white;
-  height: 58;
+  height: 60;
   align-items: center;
   font-size: 16;
   padding-left: 20;

@@ -9,14 +9,13 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import color from 'theme/color';
-import Arrow from 'components/modules/Arrow';
-import ThemeText from 'components/modules/ThemeText';
+
 import InputBox from 'components/modules/InputBox';
-import FooterClick from 'components/modules/FooterClick';
+
 import { networks } from 'components/networks';
 import ImagePicker from 'react-native-image-picker';
 import DefaultArrowPage from 'components/modules/DefaultArrowPage';
-import { BoxShadow } from 'react-native-shadow';
+
 import { SHADOW } from 'theme/shadow';
 import { connect } from 'react-redux';
 import * as s from './OutOfOrder.styled';
@@ -309,7 +308,7 @@ class OutOfOrder extends React.Component {
               </View>
             </View>
             <s.IndicatorText>사진 첨부</s.IndicatorText>
-            <s.SelectBox
+            <s.ShadowBox
               style={SHADOW.iosSmall}
               onPress={() => this.handleImagePicker()}
             >
@@ -331,7 +330,7 @@ class OutOfOrder extends React.Component {
                   <Text style={{ fontSize: 40, color: color.grey }}>+</Text>
                 )}
               </View>
-            </s.SelectBox>
+            </s.ShadowBox>
             <View style={{ marginBottom: 20 }} />
 
             {this.state.Error && <s.ErrorText>{this.state.Error}</s.ErrorText>}

@@ -12,9 +12,9 @@ export const PointText = styled.Text`
   color: ${color.oboon};
   font-size: 24;
 `;
-export const CouponView = styled.View`
-  margin-left: 24;
-  margin-right: 24;
+export const CouponView = styled.ScrollView`
+  margin-left: 30;
+  margin-right: 30;
 `;
 export const MyPointView = styled.View`
   margin-left: 30;
@@ -43,23 +43,10 @@ export const ChangeMenu2 = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const SelectBox = styled.TouchableOpacity`
-  margin-left: 1;
-  margin-right: 1;
-  margin-top: 10;
-  border-width: 0.5;
-  border-bottom-width: 0.5;
-  border-radius: 5;
-  border-color: #ddd;
-  height: 60;
-  justify-content: center;
-  margin-bottom: 1;
-`;
-
-export const SelectBoxInside = styled.View`
+export const ClickBoxInside = styled.View`
   height: 58;
 
-  width: ${width - 48};
+  width: ${width - 60};
   justify-content: center;
   flex-direction: row;
   align-items: center;
@@ -68,13 +55,6 @@ export const SelectBoxInside = styled.View`
   padding-left: 20;
   padding-top: 1;
   padding-bottom: 1;
-`;
-
-export const SelectBoxOutside = styled.TouchableOpacity`
-  margin-bottom: 20;
-  margin-left: 24;
-  margin-right: 24;
-  border-radius: 5;
 `;
 
 export const Line = styled.View`

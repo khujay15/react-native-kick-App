@@ -8,7 +8,7 @@ export const StyledBox = styled.View`
   border-color: #ddd;
   border-top-width: 0;
   border-bottom-width: 0;
-
+  elevation: 2;
   height: 60;
   background-color: white;
   margin-bottom: ${height * 0.015};
