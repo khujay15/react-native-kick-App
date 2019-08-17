@@ -1,8 +1,4 @@
 import React from 'react';
-import color from 'theme/color';
-
-import { Platform, View } from 'react-native';
-import { BoxShadow } from 'react-native-shadow';
 import { SHADOW } from 'theme/shadow';
 import { Text, Image } from 'react-native';
 import * as s from './SelectBox.styled';
