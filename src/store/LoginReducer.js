@@ -37,7 +37,7 @@ export default function LoginReducer(state = INITIAL_STATE, action) {
         ...state,
         License: true,
       };
-    // only two action for beta. below action is useless//
+    // only two action for beta. below actions are useless//
     case LoginAction.KAKAO_LOGIN:
       return {
         ...state,

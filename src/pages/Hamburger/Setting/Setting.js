@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import DefaultArrowPage from 'components/modules/DefaultArrowPage';
 
 import { connect } from 'react-redux';

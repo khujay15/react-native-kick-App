@@ -243,7 +243,7 @@ export class WelcomeScreen extends React.Component {
 // http://maps.apple.com/?daddr=37.331778,-122.031375
 // maps://app?saddr=Cupertino&S100.123+101.222
 // 37.243212, 127.079481 경희대
-// 37.251462, 127.071071 영통역
+// 37.251462, 127.071071 영통역\
 
 const WelcomeScreenContainer = connect(
   mapStateToPropsFromStore,

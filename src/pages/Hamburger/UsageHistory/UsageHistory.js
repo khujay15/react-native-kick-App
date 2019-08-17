@@ -2,22 +2,13 @@ import React from 'react';
 import {
   Text,
   FlatList,
-  SafeAreaView,
   View,
   Image,
-  ScrollView,
-  SectionList,
-  Platform,
 } from 'react-native';
 import moment from 'moment';
-import color from 'theme/color';
 import { width, height, MARGIN } from 'theme/size';
 import { SHADOW } from 'theme/shadow';
-import { BoxShadow } from 'react-native-shadow';
-
 import DefaultArrowPage from 'components/modules/DefaultArrowPage';
-import ThemeText from 'components/modules/ThemeText';
-import { connect } from 'react-redux';
 import { networks } from 'components/networks';
 import * as s from './UsageHistory.styled';
 
@@ -41,24 +32,6 @@ export default class UsageHistory extends React.Component {
   componentWillMount() {
     this.FirstPage();
   }
-
-  rebuildingArray = () => {
-    const tmpArr = [];
-    const datearr = [];
-    console.log(this.state.history.length);
-    for (let i = 0; i < this.state.history.length; i++) {
-      const date = moment(this.state.history[i].rent_date).format('YYYY-MM-DD');
-      if (tmpArr[date]) {
-        tmpArr[date] = tmpArr.concat(...tmpArr[date], this.state.history[i]);
-      } else {
-        datearr.push(date);
-        tmpArr[date] = tmpArr.concat(this.state.history[i]);
-      }
-    }
-    this.setState({ changedHistory: tmpArr, DateArray: datearr });
-    console.log('DateArray:', this.state.DateArray);
-    console.log('changedHistory:', this.state.changedHistory);
-  };
 
   FirstPage = () => {
     networks
@@ -114,6 +87,24 @@ export default class UsageHistory extends React.Component {
         .catch(err => console.log(err.response));
     }
   };
+  
+  //function to make history array into Unique Array. replaced by Array.filter
+  rebuildingArray = () => {
+    const tmpArr = [];
+    const datearr = [];
+    for (let i = 0; i < this.state.history.length; i++) {
+      const date = moment(this.state.history[i].rent_date).format('YYYY-MM-DD');
+      if (tmpArr[date]) {
+        tmpArr[date] = tmpArr.concat(...tmpArr[date], this.state.history[i]);
+      } else {
+        datearr.push(date);
+        tmpArr[date] = tmpArr.concat(this.state.history[i]);
+      }
+    }
+    this.setState({ changedHistory: tmpArr, DateArray: datearr });
+
+  };
+
 
   componentWillReceiveProps() {
     this.holdFeedUpdate = false;

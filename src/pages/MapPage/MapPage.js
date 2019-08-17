@@ -1,11 +1,7 @@
 import React from 'react';
 
 import { networks } from 'components/networks';
-import {
-  View,
-  PermissionsAndroid,
-  Platform,
-} from 'react-native';
+import { View, PermissionsAndroid, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DrawHead from 'components/modules/DrawHead';
@@ -168,6 +164,7 @@ class MapPage extends React.Component {
     const { selectedMarkerId, Station } = this.state;
     return (
       <View style={{ flex: 1 }}>
+        {/* need absolute style for Map */}
         <MapView
           showsUserLocation
           followsUserLocation
@@ -256,7 +253,7 @@ class MapPage extends React.Component {
           }}
         />
 
-        {/* 
+        {/* Button UI Code. became useless as UI Changed
           버튼 식 UI Code. UI 변경으로 미사용
           <DrawHead img={require('assets/markers/Drawer.png')} onPress={() => navigation.openDrawer()} />
           <MapButton
